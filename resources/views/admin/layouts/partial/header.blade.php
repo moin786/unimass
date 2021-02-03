@@ -2,9 +2,9 @@
 	<!-- Logo -->
 	<a href="{{ route('admin.dashboard') }}" class="logo">
 		<!-- mini logo for sidebar mini 50x50 pixels -->
-		<span class="logo-mini"> <img style="width: 50px;" src="{{ asset('backend/images/logo.png') }}" alt=""></span>
+		<span class="logo-mini"> <img style="width: 50px;" src="{{ asset('backend/images/unimass-mini.png') }}" alt=""></span>
 		<!-- logo for regular state and mobile devices -->
-		<span class="logo-lg"><b><img style="width:80px;" src="{{ asset('backend/images/logo.png') }}" alt=""></span>
+		<span class="logo-lg"><b><img style="width:70px;" src="{{ asset('backend/images/unimass.png') }}" alt=""></span>
 		</a>
 		<!-- Header Navbar: style can be found in header.less -->
 		<nav class="navbar navbar-static-top">
