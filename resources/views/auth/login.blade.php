@@ -37,7 +37,7 @@
 </style>
 </head>
 <body class="hold-transition login-page">
-    <div id="section_login" style="background: url('{{ asset('backend/images/rupayan_3.jpg') }}') center center no-repeat; background-size: cover;">
+    <div id="section_login" style="background: url('{{ asset('backend/images/unimass-bg.jpg') }}') center center no-repeat; background-size: cover;">
         <div class="copyright">
             <p class="mb-0">© {{ date("Y") }} All Rights Reserved | Design & Developed by <a target="_blank" href="http://nextgenitltd.com/">NEXTGEN IT</a></p>
         </div>
@@ -46,7 +46,7 @@
             <!-- /.login-logo -->
             <div class="login-box-body">
                 <div class="login-logo mb-0 text-center">
-                    <img style="width: 150px" src="{{ asset('backend/images/rupayan.png') }}" alt="">
+                    <img style="width: 150px" src="{{ asset('backend/images/unimass.png') }}" alt="">
                     <a href="" style="color: #222; font-size: 30px; font-weight: 200px; display: block;"> Log In</a>
                 </div>
                 <p class="login-box-msg">Sign in to start your session</p>
