@@ -801,7 +801,7 @@
   color: #fff;
 }
 .skin-green-light .main-header .navbar .sidebar-toggle:hover {
-  background-color: #008d4c;
+  background-color: #042769;
 }
 @media (max-width: 767px) {
   .skin-green-light .main-header .navbar .dropdown-menu li.divider {
@@ -820,7 +820,7 @@
   border-bottom: 0 solid transparent;
 }
 .skin-green-light .main-header .logo:hover {
-  background-color: #00a157;
+  background-color: #d2e6ff;
 }
 .skin-green-light .main-header li.user-header {
   background-color: #16469f;
