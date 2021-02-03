@@ -1,0 +1,1 @@
+<div class="chart tab-pane active" id="avt-user-chart" style="position: relative; height: 300px;"></div>
