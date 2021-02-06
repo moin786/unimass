@@ -7,6 +7,7 @@ return [
 		5 => 'Project Area',
 		6 => 'Project Name',
 		7 => 'Project Size',
+		10 => 'Ocupation',
 		13 => 'Project Board',
 		16 => 'Lead Stages',
 		17 => 'Lead Followup Type',
@@ -62,7 +63,7 @@ return [
 
 	],
 	'agent_type' => [
-		1 => 'Digital & Call Center',
+		1 => 'Customer Relations & Sales',
 		2 => 'Sales'
 	],
 	'lead_distribution_type' => [

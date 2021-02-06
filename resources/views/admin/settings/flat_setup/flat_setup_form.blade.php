@@ -4,9 +4,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-4">
-                                <label>Category<span class="text-danger"> *</span></label>
-                                <select class="form-control required select2" name="category" style="width: 100%;" aria-hidden="true" required="required">
+                    {{-- <div class="col-md-4"> --}}
+                                {{-- <label>Category<span class="text-danger"> *</span></label> --}}
+
+                                {{-- <select class="form-control required select2" name="category" style="width: 100%;" aria-hidden="true" required="required">
                                     <option selected="selected" value="">Select Category</option>
                                     @if(!empty($project_cat))
                                     @foreach ($project_cat as $key => $cat)
@@ -19,10 +20,10 @@
 
                                     @endforeach
                                     @endif
-                                </select>
-                    </div>
-
-                    <div class=" col-md-4">
+                                </select> --}}
+                    {{-- </div> --}}
+                    <input type="hidden" name="category" id="category" value="583"/>
+                    <div class=" col-md-4 col-md-offset-2">
                             <label>Area<span class="text-danger"> *</span></label>
                             <select class="form-control required select2" name="area" style="width: 100%;" aria-hidden="true" required="required">
                                 <option value="0" selected="selected" value="">Select Area</option>
@@ -38,7 +39,7 @@
                                     @endif
                             </select>
                         </div>
-                        <div class=" col-md-4">
+                        <div class=" col-md-4" style="margin-bottom: 20px;">
                                 <label>Project Name<span class="text-danger"> *</span></label>
                                 <select class="form-control required select2" name="project_name" style="width: 100%;" aria-hidden="true" required="required">
                                     <option selected="selected" value="">Select Project Name</option>
