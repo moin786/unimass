@@ -483,7 +483,7 @@ $user_type = Session::get('user.user_type');
 	</div>
 </div>
 
-<div class="box" style="border-color:#ff851b;">
+<!-- <div class="box" style="border-color:#ff851b;">
 	<div class="box-header with-border">
 		<h3 class="box-title">Source</h3>
 	</div>
@@ -532,7 +532,7 @@ $user_type = Session::get('user.user_type');
 @endforeach
 @endif
 </div>
-</div>
+</div> -->
 
 
 <div class="box" style="border-color:#ff851b;">
@@ -540,7 +540,7 @@ $user_type = Session::get('user.user_type');
 		<label class="" style="cursor: pointer;">
 
 		</label>
-		<h3 class="box-title">Sub Source</h3>
+		<h3 class="box-title">Source</h3>
 	</div>
 	<div class="box-body">
 		@if(!empty($digital_mkt))

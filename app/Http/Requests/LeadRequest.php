@@ -33,7 +33,7 @@ class LeadRequest extends FormRequest
             'cmb_project_name' => 'required',
             'cmb_size' => 'required',
             'Sub_Source' => 'required',
-            'Source' => 'required' 
+          /*  'Source' => 'required' */
         ];
     }
 
@@ -50,7 +50,7 @@ class LeadRequest extends FormRequest
             'cmb_project_name.required' => 'You did not select any Project Name .',
             'cmb_size.required' => 'You did not select any Flat Size. ',
             'Sub_Source.required' => 'You did not select any sub source.',
-            'Source.required' => 'You did not select any source.',
+            /*'Source.required' => 'You did not select any source.',*/
 
         ];
     }
