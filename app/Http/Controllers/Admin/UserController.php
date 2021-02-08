@@ -64,7 +64,6 @@ class UserController extends Controller
         $this->validate($request, [
             'cmbUserGroup' => 'required',
             'txtUserName' => 'required',
-            'txtEmail' => 'required|email',
             'txtContract' => 'required',
             'pwdPassword' => 'required'
         ]);

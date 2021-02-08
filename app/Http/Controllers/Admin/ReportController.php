@@ -260,7 +260,8 @@ class ReportController extends Controller
     {
 
     	$lead_source = LookupData::where("lookup_type", 29)->get();
-    	$lead_stage_arr = [7 => 'Sold/On-board',  4 => 'Priority',13 => 'Higher Prospect',  3 => 'Prospect',  9 => 'Junk', 6 => 'Closed',1 => 'Lead'];
+		
+    	$lead_stage_arr = [7 => 'Sold/On-board',  4 => 'Warm',13 => 'Hot',  3 => 'Cool',  9 => 'Junk', 1 => 'Lead'];
 
     	$is_super = Session::get('user.is_super_admin');
     	$ses_user_id = Session::get('user.ses_user_pk_no');

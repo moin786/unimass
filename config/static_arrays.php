@@ -7,6 +7,7 @@ return [
 		5 => 'Project Area',
 		6 => 'Project Name',
 		7 => 'Project Size',
+		10 => 'Ocupation',
 		13 => 'Project Board',
 		16 => 'Lead Stages',
 		17 => 'Lead Followup Type',
@@ -43,14 +44,18 @@ return [
 	'lead_stage_arr' => [
 		1 => 'Lead',
 		2 => 'QC Passed',
-		3 => 'Prospect',
-		4 => 'Priority',
+		//3 => 'Prospect',
+		3 => 'Cool',
+		//4 => 'Priority',
+		4 => 'Warm',
 		5 => 'Hold',
 		6 => 'Closed',
 		7 => 'Sold/On-board',		
 		9 => 'Junk',		
-		13 => 'Higher Prospect',
-		14 => 'Block'
+		//13 => 'Higher Prospect',
+		13 => 'Hot',
+		14 => 'Block',
+		//15 => 'Warm'
 
 	],
 	'module_arr' => [
@@ -62,8 +67,9 @@ return [
 
 	],
 	'agent_type' => [
-		1 => 'Digital & Call Center',
-		2 => 'Sales'
+		1 => 'Customer Relations & Sales',
+		2 => 'Sales',
+		3 => 'CSD'
 	],
 	'lead_distribution_type' => [
 		1 => 'All',

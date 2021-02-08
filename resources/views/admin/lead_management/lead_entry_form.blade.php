@@ -387,20 +387,21 @@ $user_type = Session::get('user.user_type');
 	</div>
 	<div class="box-body">
 		<div class="form-row">
-			<div class="col-md-3">
+			<input type="hidden" name="cmb_category" required id="cmb_category" value="583" data-action="{{ route('load_area_project_size') }}"/>
+			{{-- <div class="col-md-3">
 				<div class="form-group">
-					<label>Category<span class="text-danger"> *</span></label>
-					<select class="form-control required" id="cmb_category" name="cmb_category"
-					data-action="{{ route('load_area_project_size') }}" aria-hidden="true">
-					<option selected="selected" value="0">Select Category</option>
-					@if(!empty($project_cat))
-					@foreach ($project_cat as $key => $cat)
-					<option value="{{ $key }}">{{ $cat }}</option>
-					@endforeach
-					@endif
-				</select>
-			</div>
-		</div>
+						<label>Category<span class="text-danger"> *</span></label>
+						<select class="form-control required" id="cmb_category" name="cmb_category"
+						data-action="{{ route('load_area_project_size') }}" aria-hidden="true">
+						<option selected="selected" value="0">Select Category</option>
+						@if(!empty($project_cat))
+						@foreach ($project_cat as $key => $cat)
+						<option value="{{ $key }}">{{ $cat }}</option>
+						@endforeach
+						@endif
+					</select>
+				</div>
+			</div> --}}
 
 		<div class="col-md-3">
 			<div class="form-group">
@@ -412,7 +413,7 @@ $user_type = Session::get('user.user_type');
 		</div>
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-6">
 		<div class="form-group">
 			<label>Project Name<span class="text-danger"> *</span></label>
 			<select class="form-control required" id="cmb_project_name" name="cmb_project_name"
@@ -546,22 +547,23 @@ $user_type = Session::get('user.user_type');
 		@if(!empty($digital_mkt))
 		@foreach ($digital_mkt as $key=>$digi)
 		<div class="col-md-3">
-			<div class="form-group">
-				<label style="cursor:pointer;">
-					<div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
-					style="position: relative; margin-right:10px; margin-bottom:6px;">
-					<input type="radio" id="Sub_Source" value="{{ $key }}" name="Sub_Source[]"
-					class="flat-red" style="position: absolute; opacity: 0;" required>
-					<ins class="iCheck-helper"
-					style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-				</div>
+				<div class="form-group">
+					<label style="cursor:pointer;">
+						<div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
+						style="position: relative; margin-right:10px; margin-bottom:6px;">
+						<input type="radio" id="Sub_Source" value="{{ $key }}" name="Sub_Source[]"
+						class="flat-red" style="position: absolute; opacity: 0;" required>
+						<ins class="iCheck-helper"
+						style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+					</div>
 
-				<span style="font-size:14px; margin-top:-5px;">
-					&nbsp;{{ $digi }}
-				</span>
-			</label>
+					<span style="font-size:14px; margin-top:-5px;">
+						&nbsp;{{ $digi }}
+					</span>
+				</label>
+			</div>
 		</div>
-	</div>
+		
 	@endforeach
 	@endif
 </div>
