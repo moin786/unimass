@@ -3,20 +3,21 @@
 	style="background-color: #ECF0F5; border: 1px solid #ccc; padding: 3px;">
 	<div class="box-body">
 		<div class="row">
-			<div class="col-md-2">
-				<div class="form-group">
-					<label>Category</label>
-					<select class="form-control required" id="cmb_category" name="cmb_category"
-					data-action="{{ route('load_area_project_size') }}" aria-hidden="true">
-					<option selected="selected" value="0">Select Category</option>
-					@if(!empty($project_cat))
-					@foreach ($project_cat as $key => $cat)
-					<option value="{{ $key }}">{{ $cat }}</option>
-					@endforeach
-					@endif
-				</select>
-			</div>
-		</div>
+			<input type="hidden" name="cmb_category" id="cmb_category" data-action="{{ route('load_area_project_size') }}"/>
+			{{-- <div class="col-md-2">
+					<div class="form-group">
+						<label>Category</label>
+						<select class="form-control required" id="cmb_category" name="cmb_category"
+						data-action="{{ route('load_area_project_size') }}" aria-hidden="true">
+						<option selected="selected" value="0">Select Category</option>
+						@if(!empty($project_cat))
+						@foreach ($project_cat as $key => $cat)
+						<option value="{{ $key }}">{{ $cat }}</option>
+						@endforeach
+						@endif
+					</select>
+				</div>
+			</div> --}}
 
 		<div class="col-md-2">
 			<div class="form-group">
@@ -28,7 +29,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<div class="form-group">
 			<label>Project Name</label>
 			<select class="form-control required" id="cmb_project_name" name="cmb_project_name"
@@ -52,7 +53,7 @@
 	</select>
 </div>
 </div>
-<div class="col-md-3">
+<div class="col-md-4">
 	<div class="form-group">
 		<label>Transfer To<span class="text-danger"> *</span></label>
 		<div id="team_member_list">

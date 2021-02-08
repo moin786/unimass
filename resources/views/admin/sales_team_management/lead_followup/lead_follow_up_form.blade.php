@@ -6,9 +6,10 @@ href="{{ asset('backend/bower_components/bootstrap-datepicker/dist/css/bootstrap
 	<input type="hidden" class="keep_me" name="hdn_lead_followup_pk_no" value="{{ $lead_data->lead_followup_pk_no }}"/>
 	<input type="hidden" class="keep_me" name="hdn_cur_stage" value="{{ $lead_data->lead_current_stage }}"/>
 	@php
+	
 	if($lead_data->lead_current_stage == 1)
 	{
-		$stages = [$lead_data->lead_current_stage,3,8,9,10,11,13];
+		$stages = [$lead_data->lead_current_stage,3,8,9,10,11,13,4];
 	}
 	if($lead_data->lead_current_stage == 8)
 	{
@@ -24,27 +25,33 @@ href="{{ asset('backend/bower_components/bootstrap-datepicker/dist/css/bootstrap
 	}
 	if(in_array($lead_data->lead_current_stage, [6,9]))
 	{
-		$stages = [$lead_data->lead_current_stage,1,3];
+		//$stages = [$lead_data->lead_current_stage,1,3];
+		$stages = [$lead_data->lead_current_stage,1,3,13,4];
 	}
 	if($lead_data->lead_current_stage == 3)
 	{
-		$stages = [$lead_data->lead_current_stage,4,5,6,13];
+		//$stages = [$lead_data->lead_current_stage,4,5,6,13];
+		$stages = [$lead_data->lead_current_stage,4,5,13];
 	}
 	if($lead_data->lead_current_stage == 4)
 	{
-		$stages = [$lead_data->lead_current_stage,5,6];
+		//$stages = [$lead_data->lead_current_stage,5,6];
+		$stages = [$lead_data->lead_current_stage,5];
 	}
 	if($lead_data->lead_current_stage == 5)
 	{
-		$stages = [$lead_data->lead_current_stage,3,4,6];
+		//$stages = [$lead_data->lead_current_stage,3,4,6];
+		$stages = [$lead_data->lead_current_stage,3,4];
 	}
 	if($lead_data->lead_current_stage == 13)
 	{
-		$stages = [$lead_data->lead_current_stage,4, 5, 6];
+		//$stages = [$lead_data->lead_current_stage,4, 5, 6];
+		$stages = [$lead_data->lead_current_stage,4, 5];
 	}
 	if($lead_data->lead_current_stage == 14)
 	{
-		$stages = [$lead_data->lead_current_stage,5, 6];
+		//$stages = [$lead_data->lead_current_stage,5, 6];
+		$stages = [$lead_data->lead_current_stage,5];
 	}
 	@endphp
 

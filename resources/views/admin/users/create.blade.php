@@ -86,10 +86,10 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="txtEmail">Email
+                    <label for="txtEmail">User ID
                         <small style="color:red">*</small>
                     </label>
-                    <input type="text" class="form-control required" id="txtEmail" name="txtEmail" title="User Email"
+                    <input type="text" class="form-control" id="txtEmail" name="txtEmail" title="User Email"
                            placeholder="Ex: jahid@gmail.com" value="{{ isset($user)? $user->email:'' }}"
                            required="required" tabindex="2">
                 </div>

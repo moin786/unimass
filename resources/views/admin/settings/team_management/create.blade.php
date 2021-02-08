@@ -42,7 +42,8 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
                     @endif
                 </select>
             </div>
-            <div class="form-group">
+            <input type="hidden" name="category" value="583" />
+            {{-- <div class="form-group">
                 <label>Category</label>
                 <select class="form-control" name="category" style="width: 100%;" aria-hidden="true">
                     <option value="0">Please Select Category</option>
@@ -58,7 +59,7 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
                     @endforeach
                     @endif
                 </select>
-            </div>
+            </div> --}}
 
             <div class="form-group">
                 <label>Area</label>
@@ -94,7 +95,7 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
                         <tr id="team_user">
                             <th>Team User</th>
                             <th class="text-center" title="Cluster Head">CH</th>
-                            <th class="text-center" title="Branch Head">BH</th>
+                            {{-- <th class="text-center" title="Branch Head">BH</th> --}}
                             <th class="text-center" title="Team Leader">TL</th>
                             <th class="text-center" title="Team Leader">Seq.</th>
                             <th class="text-center"></th>
@@ -129,7 +130,7 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
                     <input type="hidden" name="teammem_id[]" value="{{ $user->teammem_pk_no }}" />
                 </td>
                 <td align="center"><input type="checkbox" name="chkIsHod{{ $user->user_pk_no }}[]" {{ ($user->hod_flag==1)?'checked':'' }}  /></td>
-                <td align="center"><input type="checkbox" name="chkIsHot{{ $user->user_pk_no }}[]" {{ ($user->hot_flag==1)?'checked':'' }}  /></td>
+                {{-- <td align="center"><input type="checkbox" name="chkIsHot{{ $user->user_pk_no }}[]" {{ ($user->hot_flag==1)?'checked':'' }}  /></td> --}}
                 <td align="center"><input type="checkbox" name="chkIsTL{{ $user->user_pk_no }}[]" {{ ($user->team_lead_flag==1)?'checked':'' }}  /></td>
                 <td><input class="form-control" style="width: 50px;" type="text" name="teammem_seq{{ $user->user_pk_no }}" value="{{ ($user->sl_no!='')? ($user->sl_no>0)?$user->sl_no:'':'' }}" /></td>
                 <td class="text-center">
@@ -156,10 +157,12 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
     function user_type_data(data){
         var table_head = '';
         if(data == 1 ){
-            table_head = '<tr id="team_user"><th>Team User</th><th class="text-center" title="Department Head">DH</th><th class="text-center" title="Manager">M</th><th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Sequence">Seq.</th><th class="text-center"></th></tr> ';
+            //table_head = '<tr id="team_user"><th>Team User</th><th class="text-center" title="Department Head">DH</th><th class="text-center" title="Manager">M</th><th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Sequence">Seq.</th><th class="text-center"></th></tr> ';
+            table_head = '<tr id="team_user"><th>Team User</th><th class="text-center" title="Manager">CH</th><th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Sequence">Seq.</th><th class="text-center"></th></tr> ';
 
         }else{
-            table_head = '<tr id="team_user"><th>Team User</th>  <th class="text-center" title="Cluster Head">CH</th> <th class="text-center" title="Branch Head">BH</th> <th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Team Leader">Seq.</th> <th class="text-center"></th></tr>';
+            //table_head = '<tr id="team_user"><th>Team User</th>  <th class="text-center" title="Cluster Head">CH</th> <th class="text-center" title="Branch Head">BH</th> <th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Team Leader">Seq.</th> <th class="text-center"></th></tr>';
+            table_head = '<tr id="team_user"><th>Team User</th>  <th class="text-center" title="Cluster Head">CH</th> <th class="text-center" title="Team Leader">TL</th><th class="text-center" title="Team Leader">Seq.</th> <th class="text-center"></th></tr>';
         }
         $("#team_user").remove();
         $("#thead_id").append(table_head);

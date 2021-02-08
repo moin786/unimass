@@ -40,7 +40,7 @@ $today = date("Y-m-d h:i:s");
             <th class="text-center">Assign Date</th>
             @endif
             <th class="text-center">Status</th>
-            @if($userRoleId !=551)
+            @if(@$userRoleId !=551)
             <th class="text-center">Action</th>
             @endif
             @if($tab==1)

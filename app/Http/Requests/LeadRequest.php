@@ -28,7 +28,7 @@ class LeadRequest extends FormRequest
             'customer_last_name' => 'required',
             'customer_email' => 'required|email|max:255|regex:/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/',
             'customer_phone1' => 'required|numeric',
-            'cmb_category' => 'required',
+            //'cmb_category' => 'required',
             'cmb_area' => 'required',
             'cmb_project_name' => 'required',
             'cmb_size' => 'required',
