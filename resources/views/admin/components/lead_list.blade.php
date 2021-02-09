@@ -51,9 +51,7 @@ $status="";
                                 @include('admin.components.lead_list_table_header')
                                 @if($type == 7 )
                                 <td>Sold Date</td>
-                                <td>Flat Cost</td>
-                                <td>Utility Cost</td> 
-                                <td>Parking Cost</td>
+                                <td width="100">Cost</td>
                                 @endif
                                 <th class="text-center">Action</th>
                             </tr>
@@ -78,9 +76,20 @@ $status="";
                                 @include('admin.components.lead_list_table')
                                 @if($type == 7 )
                                 <td> {{ date("d/m/Y",strtotime($row->lead_sold_date_manual)) }}</td>
-                                <td> {{ $row->lead_sold_flatcost }}</td>
-                                <td> {{ $row->lead_sold_utilitycost }}</td> 
-                                <td> {{ $row->lead_sold_parkingcost }}</td>
+                                <td>
+                                    <div>
+                                        <strong>F:</strong> {{ $row->lead_sold_flatcost }}
+                                    </div>
+                                    <div>
+                                        <strong>U:</strong>{{ $row->lead_sold_utilitycost }}
+                                    </div>
+                                    <div>
+                                        <strong>P:</strong>{{ $row->lead_sold_parkingcost }}
+                                    </div>
+                                    <div>
+                                        <strong>R:</strong>{{ $row->lead_reserve_money }}
+                                    </div>
+                                </td>
                                 @endif
                                 <td class="text-center" width="100px;">
                                     <span class="btn bg-info btn-xs lead-view" data-title="Lead Details"
@@ -127,7 +136,7 @@ $status="";
                                     data-id="{{ $row->lead_pk_no }}"
                                     data-action="{{ route('lead_follow_up_from_dashboard', [$row->lead_pk_no, $type]) }}"> <i
                                     class="fa fa-list"></i></span>
-                                    
+
                                     <span class="btn bg-info btn-xs lead-sold" data-title="Lead Sold"
                                     title="Lead Sold" data-id="{{ $row->lead_pk_no }}"
                                     data-action="{{ route('lead_sold',$row->lead_pk_no) }}"><i
@@ -135,7 +144,7 @@ $status="";
                                     @endif
                                     @endif
                                     @if($type != 6 && $type != 7 && $type != 15  && $user_type != 1)
-                                    
+
 
                                     @endif
 
@@ -181,7 +190,7 @@ $status="";
         <option value="0">Select</option>
     </select>
 </div>
-<div class="form-group">
+{{-- <div class="form-group">
     <label class="pull-left" style="cursor: pointer;">
         <div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
         style="position: relative; margin-right:10px; margin-bottom:6px;">
@@ -196,7 +205,7 @@ $status="";
 required="required" aria-hidden="true" {{ $status }}>
 <option value="0">Select</option>
 </select>
-</div>
+</div> --}}
 <div class="form-group">
     <label class="pull-left" style="cursor: pointer;">
         <div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
@@ -345,7 +354,7 @@ src="{{ asset('backend/bower_components/bootstrap-datepicker/dist/js/bootstrap-d
                         $('#meeting_followup_date').datepicker({
                             startDate: date,
                             todayHighlight: true
-                        });                       
+                        });
                         $('#txt_meeting_visit_done_dt').datepicker({
                             startDate: date,
                             todayHighlight: true

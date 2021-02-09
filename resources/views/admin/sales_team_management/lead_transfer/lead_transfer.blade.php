@@ -75,11 +75,11 @@
                            aria-expanded="false">Approved</a></li>
 
                     <li><a href="#rejected_lead" data-toggle="tab" data-type="6" data-action="load_transfer_leads"
-                           aria-expanded="false">Rejected</a></li>         
-                    @if($is_ch==1)
+                           aria-expanded="false">Rejected</a></li>
+                 {{--    @if($is_ch==1)
                         <li><a href="#auto_transfer" data-toggle="tab" data-type="5" data-action="load_transfer_leads"
                                aria-expanded="false">Auto Transfer</a></li>
-                    @endif
+                    @endif --}}
                 </ul>
                 <div class="tab-content" id="list-body">
                     @include('admin.sales_team_management.lead_transfer.lead_transfer_list')
@@ -175,7 +175,7 @@
 
                     if (checked == 0) {
                         alert("Please select the leads you would like to transfer.");
-                       
+
                     }
                 }
             });
@@ -201,7 +201,7 @@
                     });
                     $("#cmb_area").append(area_list);
 
-                    
+
 
                     $.each(data.project_arr, function (i, item) {
                         project_list += "<option value='" + i + "'>" + item + "</option>";
@@ -239,7 +239,7 @@
                         });
                         $("#cmb_area").append(area_list);
 
-                      
+
 
                         $.each(data.project_arr, function (i, item) {
                             project_list += "<option value='" + i + "'>" + item + "</option>";
