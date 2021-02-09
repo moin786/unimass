@@ -180,7 +180,44 @@
                 }
             });
 
-            $(document).on("change", "#cmb_category", function (e) {
+            blockUI();
+            var cat_id = 583;//$(this).val();
+            var action = "{{route('load_area_project_size')}}";//$(this).attr('data-action');
+            $.ajax({
+                data: {cat_id: cat_id},
+                url: action,
+                type: "post",
+                beforeSend: function () {
+                    $("#cmb_area").html("");
+                    $("#cmb_project_name").html("");
+                    //$("#cmb_size").html("");
+                    // $("#cmbTransferTo").html("");
+                },
+                success: function (data) {
+                    data = $.parseJSON(data);
+                    var area_list = size_list = project_list = agent_list = "<option value='0'>Select</option>";
+                    $.each(data.area_arr, function (i, item) {
+                        area_list += "<option value='" + i + "'>" + item + "</option>";
+                    });
+                    $("#cmb_area").append(area_list);
+
+                    
+
+                    $.each(data.project_arr, function (i, item) {
+                        project_list += "<option value='" + i + "'>" + item + "</option>";
+                    });
+                    $("#cmb_project_name").append(project_list);
+
+                    $.each(data.sales_agent, function (i, item) {
+                        agent_list += "<option value='" + i + "'>" + item + "</option>";
+                    });
+                    //$("#cmbTransferTo").append(agent_list);
+                }
+
+            });
+            $.unblockUI();
+
+            /*$(document).on("change", "#cmb_category", function (e) {
                 blockUI();
                 var cat_id = $(this).val();
                 var action = $(this).attr('data-action');
@@ -217,12 +254,12 @@
 
                 });
                 $.unblockUI();
-            });
+            });*/
 
             $(document).on("change", "#cmb_area", function (e) {
                 blockUI();
                 var area_id = $(this).val();
-                var cat_id = $("#cmb_category").val();
+                var cat_id = 583;//$("#cmb_category").val();
                 var project_list = "<option value='0'>Select</option>";
                 var agent_list = "<option value='0'>Select</option>";
                 $.ajax({

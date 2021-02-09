@@ -102,7 +102,7 @@ class LeadDistribution extends Controller
 				INNER JOIN `s_lookdata` ON `t_teambuild`.`team_lookup_pk_no` = `s_lookdata`.`lookup_pk_no` 
 				INNER JOIN `s_user` ON `s_user`.`user_pk_no` = `t_teambuild`.`user_pk_no` 
 				WHERE `t_teambuild`.`team_lookup_pk_no` IN ($get_all_teams)
-				AND `t_teambuild`.`agent_type` = 2");
+				AND `t_teambuild`.`agent_type` = 2 and `t_teambuild`.`user_pk_no` != $ses_user_id");
 		} else {
 			$sales_agent_arr = [];
 		}
@@ -528,22 +528,22 @@ class LeadDistribution extends Controller
 
     	$get_all_tem_members ="";
     	if ($is_ses_hod > 0) {
-    		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id ) and agent_type=1")[0]->team_members;
+    		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id ) and agent_type=2")[0]->team_members;
 
-    		$get_all_tem_members .= $get_all_tem_memberss . "," . $ses_user_id;
+    		$get_all_tem_members .= $get_all_tem_memberss;// . "," . $ses_user_id;
     	} else if ($is_ses_hot > 0) {
     		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id and hod_flag != 1 and agent_type=1 )")[0]->team_members;
 
-    		$get_all_tem_members .= $get_all_tem_memberss . "," . $ses_user_id;
+    		$get_all_tem_members .= $get_all_tem_memberss;// . "," . $ses_user_id;
     	} else if ($is_team_leader > 0) {
     		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE ((team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id) and hod_flag != 1 and hot_flag != 1 and agent_type=1 )")[0]->team_members;
 
-    		$get_all_tem_members .= $get_all_tem_memberss . "," . $ses_user_id;
+    		$get_all_tem_members .= $get_all_tem_memberss;// . "," . $ses_user_id;
 
     	} else {
     		$get_all_tem_members .= $ses_user_id;
     	}
-    	$get_all_team_members = rtrim(($get_all_tem_members), ", ");
+    	$get_all_team_members = $get_all_tem_members;//rtrim(($get_all_tem_members), ", ");
 
 
 
@@ -644,7 +644,7 @@ class LeadDistribution extends Controller
 
     	$get_all_tem_members ="";
     	if ($is_ses_hod > 0) {
-    		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id ) and agent_type=1")[0]->team_members;
+    		$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id ) and agent_type=2")[0]->team_members;
 
     		$get_all_tem_members .= $get_all_tem_memberss . "," . $ses_user_id;
     	} else if ($is_ses_hot > 0) {
