@@ -42,7 +42,7 @@
 					$area2 = "true";
 				}
 				@endphp
-				@if($userType == 1)
+				{{-- @if($userType == 1)
 
 				<div class="alert alert-danger alert-dismissible">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -50,7 +50,7 @@
 					You are not Authorized to view this page
 				</div>
 
-				@else
+				@else --}}
 				<ul class="nav nav-tabs" id="tab_container">
 					<li class="{{ $classActive }}"><a href="#today_followup" data-toggle="tab" data-type="1" data-action="{{ route('load_followup_leads') }}" aria-expanded="{{ $area }}">Today's Activity</a></li>
 					<li class="{{ $classActive1 }}"><a href="#missed_followup" data-toggle="tab" data-type="2" data-action="{{ route('load_followup_leads') }}" aria-expanded="{{ $area1 }}">Missed Follow Up</a></li>
@@ -68,7 +68,7 @@
 					@endif
 				</div>
 
-				@endif
+				{{-- @endif --}}
 
 			</div>
 		</div>
