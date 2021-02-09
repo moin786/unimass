@@ -1,6 +1,6 @@
 @php
-$data = (isset($lead_data) && (!empty($lead_data))) ? $lead_data : [];
-$flatlist_pk = ($data) ? $data->flatlist_pk_no : '';
+$data = isset($lead_data) && !empty($lead_data) ? $lead_data : [];
+$flatlist_pk = $data ? $data->flatlist_pk_no : '';
 @endphp
 
 <form id="frmLeadFollowup" action="{{ route('store_lead_sold') }}" method="post">
@@ -12,49 +12,68 @@ $flatlist_pk = ($data) ? $data->flatlist_pk_no : '';
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="">Stage :</label>
-                        <input type="text" class="form-control" id="current_stage" name="current_stage" value="{{ isset($lead_data)? $lead_stage_arr[$lead_data->lead_current_stage]:'' }}" title="" readonly="readonly" placeholder="Current Stage"/>
+                        <input type="text" class="form-control" id="current_stage" name="current_stage"
+                            value="{{ isset($lead_data) ? $lead_stage_arr[$lead_data->lead_current_stage] : '' }}"
+                            title="" readonly="readonly" placeholder="Current Stage" />
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="col-md-4">
             <div class="form-group">
                 <label for="flat">Flat :</label>
-                <select class="form-control required" name="flat" style="width: 100%;" aria-hidden="true" required="required">
+                <select class="form-control required" name="flat" style="width: 100%;" aria-hidden="true"
+                    required="required">
                     <option selected="selected" value="">Select Flat</option>
-                    @if(!empty($flat_list))
-                    @foreach($flat_list as $flat)
-                    <option value="{{ $flat->flatlist_pk_no }}" {{$flatlist_pk == $flat->flatlist_pk_no ?  'selected' :''}}>{{ $flat->flat_name }}</option>
-                    @endforeach
+                    @if (!empty($flat_list))
+                        @foreach ($flat_list as $flat)
+                            <option value="{{ $flat->flatlist_pk_no }}"
+                                {{ $flatlist_pk == $flat->flatlist_pk_no ? 'selected' : '' }}>{{ $flat->flat_name }}
+                            </option>
+                        @endforeach
                     @endif
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Flat Cost :</label>
-                <input type="text" class="form-control required number-only calculate-total-sold text-right" id="flat_cost" name="flat_cost" value="" title="" placeholder="Flat Cost"/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Flat Cost :</label>
+                        <input type="text" class="form-control required number-only calculate-total-sold text-right"
+                            id="flat_cost" name="flat_cost" value="" title="" placeholder="Flat Cost" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Reserve Money :</label>
+                        <input type="text" class="form-control required number-only calculate-total-sold text-right"
+                            id="flat_cost" name="reserve_money" value="" title="" placeholder="Reserve Money" />
+                    </div>
+                </div>
+
             </div>
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Utility :</label>
-                        <input type="text" class="form-control required number-only calculate-total-sold text-left" id="utility" name="utility" value="" title="" placeholder="Utility Cost"/>
+                        <input type="text" class="form-control required number-only calculate-total-sold text-right"
+                            id="utility" name="utility" value="" title="" placeholder="Utility Cost" />
                     </div>
                     <div class="col-md-6">
-                    
-                         <label for="">Parking :</label>
-                        <input type="text" class="form-control required number-only calculate-total-sold text-left" id="parking" name="parking" value="" title="" placeholder="Parking Cost"/>
-                
+
+                        <label for="">Parking :</label>
+                        <input type="text" class="form-control required number-only calculate-total-sold text-right"
+                            id="parking" name="parking" value="" title="" placeholder="Parking Cost" />
+
                     </div>
                 </div>
-               
+
             </div>
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="">Booking Money :</label>
-                        <input type="text" class="form-control required number-only text-left" id="utility" name="lead_sold_bookingmoney" value="" title="" placeholder="Booking Money"/>                       
+                        <input type="text" class="form-control required number-only text-left" id="utility"
+                            name="lead_sold_bookingmoney" value="" title="" placeholder="Booking Money" />
                     </div>
                     <div class="col-md-12">
                         <label for="">Agreement Status :</label>
@@ -66,20 +85,21 @@ $flatlist_pk = ($data) ? $data->flatlist_pk_no : '';
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for=""><strong>Date of Sale :</strong></label>
-                <input type="text" class="form-control required datepicker" id="date_of_sold" name="date_of_sold" value="<?php echo date('d-m-Y'); ?>"
-                readonly="readonly" title="" placeholder="Date of Sold"/>
+                <input type="text" class="form-control required datepicker" id="date_of_sold" name="date_of_sold"
+                    value="<?php echo date('d-m-Y'); ?>" readonly="readonly" title=""
+                    placeholder="Date of Sold" />
             </div>
             <div class="form-group">
                 <label for=""><strong>Grand Total :</strong></label>
-                <input type="text" class="form-control text-right" id="grand-total"
-                name="grand-total" value="" readonly="readonly" title=""
-                placeholder="Grand Total"/>
+                <input type="text" class="form-control text-right" id="grand-total" name="grand-total" value=""
+                    readonly="readonly" title="" placeholder="Grand Total" />
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-block bg-green btnSaveUpdate" data-response-action="{{ route('load_followup_leads') }}">Update Lead</button>
+                <button type="button" class="btn btn-block bg-green btnSaveUpdate"
+                    data-response-action="{{ route('load_followup_leads') }}">Update Lead</button>
             </div>
         </div>
     </div>

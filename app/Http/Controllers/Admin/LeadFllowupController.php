@@ -114,7 +114,7 @@ class LeadFllowupController extends Controller
 					LEFT JOIN t_leadfollowup a ON a.lead_pk_no=b.lead_pk_no  and a.lead_followup_pk_no = (
 					SELECT MAX(lead_followup_pk_no) FROM t_leadfollowup c WHERE a.lead_pk_no = c.lead_pk_no
 					)
-					LEFT JOIN s_user c ON b.created_by=c.user_pk_no  
+					LEFT JOIN s_user c ON b.created_by=c.user_pk_no
 					LEFT JOIN s_user d ON a.created_by=d.user_pk_no
 					WHERE (b.lead_closed_flag=0 OR b.lead_closed_flag IS NULL) and lead_current_stage not in(6,7,9) $date_cond $tranfer_condition");
 
@@ -166,7 +166,7 @@ class LeadFllowupController extends Controller
 					a.next_followup_Note,c.user_fullname agent_name ,d.user_fullname as last_followup_name,b.*
 					FROM t_lead2lifecycle_vw b
 					LEFT JOIN t_leadfollowup a ON (a.lead_pk_no=b.lead_pk_no )
-					LEFT JOIN s_user c ON b.created_by=c.user_pk_no 
+					LEFT JOIN s_user c ON b.created_by=c.user_pk_no
 					LEFT JOIN s_user d ON a.created_by=d.user_pk_no
 					WHERE a.lead_followup_pk_no = (SELECT MAX(lead_followup_pk_no) FROM t_leadfollowup c WHERE a.lead_pk_no = c.lead_pk_no) $user_cond $date_cond
 					AND (b.lead_closed_flag=0 OR b.lead_closed_flag IS NULL)
@@ -410,10 +410,10 @@ class LeadFllowupController extends Controller
     	}
 
 
-    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name, 
+    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name,
     		f.user_fullname from_sales_agent, g.user_fullname to_sales_agent,i.lead_transfer_flag
     		FROM t_leadtransfer a
-    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no` 
+    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no`
     		LEFT JOIN s_lookdata b ON j.project_category_pk_no=b.lookup_pk_no
     		LEFT JOIN s_lookdata c ON j.project_area_pk_no =c.lookup_pk_no
     		LEFT JOIN s_lookdata d ON j.Project_pk_no=d.lookup_pk_no
@@ -455,7 +455,7 @@ class LeadFllowupController extends Controller
     	$attr_type_value = config('static_arrays.attributes_type');
 
 
-    	
+
 
 
     	$lead_status = LookupData::where('lookup_type', 26)->get();
@@ -544,10 +544,10 @@ class LeadFllowupController extends Controller
     	}
 
 
-    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name, 
+    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name,
     		f.user_fullname from_sales_agent, g.user_fullname to_sales_agent,i.lead_transfer_flag
     		FROM t_leadtransfer a
-    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no` 
+    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no`
     		LEFT JOIN s_lookdata b ON j.project_category_pk_no=b.lookup_pk_no
     		LEFT JOIN s_lookdata c ON j.project_area_pk_no =c.lookup_pk_no
     		LEFT JOIN s_lookdata d ON j.Project_pk_no=d.lookup_pk_no
@@ -589,10 +589,10 @@ class LeadFllowupController extends Controller
     	$attr_type_value = config('static_arrays.attributes_type');
 
 
-    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name, 
+    	$lead_transfer_data = DB::select("SELECT a.lead_pk_no,a.is_rejected,a.transfer_to_sales_agent_flag,b.lookup_name category,c.lookup_name area_name,d.lookup_name project_name,e.lookup_name size_name,
     		f.user_fullname from_sales_agent, g.user_fullname to_sales_agent,i.lead_transfer_flag
     		FROM t_leadtransfer a
-    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no` 
+    		LEFT JOIN t_leads j ON j.`lead_pk_no` = a.`lead_pk_no`
     		LEFT JOIN s_lookdata b ON j.project_category_pk_no=b.lookup_pk_no
     		LEFT JOIN s_lookdata c ON j.project_area_pk_no =c.lookup_pk_no
     		LEFT JOIN s_lookdata d ON j.Project_pk_no=d.lookup_pk_no
@@ -705,7 +705,7 @@ class LeadFllowupController extends Controller
     		->where('block_status', '!=', 1)
     		->get(['flatlist_pk_no', 'flat_name']);
     	}
-    	$ses_user_id = Session::get('user.ses_user_pk_no');
+        $ses_user_id = Session::get('user.ses_user_pk_no');
     	return view('admin.sales_team_management.lead_followup.lead_sold', compact('lead_data', 'lead_stage_arr', 'followup_type', 'flat_list', 'ses_user_id'));
     }
 
@@ -734,6 +734,7 @@ class LeadFllowupController extends Controller
         $ldata->lead_sold_team_manager_pk_no = 1;
         $ldata->lead_sold_agreement_status = $request->lead_sold_agreement_status;
         $ldata->lead_sold_bookingmoney = $request->lead_sold_bookingmoney;
+        $ldata->lead_reserve_money = $request->reserve_money;
 
         if ($ldata->save()) {
         	$fdata = FlatSetup::findOrFail($request->flat);
@@ -852,7 +853,7 @@ class LeadFllowupController extends Controller
     			LEFT JOIN t_leadfollowup a ON (a.lead_pk_no=b.lead_pk_no )
     			LEFT JOIN s_user c ON b.created_by=c.user_pk_no
     			LEFT JOIN s_user d ON a.created_by=d.user_pk_no
-    			WHERE a.lead_followup_pk_no = (SELECT MAX(lead_followup_pk_no) FROM t_leadfollowup c WHERE a.lead_pk_no = c.lead_pk_no) $tranfer_condition $user_cond 
+    			WHERE a.lead_followup_pk_no = (SELECT MAX(lead_followup_pk_no) FROM t_leadfollowup c WHERE a.lead_pk_no = c.lead_pk_no) $tranfer_condition $user_cond
     			AND (b.lead_closed_flag=0 OR b.lead_closed_flag IS NULL)
                 and b.lead_current_stage not in(6,7,9) order by b.created_at desc");//AND a.lead_followup_datetime<CURDATE()
 
@@ -868,7 +869,7 @@ class LeadFllowupController extends Controller
     			)
     			LEFT JOIN s_user c ON b.created_by=c.user_pk_no
     			LEFT JOIN s_user d ON a.created_by=d.user_pk_no
-    			WHERE (b.lead_closed_flag=0 OR b.lead_closed_flag IS NULL) 
+    			WHERE (b.lead_closed_flag=0 OR b.lead_closed_flag IS NULL)
     			and lead_current_stage not in(6,7,9) $tranfer_condition $user_cond order by b.created_at desc");
     		$today_meeting_data = DB::select("SELECT a.lead_followup_pk_no,COALESCE(a.lead_followup_datetime, CURDATE()) lead_followup_datetime,a.next_followup_flag,a.Next_FollowUp_date, a.visit_meeting_done_dt,a.followup_Note,
     			a.next_followup_Note,c.user_fullname agent_name,d.user_fullname as last_followup_name,b.*
