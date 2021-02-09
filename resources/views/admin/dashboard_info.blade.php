@@ -23,7 +23,7 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 			<a href="{{ route('lead_list', 3) }}" class="small-box-footer">
 				<span class="info-box-icon bg-aqua"><i class="fa fa-building-o"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">Prospect</span>
+					<span class="info-box-text">Cool</span>
 					<span class="info-box-number">{{ isset($k1[0]->total_lead)?$k1[0]->total_lead:0 }}</span>
 				</div>
 			</a>
@@ -35,9 +35,9 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 			$hp_link = ($role_id == 75)?'#':route('lead_list', 13);
 			@endphp
 			<a href="{{ $hp_link }}" class="small-box-footer">
-				<span class="info-box-icon bg-purple"><i class="fa fa-hand-o-up"></i></span>
+				<span class="info-box-icon bg-red"><i class="fa fa-hand-o-up"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">High Prospect</span>
+					<span class="info-box-text">HOT</span>
 					<span class="info-box-number">{{ isset($hp[0]->total_lead)?$hp[0]->total_lead : 0 }}</span>
 				</div>
 			</a>
@@ -51,7 +51,7 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 			<a href="{{ $hp_link }}" class="small-box-footer">
 				<span class="info-box-icon bg-yellow"><i class="fa  fa-star-o"></i></span>
 				<div class="info-box-content">
-					<span class="info-box-text">Priority</span>
+					<span class="info-box-text">Warm</span>
 					<span
 					class="info-box-number">{{ isset($priority[0]->total_lead)?$priority[0]->total_lead:0 }}</span>
 				</div>
@@ -346,7 +346,7 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 								</a>
 							</td>
 						</tr>
-						
+
 						<tr>
 							<td>
 								<a href="{{ route("junk_work_list",3) }}" class="routeSetUp"> <span class="handle">
@@ -363,8 +363,8 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 								</a>
 							</td>
 						</tr>
-						
-						
+
+
 
 					</tbody>
 				</table>
@@ -453,15 +453,15 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 									@else
 									<small class="label label-success pull-right">{{ $project_count }}</small>
 									@endif
-									
+
 								</a>
 							</td>
 						</tr>
 						@endforeach
 						@endif
 
-						
-						
+
+
 
 					</tbody>
 				</table>
