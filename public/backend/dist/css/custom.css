@@ -741,7 +741,7 @@ label {
 
 .form-control:focus {
     border-color: #F3791F !important;
-    color: #f3791f;
+    /*color: #f3791f;*/
     font-weight: 400;
 }
 
@@ -776,4 +776,9 @@ label {
     top: 20px;
     right: 20px;
     padding: 0px;
+}
+
+.form-control-feedback {
+    height: 30px !important;
+    line-height: 30px !important;
 }
