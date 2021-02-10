@@ -16,6 +16,7 @@ $user_type = Session::get('user.user_type');
 		padding-right: 5px;
 		padding-left: 5px;
 	}
+
 </style>
 
 
@@ -86,39 +87,17 @@ $user_type = Session::get('user.user_type');
 
 					<div class="form-row">
 						<div class="col-md-6">
-							<div class="form-group">
-								<div><label for="customer_phone1">Phone Number 1 <span
-									class="text-danger"> *</span></label></div>
-									<div class="col-xs-4" style="padding-left: 0;">
-										<select class="form-control select2" name="country_code1" aria-hidden="true">
-											<option selected="selected" value="0">Country Code</option>
-											@if(!empty($countries))
-											@foreach ($countries as $country)
-											<option
-											value="{{ $country->phonecode }}" {{ ($country->iso=='BD')? 'selected':'' }} >
-											{{ $country->name ." (". $country->phonecode.")" }}
-										</option>
-										@endforeach
-										@endif
-									</select>
+							<div class="form-group form-row">
+								<div class="col-md-12"> 
+									<label for="customer_phone1">Phone Number 1 <span class="text-danger"> *</span></label>
 								</div>
-								<div class="col-xs-8">
-									<input type="text" class="form-control number-only required check_phone_no"
-									id="customer_phone1" name="customer_phone1" maxlength="10"
-									placeholder="Phone Number 1"/>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<div><label for="customer_phone2">Phone Number 2</label></div>
-								<div class="col-xs-4" style="padding-left: 0;">
-									<select class="form-control select2" name="country_code2" aria-hidden="true">
+								<div class="col-xs-4">
+									<select class="form-control select2" name="country_code1" aria-hidden="true">
 										<option selected="selected" value="0">Country Code</option>
 										@if(!empty($countries))
-										@foreach ($countries as $key => $country)
+										@foreach ($countries as $country)
 										<option
-										value="{{ $country->phonecode }}" {{ ($country->iso=='BD')? 'selected':'' }}>
+										value="{{ $country->phonecode }}" {{ ($country->iso=='BD')? 'selected':'' }} >
 										{{ $country->name ." (". $country->phonecode.")" }}
 									</option>
 									@endforeach
@@ -126,53 +105,78 @@ $user_type = Session::get('user.user_type');
 								</select>
 							</div>
 							<div class="col-xs-8">
-								<input type="text" class="form-control number-only check_phone_no"
-								id="customer_phone2" name="customer_phone2" maxlength="10"
-								placeholder="Phone Number 2"/>
+								<input type="text" class="form-control number-only required check_phone_no"
+								id="customer_phone1" name="customer_phone1" maxlength="10"
+								placeholder="Phone Number 1"/>
 							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group form-row">
+							<div class="col-md-12"> 
+								<label for="customer_phone2">Phone Number 2</label>
+							</div>
+							<div class="col-xs-4">
+								<select class="form-control select2" name="country_code2" aria-hidden="true">
+									<option selected="selected" value="0">Country Code</option>
+									@if(!empty($countries))
+									@foreach ($countries as $key => $country)
+									<option
+									value="{{ $country->phonecode }}" {{ ($country->iso=='BD')? 'selected':'' }}>
+									{{ $country->name ." (". $country->phonecode.")" }}
+								</option>
+								@endforeach
+								@endif
+							</select>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" class="form-control number-only check_phone_no"
+							id="customer_phone2" name="customer_phone2" maxlength="10"
+							placeholder="Phone Number 2"/>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div class="col-md-3">
-				<div class="form-group">
-					<label for="txt_cus_email">Customer Email<span class="text-danger"> *</span> </label>
-					<input type="email" class="form-control required email-only" id="customer_email"
-					name="customer_email" value="" title="Customer Email"
-					placeholder="e.g. username@ruc.com"/>
-				</div>
-			</div>
-
-			<div class="col-md-3">
-				<div class="form-group">
-					<label>Occupation </label>
-					<select class="form-control select2" name="cmb_ocupation" style="width: 100%;"
-					aria-hidden="true">
-					<option selected="selected" value="0">Select Occupation</option>
-					@if(!empty($ocupations))
-					@foreach ($ocupations as $key => $ocupation)
-					<option value="{{ $key }}">{{ $ocupation }}</option>
-					@endforeach
-					@endif
-				</select>
-			</div>
 		</div>
+
 		<div class="col-md-3">
 			<div class="form-group">
-				<label>Organization </label>
-				<input type="text" class="form-control" name="organization">
+				<label for="txt_cus_email">Customer Email<span class="text-danger"> *</span> </label>
+				<input type="email" class="form-control required email-only" id="customer_email"
+				name="customer_email" value="" title="Customer Email"
+				placeholder="e.g. username@ruc.com"/>
 			</div>
 		</div>
+
 		<div class="col-md-3">
 			<div class="form-group">
-				<label>Designation </label>
-				<input type="text" class="form-control" name="designation">
-			</div>
+				<label>Occupation </label>
+				<select class="form-control select2" name="cmb_ocupation" style="width: 100%;"
+				aria-hidden="true">
+				<option selected="selected" value="0">Select Occupation</option>
+				@if(!empty($ocupations))
+				@foreach ($ocupations as $key => $ocupation)
+				<option value="{{ $key }}">{{ $ocupation }}</option>
+				@endforeach
+				@endif
+			</select>
 		</div>
-
-
 	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Organization </label>
+			<input type="text" class="form-control" name="organization">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label>Designation </label>
+			<input type="text" class="form-control" name="designation">
+		</div>
+	</div>
+
+
+</div>
 </div>
 <!-- /.box-body -->
 
@@ -403,39 +407,39 @@ $user_type = Session::get('user.user_type');
 				</div>
 			</div> --}}
 
-		<div class="col-md-3">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label>Area<span class="text-danger"> *</span></label>
+					<select class="form-control required" id="cmb_area" name="cmb_area" style="width: 100%;"
+					aria-hidden="true">
+					<option selected="selected" value="">Select Area</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-md-6">
 			<div class="form-group">
-				<label>Area<span class="text-danger"> *</span></label>
-				<select class="form-control required" id="cmb_area" name="cmb_area" style="width: 100%;"
-				aria-hidden="true">
-				<option selected="selected" value="">Select Area</option>
+				<label>Project Name<span class="text-danger"> *</span></label>
+				<select class="form-control required" id="cmb_project_name" name="cmb_project_name"
+				style="width: 100%;" aria-hidden="true">
+				<option selected="selected" value="">Select Project Name</option>
 			</select>
 		</div>
 	</div>
 
-	<div class="col-md-6">
+	<div class="col-md-3">
 		<div class="form-group">
-			<label>Project Name<span class="text-danger"> *</span></label>
-			<select class="form-control required" id="cmb_project_name" name="cmb_project_name"
-			style="width: 100%;" aria-hidden="true">
-			<option selected="selected" value="">Select Project Name</option>
+			<label>Size<span class="text-danger"> *</span></label>
+			<select class="form-control select2 required" id="cmb_size" name="cmb_size" style="width: 100%;"
+			aria-hidden="true">
+			<option selected="selected" value="">Select Size</option>
+			@if(!empty($project_size))
+			@foreach ($project_size as $key => $size)
+			<option value="{{ $key }}">{{ $size }}</option>
+			@endforeach
+			@endif
 		</select>
 	</div>
-</div>
-
-<div class="col-md-3">
-	<div class="form-group">
-		<label>Size<span class="text-danger"> *</span></label>
-		<select class="form-control select2 required" id="cmb_size" name="cmb_size" style="width: 100%;"
-		aria-hidden="true">
-		<option selected="selected" value="">Select Size</option>
-		@if(!empty($project_size))
-		@foreach ($project_size as $key => $size)
-		<option value="{{ $key }}">{{ $size }}</option>
-		@endforeach
-		@endif
-	</select>
-</div>
 </div>
 </div>
 </div>
@@ -547,23 +551,23 @@ $user_type = Session::get('user.user_type');
 		@if(!empty($digital_mkt))
 		@foreach ($digital_mkt as $key=>$digi)
 		<div class="col-md-3">
-				<div class="form-group">
-					<label style="cursor:pointer;">
-						<div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
-						style="position: relative; margin-right:10px; margin-bottom:6px;">
-						<input type="radio" id="Sub_Source" value="{{ $key }}" name="Sub_Source[]"
-						class="flat-red" style="position: absolute; opacity: 0;" required>
-						<ins class="iCheck-helper"
-						style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
-					</div>
+			<div class="form-group">
+				<label style="cursor:pointer;">
+					<div class="iradio_flat-green" aria-checked="false" aria-disabled="false"
+					style="position: relative; margin-right:10px; margin-bottom:6px;">
+					<input type="radio" id="Sub_Source" value="{{ $key }}" name="Sub_Source[]"
+					class="flat-red" style="position: absolute; opacity: 0;" required>
+					<ins class="iCheck-helper"
+					style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+				</div>
 
-					<span style="font-size:14px; margin-top:-5px;">
-						&nbsp;{{ $digi }}
-					</span>
-				</label>
-			</div>
+				<span style="font-size:14px; margin-top:-5px;">
+					&nbsp;{{ $digi }}
+				</span>
+			</label>
 		</div>
-		
+	</div>
+
 	@endforeach
 	@endif
 </div>
