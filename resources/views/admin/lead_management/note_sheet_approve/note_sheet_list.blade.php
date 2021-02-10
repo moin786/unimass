@@ -29,7 +29,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="nav-tabs-custom">
-                    @if ($userRoleId != 551 || $is_super_admin == 1 || $is_hod == 1)
+                    @if ($userRoleId == 551 || $is_super_admin == 1 || $is_hod == 1)
                         <ul class="nav nav-tabs">
                             <!-- <li class="active"><a href="#all_lead" data-toggle="tab" data-type="" data-action="load_note_sheet_list" aria-expanded="true">All Leads</a></li> -->
                             <li class="active"><a href="#manual_lead" data-toggle="tab" data-type="1"
