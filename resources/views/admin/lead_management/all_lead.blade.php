@@ -1,6 +1,8 @@
 @php
 $ses_auto_dist = Session::get('user.ses_auto_dist');
 $ses_dist_date = Session::get('user.ses_dist_date');
+$ses_user_pk = Session::get('user.ses_user_pk_no');
+
 @endphp
 <style type="text/css">
 
@@ -37,8 +39,8 @@ $ses_dist_date = Session::get('user.ses_dist_date');
 									$prefix = "TL";
 								}
 								@endphp
-								<option value="{{ @$data[0].'_'.@$team_ch[$data[5]] }}">{{ @$prefix }} - {{@$data[1]}} </option>
-								
+								<option value="{{ @$data[0].'_'.@$ses_user_pk }}">{{ @$prefix }} - {{@$data[1]}} </option>
+
 								@endforeach
 							</optgroup>
 							@endforeach
