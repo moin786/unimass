@@ -183,8 +183,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get("/ch_missing_lead","LeadController@ch_missing_lead")->name("ch_missing_lead");
     Route::get("/team_wise_lead_list","TeamController@leadList")->name("team_wise_lead_list");
 
-    Route::get('/
-    ', "LeadDistribution@note_sheet_list")->name("note_sheet_list");
+    Route::get('/note_sheet_list', "LeadDistribution@note_sheet_list")->name("note_sheet_list");
     Route::post('/note_sheet_approve', "LeadDistribution@note_sheet_approve")->name("note_sheet_approve");
     Route::post('/load_note_sheet_list', "LeadDistribution@load_note_sheet_list")->name("load_note_sheet_list");
 
