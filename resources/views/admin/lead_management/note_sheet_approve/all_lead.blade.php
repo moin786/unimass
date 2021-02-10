@@ -16,14 +16,16 @@ $is_super_admin = Session::get('user.is_super_admin');
                     @if ($tab == 0)
                         <th class="text-center">Assign Date</th>
                     @endif
-                    @if (@$userRoleId != 551)
+                    @if (@$userRoleId == 551 || $is_hod==1)
                         <th class="text-center">Action
-                            <select name="" id="" class="btn-accept-request form-control"
-                                data-response-action={{ route('load_note_sheet_list') }}>
-                                <option value="0">Select</option>
-                                <option value="1">Accept</option>
-                                <option value="2">Reject</option>
-                            </select>
+                            @if ($tab == 1)
+                                <select name="" id="" class="btn-accept-request form-control"
+                                    data-response-action={{ route('load_note_sheet_list') }}>
+                                    <option value="0">Select</option>
+                                    <option value="1">Accept</option>
+                                    <option value="2">Reject</option>
+                                </select>
+                            @endif
 
 
                         </th>
@@ -53,7 +55,7 @@ $is_super_admin = Session::get('user.is_super_admin');
                             <tr>
                                 @include('admin.components.lead_list_table')
 
-                                @if ($userRoleId != 551)
+                                @if ($userRoleId == 551|| $is_hod==1)
                                     <td class="text-center">
                                         <input type="checkbox" name="lead_life_cycle_id"
                                             data-lead-id="{{ $row->leadlifecycle_pk_no }}"
