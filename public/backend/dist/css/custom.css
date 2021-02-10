@@ -705,3 +705,75 @@ hr {border:0px;border-bottom: 1px solid #e3e3e3;margin:4px;}
     background-color: #17469fbf;
     border-color: #17469fbf;
 }
+
+
+
+
+
+
+.select2-container {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 8px !important;
+}
+
+.form-control {
+    height: 30px !important;
+    font-weight: 400;
+}
+
+.select2-container--default .select2-selection--single,
+.select2-selection .select2-selection--single {
+    height: 30px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 24px !important;
+    font-weight: 400;
+}
+
+label {
+    margin-bottom: 2px !important;
+    font-size: 13px;
+}
+
+.form-control:focus {
+    border-color: #F3791F !important;
+    color: #f3791f;
+    font-weight: 400;
+}
+
+.box.box-success {
+    border-top-color: #16469f;
+}
+.box.box-info {
+    border-top-color: #16469f;
+}
+
+.box-header.with-border {
+    border-bottom: 3px solid #f4f4f4 !important;
+    background-color: #16469f;
+    color: #fff;
+    padding: 6px 10px !important;
+    margin: 0px;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.box {
+    border-top: 0px solid #d2d6de;
+}
+.skin-green-light .content-header {
+    background: transparent;
+    background-color: #16469f14;
+    color: #000;
+    padding: 15px 15px 15px 15px;
+}
+
+.content-header>.breadcrumb {
+    font-size: 12px;
+    top: 20px;
+    right: 20px;
+    padding: 0px;
+}
