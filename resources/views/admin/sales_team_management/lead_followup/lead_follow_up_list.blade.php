@@ -2,10 +2,10 @@
 $ses_user_id   = Session::get('user.ses_user_pk_no');
 @endphp
 <tr>
-	@include('admin.components.lead_list_table')	
-	
+	@include('admin.components.lead_list_table')
+
 	<td> {{ $row->last_followup_name }} </td>
-	<td>{{ ($row->last_followup_name != "")?$followup_dt:'' }}</td>	
+	<td>{{ ($row->last_followup_name != "")?$followup_dt:'' }}</td>
 	<td>{{ $row->followup_Note }}</td>
 
 	<td width="150" align="center">
@@ -19,9 +19,9 @@ $ses_user_id   = Session::get('user.ses_user_pk_no');
 		@if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod'))
 			<span class="btn bg-info btn-xs next-followup" data-title="Lead Followup" title="Lead Followup" data-id="{{ $row->lead_pk_no }}" data-action="{{ route('lead_follow_up.edit',$row->lead_pk_no) }}">
 				<i class="fa fa-list"></i>
-			</span>		
+			</span>
 		@endif
-		@if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod'))
+		@if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod') && $row->is_note_sheet_approved ==1)
 		<span class="btn bg-info btn-xs lead-sold" data-title="Lead Sold" title="Lead Sold" data-id="{{ $row->lead_pk_no }}" data-action="{{ route('lead_sold',$row->lead_pk_no) }}">
 			<i class="fa fa-handshake-o"></i>
 		</span>
