@@ -59,6 +59,7 @@
     <!-- Main content -->
     <section id="product_details" class="content">
         <div>
+            @if(!$is_team_leader == 1)
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs" id="tab_container">
                     <li class="active"><a href="#lead_transfer" data-toggle="tab" data-type="1"
@@ -85,6 +86,13 @@
                     @include('admin.sales_team_management.lead_transfer.lead_transfer_list')
                 </div>
             </div>
+            @else
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4 class="pull-left" style="margin-right: 20px;"><i class="icon fa fa-ban"></i> Forbidden!</h4>
+                You are not Authorized to view this page
+            </div>
+            @endif
         </div>
     </section>
 

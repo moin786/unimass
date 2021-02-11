@@ -28,10 +28,10 @@ $all_phone_nos = rtrim($all_phone_nos, ", ");
 <td>@php echo $masking_number  @endphp</td>
 @endif
 <td>
-	<div title="Lead Category">
+	{{-- <div title="Lead Category">
 		<strong>C : </strong>
 		{{ $row->project_category_name }}
-	</div>
+	</div> --}}
 	<div title="Project name"><strong>P : </strong>{{ $row->project_name }}</div>
 	<div title="Project Size"><strong>S : </strong>{{ $row->project_size }}</div>
 </td>
