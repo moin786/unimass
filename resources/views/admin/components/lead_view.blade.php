@@ -42,16 +42,16 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-12 p-0">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="lead_id">Lead ID :</label>
                                         <h5>{{ $lead_data->lead_id }}</h5>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="cus_entry_date">Date :</label>
                                         <h5>{{ date("d/m/Y", strtotime($lead_data->created_at)) }}</h5>
                                     </div>
-                                    <div class="col-md-4">
+                               {{--      <div class="col-md-4">
                                         <label for="lead_entry_type"> Lead Source :</label>
                                         @if($lead_data->lead_entry_type ==1 )
                                         <h5>MQL</h5>
@@ -63,15 +63,15 @@
                                         <h5></h5>
                                         @endif
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="col-md-12 p-0">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="">Client Name 1:</label>
                                         <h5 style="text-transform: capitalize;">{{ $lead_data->customer_firstname }}</h5>
                                         <h5 style="text-transform: capitalize;">{{ $lead_data->customer_lastname }}</h5>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="">Client Name 2:</label>
                                         <h5 style="text-transform: capitalize;">{{ $lead_data->customer_firstname2 }}</h5>
                                         <h5 style="text-transform: capitalize;">{{ $lead_data->customer_lastname2 }}</h5>
@@ -193,21 +193,21 @@
                         </div>
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-3">
+                                {{-- <div class="col-md-3">
                                     <label>Category :</label>
                                     <h5>{{ $lead_data->project_category_name }}</h5>
-                                </div>
-                                <div class="col-md-3">
+                                </div> --}}
+                                <div class="col-md-4">
                                     <label>Area :</label>
                                     <h5>{{ $lead_data->project_area }}</h5>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Project Name :</label>
                                     <h5>{{ $lead_data->project_name }}</h5>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label>Size :</label>
                                     <h5>{{ $lead_data->project_size }}</h5>
                                 </div>
@@ -232,11 +232,11 @@
                                     <h5>{{ $lead_data->user_full_name }}</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Cluster/BH/TL :</label>
+                                    <label>TL :</label>
                                     <h5>{{ $lead_data->lead_cluster_head_name }}</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Cluster Head Assign Date :</label>
+                                    <label>TL Assign Date :</label>
                                     <h5>{{ (!empty($lead_data->lead_cluster_head_name))? date("d/m/Y", strtotime($lead_data->lead_cluster_head_assign_dt)): " " }}</h5>
                                 </div>
                                 @if(!empty($lead_data->lead_sales_agent_name))
@@ -269,12 +269,12 @@
                                 @endif
 
                                 @endif
-                                @if($lead_data->source_auto_usergroup_pk_no == 73)
+                               {{--  @if($lead_data->source_auto_usergroup_pk_no == 73)
                                 <div class="col-md-4">
                                     <label>Sub Source Name :</label>
                                     <h5>{{ $lead_data->source_auto_sub }}</h5>
                                 </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -351,7 +351,7 @@
 
                     <div class="box" style="border: 0px;">
                         <div class="box-header">
-                            <h3 class="box-title">Lead Sub Source</h3>
+                            <h3 class="box-title">Lead Source</h3>
                         </div>
                         <div class="box-body">
 
@@ -613,7 +613,7 @@
                                 <th scope="col">Date</th>
                                 <th scope="col">Followup Note</th>
                                 <th scope="col">Next Followup</th>
-                                <th scope="col">Visit / Meeting</th>                                
+                                <th scope="col">Visit / Meeting</th>
                                 <th scope="col">Visit Note</th>
                                 <th scope="col">Before Stage</th>
                                 <th scope="col">After Stage</th>
@@ -627,11 +627,11 @@
 
                                 <td scope="row" style="width: 200px;">{{ $followup->followup_Note }}</td>
                                 <td scope="row">{{ ($followup->Next_FollowUp_date != '1970-01-01')?date("d/m/Y", strtotime($followup->Next_FollowUp_date)):"" }}</td>
-                                <td> 
+                                <td>
                                     <div><strong>{{ isset($meeting_status[$followup->meeting_status])? $meeting_status[$followup->meeting_status] : "N/A"  }}</strong></div>
                                     <div>{{ (!empty($followup->meeting_status))? date("d/m/Y",strtotime($followup->meeting_date)) : "" }}</div>
                                     <div>{{ (!empty($followup->meeting_status))? date("H:i a",strtotime($followup->meeting_time)) : "" }}</div>
-                                </td>                                
+                                </td>
                                 <td scope="row" style="width: 200px;">{{ $followup->next_followup_Note }}</td>
                                 <td scope="row">{{ $lead_stage_arr[$followup->lead_stage_before_followup] }}</td>
                                 <td scope="row">{{ $lead_stage_arr[$followup->lead_stage_after_followup] }}</td>
@@ -821,10 +821,10 @@
                         <div class="box-header with-border">
                             <h3 class="box-title">Lead History</h3>
                         </div>
-                        <div class="box-body "> 
+                        <div class="box-body ">
                             <div class="row">
                                 <div class="col-md-12 table-responsive">
-                                    
+
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -834,11 +834,11 @@
                                         <th scope="col">Spouse Name</th>
                                         <th scope="col">Spouse DOB</th>
                                         <th scope="col">Marriage Anniversary</th>
-                                        <th scope="col">1st Children Name</th>                                    
-                                        <th scope="col">1st Children DOB</th>                                        
-                                        <th scope="col">2nd Children Name</th>                                      
+                                        <th scope="col">1st Children Name</th>
+                                        <th scope="col">1st Children DOB</th>
+                                        <th scope="col">2nd Children Name</th>
                                         <th scope="col">2nd Children DOB</th>
-                                        <th scope="col">3rd Children Name</th>                                  
+                                        <th scope="col">3rd Children Name</th>
                                         <th scope="col">3rd Children DOB</th>
                                         <th scope="col">Child Education</th>
                                         <th scope="col">Food Habit</th>
