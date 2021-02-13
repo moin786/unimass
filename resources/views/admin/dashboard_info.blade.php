@@ -1,5 +1,5 @@
 @php
-$ses_is_super_admin =Session::get("user.is_super_admin");
+$ses_is_super_admin = Session::get('user.is_super_admin');
 $ses_other_user_id = Session::get('user.ses_other_user_pk_no');
 $ses_other_user_name = Session::get('user.ses_other_full_name');
 $ses_role_lookup_pk_no = Session::get('user.ses_role_lookup_pk_no');
@@ -433,7 +433,7 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 				</ul> --}}
             {{-- </div> --}}
             {{-- </div> --}}
-            @if ($role_id == 551 || $role_id == 77 || $ses_is_super_admin==1)
+            @if ($role_id == 551 || $role_id == 77 || $ses_is_super_admin == 1)
                 <div class="box box-primary">
                     {{-- <div class="box-header">
 				<i class="ion ion-clipboard"></i>
@@ -729,20 +729,19 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
                             </a>
                         </li>
                         <li>
-
-                            <a href="{{ route('junk_work_list', 1) }}" class="routeSetUp">
+                            <a href="{{ route('junk_work_list', 0) }}" class="routeSetUp">
                                 <span class="handle">
                                     <i class="fa fa-ellipsis-v"></i>
                                     <i class="fa fa-ellipsis-v"></i>
                                 </span>
-                                <span class="text">Junk MQL</span>
+                                <span class="text">Junk</span>
 
-                                @if ($junk_mql[0]->total_lead == 0)
+                                @if ($junk[0]->total_lead == 0)
                                     <small
-                                        class="label label-default pull-right">{{ isset($junk_mql[0]->total_lead) ? $junk_mql[0]->total_lead : 0 }}</small>
+                                        class="label label-default pull-right">{{ isset($junk[0]->total_lead) ? $junk[0]->total_lead : 0 }}</small>
                                 @else
                                     <small
-                                        class="label label-success pull-right">{{ isset($junk_mql[0]->total_lead) ? $junk_mql[0]->total_lead : 0 }}</small>
+                                        class="label label-success pull-right">{{ isset($junk[0]->total_lead) ? $junk[0]->total_lead : 0 }}</small>
                                 @endif
                             </a>
                         </li>

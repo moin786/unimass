@@ -26,7 +26,7 @@
 		@if($module == "Dashboard")
 		<li>
 			<a href="{{ route('admin.dashboard') }}">
-				<i class="fa fa-circle-o"></i> Dashboard
+				<i class="fa fa-circle-o"></i> <span>Dashboard</span>
 			</a>
 		</li>
 		@else
@@ -49,10 +49,10 @@
 				@endforeach
 				@endif
 			</ul>
-			
+
 		</li>
 		@endif
-		
+
 		@endif
 		@endforeach
 	</ul>
