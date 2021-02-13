@@ -26,7 +26,7 @@
 <section class="content">
 	<div class="box box-info">
 		<!-- form start -->
-		<form id="frmLead" action="{{ route('store_import_csv2') }}" method="post" enctype="multipart/form-data">
+		<form id="frmLead" action="{{ route('store_import_csv') }}" method="post" enctype="multipart/form-data">
 			{!! csrf_field() !!}
 			<div class="box-body">
 				<div class="form-group">

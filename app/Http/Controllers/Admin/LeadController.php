@@ -1263,16 +1263,19 @@ class LeadController extends Controller
 
     public function store_import_csv(Request $request)
     {
-        $user_group_arr = ["Digital & Call Center" => 73, "Sales" => 77, "DMD" => 551];
+        $user_group_arr = ["GM(CRS)" => 73, "Sales" => 77, "DFS" => 551];
+        
         $lead_stage_arr = [
-            'Lead' => 1,
-            'Prospect' => 3,
-            'Priority' => 4,
-            'Hold' => 5,
-            'Closed' => 6,
-            'Sold' => 7,
-            'Junk' => 9,
-            'Higher Prospect' => 13
+            1 => 'Lead',
+            3 => 'Cool',
+            4 => 'Warm',
+            5 => 'Hold',
+            6 => 'Closed',
+            7 => 'Sold/On-board',		
+            9 => 'Junk',
+            13 => 'Hot',
+            14 => 'Block',
+    
         ];
         $lookup_data = LookupData::all();
         $lookup_data_arr = $lookup_uid_data_arr = [];
@@ -2174,16 +2177,18 @@ class LeadController extends Controller
     //
     public function store_import_csv2(Request $request)
     {
-        $user_group_arr = ["Digital & Call Center" => 73, "Sales" => 77, "DMD" => 551];
+        $user_group_arr = ["GM(CRS)" => 73, "Sales" => 77, "DFS" => 551];
         $lead_stage_arr = [
-            'Lead' => 1,
-            'Prospect' => 3,
-            'Priority' => 4,
-            'Hold' => 5,
-            'Closed' => 6,
-            'Sold' => 7,
-            'Junk' => 9,
-            'Higher Prospect' => 13
+            1 => 'Lead',
+            3 => 'Cool',
+            4 => 'Warm',
+            5 => 'Hold',
+            6 => 'Closed',
+            7 => 'Sold/On-board',		
+            9 => 'Junk',
+            13 => 'Hot',
+            14 => 'Block',
+    
         ];
         $lookup_data = LookupData::all();
         $lookup_data_arr = $lookup_uid_data_arr = [];
