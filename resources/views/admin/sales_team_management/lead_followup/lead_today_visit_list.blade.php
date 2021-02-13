@@ -1,3 +1,6 @@
+@php
+    $userRoleID= Session::get("user.ses_role_lookup_pk_no");
+@endphp
 <h3> Visit Lists </h3> <br>
 <div class="table-responsive">
     <table id="datatable2" class="table table-bordered table-striped table-hover">
@@ -43,16 +46,16 @@
             @php
             $followup_dt = date('d/m/Y', $followup_date);
             @endphp
-            
+
 
             @php
             $ses_user_id   = Session::get('user.ses_user_pk_no');
             @endphp
             <tr>
-                @include('admin.components.lead_list_table')    
+                @include('admin.components.lead_list_table')
 
                 <td> {{ $row->last_followup_name }} </td>
-                <td>{{ ($row->last_followup_name != "")?$followup_dt:'' }}</td> 
+                <td>{{ ($row->last_followup_name != "")?$followup_dt:'' }}</td>
                 <td>{{ $row->next_followup_Note }}</td>
                 <td>{{ ($row->visit_meeting_done_dt!="")?date("d/m/Y", strtotime($row->visit_meeting_done_dt)):"" }}</td>
 
@@ -64,12 +67,12 @@
                     @if($row->lead_sales_agent_pk_no == $ses_user_id)
                     <span class="btn bg-info btn-xs lead-edit" data-title="Lead Edit" title="Lead Edit" data-id="{{ $row->lead_pk_no }}" data-action="{{ route('lead.edit',$row->lead_pk_no) }}"><i class="fa fa-edit"></i></span>
                     @endif
-                    @if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod'))
+                    @if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod') && $userRoleID!=551)
                         <span class="btn bg-info btn-xs next-followup" data-title="Lead Followup" title="Lead Followup" data-id="{{ $row->lead_pk_no }}" data-action="{{ route('lead_follow_up.edit',$row->lead_pk_no) }}">
                             <i class="fa fa-list"></i>
-                        </span>     
+                        </span>
                     @endif
-                    @if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod'))
+                    @if (!Session::get('user.is_team_leader') && !Session::get('user.is_ses_hod') && $userRoleID!=551)
                     <span class="btn bg-info btn-xs lead-sold" data-title="Lead Sold" title="Lead Sold" data-id="{{ $row->lead_pk_no }}" data-action="{{ route('lead_sold',$row->lead_pk_no) }}">
                         <i class="fa fa-handshake-o"></i>
                     </span>

@@ -429,7 +429,7 @@ class DashboardController extends Controller
             			} else {
             				$distribute_lead_count = count(
             					DB::table('t_lead2lifecycle_vw')
-            					->whereRaw("(`lead_sales_agent_pk_no` = $ses_user_id 
+            					->whereRaw("(`lead_sales_agent_pk_no` = $ses_user_id
             						OR `lead_cluster_head_pk_no` = $ses_user_id ) AND (`lead_dist_by` IS NULL OR lead_dist_by !=$ses_user_id )")
             					->orderBy("lead_cluster_head_assign_dt", "desc")
             					->get());
@@ -456,7 +456,7 @@ class DashboardController extends Controller
 
 
             		$distribute_lead_count = count(DB::table('t_lead2lifecycle_vw')
-            			->whereRaw("(`lead_sales_agent_pk_no` = $other_user_id 
+            			->whereRaw("(`lead_sales_agent_pk_no` = $other_user_id
             				OR `lead_cluster_head_pk_no` = $other_user_id ) AND (`lead_dist_by` IS NULL OR lead_dist_by !=$other_user_id )")
             			->orderBy("lead_cluster_head_assign_dt", "desc")
             			->get());
@@ -480,16 +480,16 @@ class DashboardController extends Controller
             }
 
             if ($is_super_admin == 1) {
-            	$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE 
+            	$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE
             		s_lookdata.`lookup_pk_no` = t_lead2lifecycle_vw.`source_digital_marketing` GROUP BY s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`");
             } else {
             	if ($userRoleID == 551) {
-            		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE 
+            		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE
             			s_lookdata.`lookup_pk_no` = t_lead2lifecycle_vw.`source_digital_marketing` GROUP BY s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`");
 
             	} else {
 
-            		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE 
+            		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`,COUNT(t_lead2lifecycle_vw.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw WHERE
             			s_lookdata.`lookup_pk_no` = t_lead2lifecycle_vw.`source_digital_marketing` $user_cond GROUP BY s_lookdata.`lookup_name`,t_lead2lifecycle_vw.`source_digital_marketing`");
 
             	}
@@ -512,7 +512,7 @@ class DashboardController extends Controller
             //Project Wise Count
 
             $project_name = LookupData::where("lookup_type",6)->get();
-            if($userRoleID==551){
+            if($userRoleID==551 || $is_super_admin==1){
             	$cond = "group by Project_pk_no";
 
 
@@ -529,7 +529,7 @@ class DashboardController extends Controller
             		$project_wise_count[$value->Project_pk_no] = $value->total_project;
             	}
             }
-            
+
             return view('admin.dashboard', compact('lead_count', 'k1', 'sgl', 'mql', 'walkin', 'priority', 'sold', 'hold',
             	'closed', 'transferred', 'accepted', 'avt_data', 'apt_data', 'acr_data', 'next_followup', 'missed_followup',
             	'digital_mkt', 'hotline', 'hp', 'today_followup', 'all_lead_count', 'distribute_lead_count', 'is_hod', 'is_hot',
@@ -1066,7 +1066,7 @@ class DashboardController extends Controller
         			} else {
         				$distribute_lead_count = count(
         					DB::table('t_lead2lifecycle_vw')
-        					->whereRaw("((`lead_sales_agent_pk_no` = $ses_user_id 
+        					->whereRaw("((`lead_sales_agent_pk_no` = $ses_user_id
         						OR `lead_cluster_head_pk_no` = $ses_user_id ) AND (`lead_dist_by` IS NULL OR lead_dist_by !=$ses_user_id ))")
         					->orderBy("lead_cluster_head_assign_dt", "desc")
         					->get());
@@ -1091,7 +1091,7 @@ class DashboardController extends Controller
 
 
         		$distribute_lead_count = count(DB::table('t_lead2lifecycle_vw')
-        			->whereRaw("((`lead_sales_agent_pk_no` = $other_user_id 
+        			->whereRaw("((`lead_sales_agent_pk_no` = $other_user_id
         				OR `lead_cluster_head_pk_no` = $other_user_id ) AND (`lead_dist_by` IS NULL OR lead_dist_by !=$other_user_id )) " . $date_cond3 . "")
         			->orderBy("lead_cluster_head_assign_dt", "desc")
         			->get());
@@ -1114,16 +1114,16 @@ class DashboardController extends Controller
         	$user_cond = " AND (b.lead_sales_agent_pk_no IN($get_all_tem_members) OR b.lead_cluster_head_pk_no IN($get_all_tem_members))";
         }
         if ($is_super_admin == 1) {
-        	$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE 
+        	$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE
         		s_lookdata.`lookup_pk_no` = b.`source_digital_marketing` $date_cond2  GROUP BY s_lookdata.`lookup_name`,b.`source_digital_marketing`");
         } else {
         	if ($userRoleID == 551) {
-        		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE 
+        		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE
         			s_lookdata.`lookup_pk_no` = b.`source_digital_marketing` $date_cond2 GROUP BY s_lookdata.`lookup_name`,b.`source_digital_marketing`");
 
         	} else {
                 //$get_all_team_members = rtrim(($get_all_tem_members), ", ");
-        		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE 
+        		$source_wise_count = DB::select("SELECT s_lookdata.`lookup_name`,b.`source_digital_marketing`,COUNT(b.`source_digital_marketing`) AS digital FROM s_lookdata,t_lead2lifecycle_vw b WHERE
         			s_lookdata.`lookup_pk_no` = b.`source_digital_marketing` $user_cond $date_cond2 GROUP BY s_lookdata.`lookup_name`,b.`source_digital_marketing`");
 
         	}
@@ -1146,13 +1146,13 @@ class DashboardController extends Controller
 
         $role_id = 0;
         $project_name = LookupData::where("lookup_type",6)->get();
-        if($userRoleID==551){
+        if($userRoleID==551 || $is_super_admin==1){
         	$cond = "where created_at BETWEEN '$fromdate' AND '$todate' group by project_name";
 
 
         }else{
         	$cond= "where (t_lead2lifecycle_vw.lead_sales_agent_pk_no IN($get_all_tem_members) OR t_lead2lifecycle_vw.lead_cluster_head_pk_no IN($get_all_tem_members)) $date_cond group by project_name ";
-        	
+
         }
         $lead_data = DB::select("select Project_pk_no,count(project_name) as total_project from t_lead2lifecycle_vw $cond ");
 
@@ -1166,6 +1166,7 @@ class DashboardController extends Controller
         return view('admin.dashboard_info', compact('lead_count', 'k1', 'sgl', 'mql', 'walkin', 'priority', 'sold', 'hold',
         	'closed', 'transferred', 'accepted', 'avt_data', 'apt_data', 'acr_data', 'next_followup', 'missed_followup',
         	'digital_mkt', 'hotline', 'hp', 'today_followup', 'all_lead_count', 'distribute_lead_count', 'is_hod', 'is_hot',
-        	'is_tl', 'ses_user_type', 'is_super_admin', 'role_id', 'source_wise_count_arr', 'user_type', 'other_user_id', 'my_lead', 'meeting_count','junk','junk_mql','junk_walkin',   'junk_sgl','project_name','project_wise_count'));
+        	'is_tl', 'ses_user_type', 'is_super_admin', 'role_id', 'source_wise_count_arr', 'user_type', 'other_user_id', 'my_lead',
+            'meeting_count','junk','junk_mql','junk_walkin',   'junk_sgl','project_name','project_wise_count'));
     }
 }
