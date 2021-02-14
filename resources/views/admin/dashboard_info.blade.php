@@ -433,7 +433,7 @@ $role_id = Session::get('user.ses_role_lookup_pk_no');
 				</ul> --}}
             {{-- </div> --}}
             {{-- </div> --}}
-            @if ($role_id == 551 || $role_id == 77 || $ses_is_super_admin == 1)
+            @if ($role_id == 551 || $role_id == 77 || $ses_is_super_admin == 1  || $user_type==1)
                 <div class="box box-primary">
                     {{-- <div class="box-header">
 				<i class="ion ion-clipboard"></i>
