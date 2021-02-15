@@ -26,12 +26,11 @@
 		@if($module == "Dashboard")
 		<li>
 			<a href="{{ route('admin.dashboard') }}">
-				<i class="fa fa-circle-o"></i> <span>Dashboard</span>
+				<i class="fa fa-dashboard"></i><span>Dashboard</span></a>
 			</a>
 		</li>
 		@else
 		<li class="treeview">
-
 			<a href="#">
 				<i class="fa fa-hand-grab-o"></i>
 				<span>{{ $module  }}</span>
