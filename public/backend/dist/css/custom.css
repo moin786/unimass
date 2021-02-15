@@ -709,7 +709,9 @@ hr {border:0px;border-bottom: 1px solid #e3e3e3;margin:4px;}
 
 
 
-
+a {
+    color: #16469f;
+}
 
 .select2-container {
     display: block;
@@ -736,7 +738,7 @@ hr {border:0px;border-bottom: 1px solid #e3e3e3;margin:4px;}
 
 label {
     margin-bottom: 2px !important;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .form-control:focus {
@@ -781,4 +783,42 @@ label {
 .form-control-feedback {
     height: 30px !important;
     line-height: 30px !important;
+}
+
+.sidebar-menu > li > a {
+    padding: 8px 10px 8px 10px !important;
+    background-color: #dbe2ef;
+    margin-bottom: 1px;
+    transition: all 0.3s;
+}
+
+.sidebar-menu > li:hover > a {
+    border-left: 3px solid #16469f;
+}
+
+.main-sidebar {
+    padding-top: 53px;
+}
+.main-header .sidebar-toggle {
+    padding: 18px 16px;
+}
+
+.main-header .logo {
+    background-color: #dbe2ef!important;
+    height: 53px;
+}
+
+.sidebar-menu>li>a>.fa,
+.sidebar-menu>li>a>.glyphicon,
+.sidebar-menu>li>a>.ion {
+    text-align: center;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #f37f2a;
+    color: white;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple,
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border-color: #f37f2a !important;
 }
