@@ -1263,16 +1263,19 @@ class LeadController extends Controller
 
     public function store_import_csv(Request $request)
     {
-        $user_group_arr = ["Digital & Call Center" => 73, "Sales" => 77, "DMD" => 551];
+        $user_group_arr = ["GM(CRS)" => 73, "Sales" => 77, "DFS" => 551];
+        
         $lead_stage_arr = [
             'Lead' => 1,
-            'Prospect' => 3,
-            'Priority' => 4,
+            'Cool' => 3,
+            'Warm' => 4,
             'Hold' => 5,
             'Closed' => 6,
-            'Sold' => 7,
+            'Sold/On-board' => 7,		
             'Junk' => 9,
-            'Higher Prospect' => 13
+            'Hot' => 13,
+            'Block' => 14,
+    
         ];
         $lookup_data = LookupData::all();
         $lookup_data_arr = $lookup_uid_data_arr = [];
@@ -1362,7 +1365,7 @@ class LeadController extends Controller
             $remarks = trim($leadArr[$i]["Remarks"]);
 
             $cluster_head = trim($leadArr[$i]["Cluster_head"]);
-            $ch_assign_dt = date("Y-m-d", strtotime(trim($leadArr[$i]["Ch_Assign_Dt"])));
+            $ch_assign_dt = date("Y-m-d");//date("Y-m-d", strtotime(trim($leadArr[$i]["Ch_Assign_Dt"])));
             $agent_name = trim($leadArr[$i]["Sales_Agent_Name"]);
             $current_stage = trim($leadArr[$i]["current_stage"]);
             $lead_followup_date = date("Y-m-d", strtotime(trim($leadArr[$i]["Lead_followup_date"])));
@@ -1377,6 +1380,8 @@ class LeadController extends Controller
     				,'$office_house_plot','$office_road_no'," . (isset($area_arr[$office_area_name]) ? $area_arr[$office_area_name] : 0) . "," . (isset($district_arr[$office_district_name]) ? $district_arr[$office_district_name] : 0) . "," . (isset($thana_arr[$office_thana_name]) ? $thana_arr[$office_thana_name] : 0) . "," . (isset($lookup_data_arr[$meeting_status]) ? $lookup_data_arr[$meeting_status] : 0) . "
     				,'" . (isset($meeting_date) ? date("Y-m-d", strtotime($meeting_date)) : date("Y-m-d", strtotime('0000-01-01'))) . "','" . (isset($meeting_date) ? date("Y-m-d", strtotime($meeting_date)) : date("Y-m-d", strtotime('0000-01-01'))) . "','','','','','','','','','',1," . (isset($user_data_arr[$cre]) ? $user_data_arr[$cre] : 0) . ",'" . (date('Y-m-d')) . "')")
             );
+
+            //return isset($lead_stage_arr[$current_stage]) ? $lead_stage_arr[$current_stage] : '';
 
             $lead_mst_id = $lead_insert_proc[0]->l_lead_pk_no;
             if ($lead_mst_id != "") {
@@ -2174,16 +2179,18 @@ class LeadController extends Controller
     //
     public function store_import_csv2(Request $request)
     {
-        $user_group_arr = ["Digital & Call Center" => 73, "Sales" => 77, "DMD" => 551];
+        $user_group_arr = ["GM(CRS)" => 73, "Sales" => 77, "DFS" => 551];
         $lead_stage_arr = [
             'Lead' => 1,
-            'Prospect' => 3,
-            'Priority' => 4,
+            'Cool' => 3,
+            'Warm' => 4,
             'Hold' => 5,
             'Closed' => 6,
-            'Sold' => 7,
+            'Sold/On-board' => 7,		
             'Junk' => 9,
-            'Higher Prospect' => 13
+            'Hot' => 13,
+            'Block' => 14,
+    
         ];
         $lookup_data = LookupData::all();
         $lookup_data_arr = $lookup_uid_data_arr = [];

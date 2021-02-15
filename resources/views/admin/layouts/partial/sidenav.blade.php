@@ -27,6 +27,7 @@
 		<li>
 			<a href="{{ route('admin.dashboard') }}">
 				<i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+			</a>
 		</li>
 		@else
 		<li class="treeview">
@@ -47,10 +48,10 @@
 				@endforeach
 				@endif
 			</ul>
-			
+
 		</li>
 		@endif
-		
+
 		@endif
 		@endforeach
 	</ul>

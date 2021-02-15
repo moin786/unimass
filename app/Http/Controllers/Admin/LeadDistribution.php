@@ -97,7 +97,7 @@ class LeadDistribution extends Controller
 				INNER JOIN `s_lookdata` ON `t_teambuild`.`team_lookup_pk_no` = `s_lookdata`.`lookup_pk_no`
 				INNER JOIN `s_user` ON `s_user`.`user_pk_no` = `t_teambuild`.`user_pk_no`
 				WHERE `t_teambuild`.`team_lookup_pk_no` IN ($get_all_teams)
-				AND `t_teambuild`.`agent_type` = 2 and `t_teambuild`.`user_pk_no` != $ses_user_id");
+				AND `t_teambuild`.`agent_type` = 2 and `t_teambuild`.`user_pk_no` != $ses_user_id and hod_flag !=1");
         } else {
             $sales_agent_arr = [];
         }

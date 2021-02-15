@@ -141,7 +141,7 @@ class LeadTransferController extends Controller
 			->get();
 
 		}
-		return view('admin.sales_team_management.lead_transfer.lead_transfer', compact('sales_agent_info', 'lead_transfer_list', 'lead_stage_arr', 'project_cat', 'project_area', 'followup_arr', 'is_ch', 'cluster_head_list', 'days', 'ses_user_id', 'userRoleId'));
+		return view('admin.sales_team_management.lead_transfer.lead_transfer', compact('sales_agent_info', 'lead_transfer_list', 'lead_stage_arr', 'project_cat', 'project_area', 'followup_arr', 'is_ch', 'cluster_head_list', 'days', 'ses_user_id', 'userRoleId','is_ses_hot','is_team_leader'));
 	}
 
 	public function lead_create_transfer(Request $request)
