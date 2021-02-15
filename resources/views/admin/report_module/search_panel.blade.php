@@ -17,7 +17,7 @@
 
         <div class="col-md-2">
             <div class="form-group">
-                <label for="cluster_head">Cluster Head </label>
+                <label for="cluster_head">CRS </label>
                 <select class="form-control select2" style="width: 100%;" aria-hidden="true"
                         id="cluster_head" name="cluster_head">
                     <option value="">Select</option>
