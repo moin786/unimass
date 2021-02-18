@@ -188,4 +188,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/load_note_sheet_list', "LeadDistribution@load_note_sheet_list")->name("load_note_sheet_list");
 
 
+    Route::get('/district_thana_setup', "DistrictController@district_thana_setup")->name("district_thana_setup");  
+    Route::get('/add_district_thana_popup', "DistrictController@add_district_thana_popup")->name("add_district_thana_popup");
+    Route::post('/district-save', "DistrictController@storeDistrict")->name("district-save");
+    Route::get('edit-district/{id}', 'DistrictController@edit_district')->name('district.edit');
+    Route::post('/district-update', "DistrictController@updateDistrict")->name("district-update");
+    Route::get('/district-delete/{id}', "DistrictController@delete")->name("district.delete");
+
+    Route::get('/all-thana', "DistrictController@all_thana")->name("all_thana");
+    Route::post('/thana_store', "DistrictController@storeThana")->name("thana_store");
+    Route::get('edit-thana/{id}', 'DistrictController@edit_thana')->name('thana.edit');
+    Route::post('/thana-update', "DistrictController@updateThana")->name("thana-update");
+    Route::post('/district/get-thana-by-district', "DistrictController@getThanaByDistrict")->name("district.getThanaByDistrict");
+    Route::get('/thana-delete/{id}', "DistrictController@deleteThana")->name("thana.delete");
+
 });
