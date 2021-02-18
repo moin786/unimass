@@ -66,6 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('check_if_phone_no_exist', 'LeadController@check_if_phone_no_exist')->name('check_if_phone_no_exist');
     Route::resource('lead', 'LeadController');
 
+    Route::get('district-thana','DistrictThanaController@districtThana')->name('district-thana');
+
     Route::get('stage_update/{lead_id}', 'LeadFllowupController@stage_update')->name('stage_update');
     Route::post('store_stage_update', 'LeadFllowupController@store_stage_update')->name('store_stage_update');
     Route::get('lead_sold/{lead_id}', 'LeadFllowupController@lead_sold')->name('lead_sold');

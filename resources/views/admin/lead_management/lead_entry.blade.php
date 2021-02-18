@@ -175,6 +175,69 @@
             });
             $.unblockUI();
 
+        $('body').on('change','#txt_present_district', function(){
+            let districtid = $(this).val();
+            $.ajax({
+                data: {district_id:districtid},
+                url: "{{route('district-thana')}}",
+                type: "get",
+                success: function(res) {
+                    let $select = $('#txt_present_thana'); 
+                    $select.find('option').remove(); 
+                    $select.append('<option value="0">Select Thana</option>'); 
+                    $.each(res,function(key, value) 
+                    {
+                        $select.append('<option value=' + value.id + '>' + value.thana_name + '</option>');
+                    });
+                },
+                error: function() {
+
+                }
+            })
+        });
+
+        $('body').on('change','#txt_parmanent_district', function(){
+            let districtid = $(this).val();
+            $.ajax({
+                data: {district_id:districtid},
+                url: "{{route('district-thana')}}",
+                type: "get",
+                success: function(res) {
+                    let $select = $('#txt_parmanent_thana'); 
+                    $select.find('option').remove();  
+                    $select.append('<option value="0">Select Thana</option>');
+                    $.each(res,function(key, value) 
+                    {
+                        $select.append('<option value=' + value.id + '>' + value.thana_name + '</option>');
+                    });
+                },
+                error: function() {
+
+                }
+            })
+        });
+
+        $('body').on('change','#txt_organization_district', function(){
+            let districtid = $(this).val();
+            $.ajax({
+                data: {district_id:districtid},
+                url: "{{route('district-thana')}}",
+                type: "get",
+                success: function(res) {
+                    let $select = $('#txt_organization_thana'); 
+                    $select.find('option').remove();  
+                    $select.append('<option value="0">Select Thana</option>');
+                    $.each(res,function(key, value) 
+                    {
+                        $select.append('<option value=' + value.id + '>' + value.thana_name + '</option>');
+                    });
+                },
+                error: function() {
+                    
+                }
+            })
+        });
+
         $('body').on("change", "#cmb_category", function(e){
             blockUI();
             var cat_id = $(this).val();
