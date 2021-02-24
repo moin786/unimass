@@ -287,14 +287,14 @@ class ReportController extends Controller
     		}
 
     	}
-    	$lookup_arr = [29, 6, 18];
+    	$lookup_arr = [29, 6, 18,2];
     	/*$lead_stage_arr = config('static_arrays.lead_stage_arr');*/
     	$lookup_data = LookupData::whereIn('lookup_type', $lookup_arr)->get();
 
     	$project_name = $team_name = $source = array();
     	foreach ($lookup_data as $key => $value) {
-    		if ($value->lookup_type == 29)
-    			$source[$value->lookup_id] = $value->lookup_name;
+    		if ($value->lookup_type == 2)
+    			$source[$value->lookup_pk_no] = $value->lookup_name;
 
     		if ($value->lookup_type == 6)
     			$project_name[$value->lookup_pk_no] = $value->lookup_name;
@@ -305,7 +305,7 @@ class ReportController extends Controller
     	$cluster_head_wise_count = [];
 
 
-    	$report_name = "MQL";
+    	$report_name = "SOURCE WISE REPORT";
 
     	return view("admin.report_module.stage_wise_user_report", compact("cluster_head", "lead_stage_arr", "lead_source", "report_name", "cluster_head_wise_count","team_name_arr", "project_name", "source", "lead_stage_arr"));
     }
@@ -329,7 +329,7 @@ class ReportController extends Controller
     	$team_cond = ($request->team_name != "") ? "and team_lookup_pk_no = $team_name" : "";
     	$project_cond = ($request->project_name != "") ? "and project_area_pk_no = $project_name" : "";
     	$stage_cond = ($request->stage != "") ? "and lead_current_stage = $stage_name" : "";
-    	$source_cond = ($request->source != "") ? "and lead_entry_type = $source" : "";
+    	$source_cond = ($request->source != "") ? "and source_digital_marketing = $source" : "";
     	$get_all_tem_members = '';
 
     	if ($is_super == 1 || $userRoleID == 551) {
@@ -381,7 +381,7 @@ class ReportController extends Controller
 
 
     	$lead_data = DB::select("SELECT lead_cluster_head_pk_no,lead_current_stage, COUNT(lead_pk_no) AS total_lead, c.`user_fullname` AS user_fullname  FROM t_lead2lifecycle_vw a 
-    		JOIN s_user c ON c.user_pk_no = a.lead_cluster_head_pk_no  WHERE lead_entry_type= '$request->report_type' and (lead_cluster_head_pk_no in ($get_all_tem_members) and lead_sales_agent_pk_no in ($get_all_tem_members)) $date_cond $project_cond $stage_cond $source_cond 
+    		JOIN s_user c ON c.user_pk_no = a.lead_cluster_head_pk_no  WHERE (lead_cluster_head_pk_no in ($get_all_tem_members) and lead_sales_agent_pk_no in ($get_all_tem_members)) $date_cond $project_cond $stage_cond $source_cond 
     		GROUP BY lead_cluster_head_pk_no,lead_current_stage, user_fullname");
 
     	$lead_source_count = DB::select("SELECT lead_cluster_head_pk_no, COUNT(lead_pk_no) AS total_lead,lead_current_stage  FROM t_lead2lifecycle_vw a  WHERE lead_entry_type= '$request->report_type' and (lead_cluster_head_pk_no in ($get_all_tem_members) and lead_sales_agent_pk_no in ($get_all_tem_members)) $date_cond  $project_cond $stage_cond $source_cond
@@ -398,8 +398,8 @@ class ReportController extends Controller
     		GROUP BY lead_cluster_head_pk_no,lead_current_stage");
 
 
-    	echo "SELECT lead_cluster_head_pk_no, COUNT(lead_pk_no) AS total_lead,lead_current_stage  FROM t_lead2lifecycle_vw a WHERE lead_entry_type= '$request->report_type' and (lead_cluster_head_pk_no in ($get_all_tem_members) and lead_sales_agent_pk_no in ($get_all_tem_members)) $date_cond  $project_cond $stage_cond $source_cond
-    	GROUP BY lead_cluster_head_pk_no,lead_current_stage";
+    	// echo "SELECT lead_cluster_head_pk_no, COUNT(lead_pk_no) AS total_lead,lead_current_stage  FROM t_lead2lifecycle_vw a WHERE lead_entry_type= '$request->report_type' and (lead_cluster_head_pk_no in ($get_all_tem_members) and lead_sales_agent_pk_no in ($get_all_tem_members)) $date_cond  $project_cond $stage_cond $source_cond
+    	// GROUP BY lead_cluster_head_pk_no,lead_current_stage";
 
     	$lead_source_arr = [];
     	if(!empty($lead_source_count)){
@@ -460,14 +460,14 @@ class ReportController extends Controller
 
     	}
 
-    	$lookup_arr = [29, 6, 18];
+    	$lookup_arr = [29, 6, 18,2];
     	$lead_stage_arr = config('static_arrays.lead_stage_arr');
     	$lookup_data = LookupData::whereIn('lookup_type', $lookup_arr)->get();
 
     	$project_name = $team_name = $source = array();
     	foreach ($lookup_data as $key => $value) {
-    		if ($value->lookup_type == 29)
-    			$source[$value->lookup_id] = $value->lookup_name;
+    		if ($value->lookup_type == 2)
+    			$source[$value->lookup_pk_no] = $value->lookup_name;
 
     		if ($value->lookup_type == 6)
     			$project_name[$value->lookup_pk_no] = $value->lookup_name;
@@ -498,7 +498,7 @@ class ReportController extends Controller
     	$team_cond = ($request->team_name != "") ? "and team_lookup_pk_no = $team_name" : "";
     	$project_cond = ($request->project_name != "") ? "and project_area_pk_no = $project_name" : "";
     	$stage_cond = ($request->stage != "") ? "and lead_current_stage = $stage_name" : "";
-    	$source_cond = ($request->source != "") ? "and lead_entry_type = $source" : "";
+    	$source_cond = ($request->source != "") ? "and source_digital_marketing = $source" : "";
     	$lead_data_com = [];
 
     	if (empty($request->cluster_head)) {
@@ -1142,14 +1142,14 @@ public function export_daily_report(Request $request)
     		}
 
     	}
-    	$lookup_arr = [29, 6, 18];
+    	$lookup_arr = [29, 6, 18,2];
     	$lead_stage_arr = config('static_arrays.lead_stage_arr');
     	$lookup_data = LookupData::whereIn('lookup_type', $lookup_arr)->get();
 
     	$project_name = $team_name = $source = array();
     	foreach ($lookup_data as $key => $value) {
-    		if ($value->lookup_type == 29)
-    			$source[$value->lookup_id] = $value->lookup_name;
+    		if ($value->lookup_type == 2)
+    			$source[$value->lookup_pk_no] = $value->lookup_name;
 
     		if ($value->lookup_type == 6)
     			$project_name[$value->lookup_pk_no] = $value->lookup_name;
@@ -1180,7 +1180,7 @@ public function export_daily_report(Request $request)
     	$team_cond = ($request->team_name != "") ? "and team_lookup_pk_no = $team_name" : "";
     	$project_cond = ($request->project_name != "") ? "and project_area_pk_no = $project_name" : "";
     	$stage_cond = ($request->stage != "") ? "and lead_current_stage = $stage_name" : "";
-    	$source_cond = ($request->source != "") ? "and lead_entry_type = $source" : "";
+    	$source_cond = ($request->source != "") ? "and source_digital_marketing = $source" : "";
     	$lead_data_com = [];
 
     	$project_report_data = [];

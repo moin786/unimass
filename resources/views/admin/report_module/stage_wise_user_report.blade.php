@@ -49,7 +49,7 @@
 					{{-- Search Engin --}}
 					<div class="box-body">
 						<div class="form-row">
-							<div class="col-md-2">
+							{{-- <div class="col-md-2">
 								<div class="form-group">
 									<label for="report_type">Report Type <span class="text-danger">*</span></label>
 									<select class="form-control" name="report_type" id="report_type">
@@ -62,7 +62,7 @@
 
 									</select>
 								</div>
-							</div>
+							</div> --}}
 
                             @include("admin.report_module.search_panel")
 
@@ -110,9 +110,9 @@
 		$(document).on("click", "#btnSearchReport", function(e){
 			e.preventDefault();
 			var report_type = $("#report_type").val();
-			if(report_type== ""){
-				alert("You did not select any Report Type");
-			}else{
+			//if(report_type== ""){
+			//	alert("You did not select any Report Type");
+			//}else{
 			$.ajax({
 				data: $('#frmSearch').serialize(),
 				url: 'stage_wise_user_report_result',
@@ -153,7 +153,7 @@
 
 				}
 			});
-		}
+		//}
 		});
 
 		$(document).on("click", "#btnExportLeads", function(e){

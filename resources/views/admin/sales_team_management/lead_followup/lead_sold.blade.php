@@ -21,10 +21,10 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="flat">Flat :</label>
+                <label for="flat">Apartment :</label>
                 <select class="form-control required" name="flat" style="width: 100%;" aria-hidden="true"
                     required="required">
-                    <option selected="selected" value="">Select Flat</option>
+                    <option selected="selected" value="">Select Apartment</option>
                     @if (!empty($flat_list))
                         @foreach ($flat_list as $flat)
                             <option value="{{ $flat->flatlist_pk_no }}"
@@ -37,14 +37,14 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Flat Cost :</label>
+                        <label for="">Apartment Cost :</label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
-                            id="flat_cost" name="flat_cost" value="" title="" placeholder="Flat Cost" />
+                            id="flat_cost" name="flat_cost" value="" title="" placeholder="Apartment Cost" />
                     </div>
                     <div class="col-md-6">
-                        <label for="">Reserve Money :</label>
+                        <label for="">Reserve Fund :</label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
-                            id="flat_cost" name="reserve_money" value="" title="" placeholder="Reserve Money" />
+                            id="flat_cost" name="reserve_money" value="" title="" placeholder="Reserve Fund" />
                     </div>
                 </div>
 
