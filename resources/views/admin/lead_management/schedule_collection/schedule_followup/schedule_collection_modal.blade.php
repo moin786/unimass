@@ -1,4 +1,4 @@
-	<div class="tab-pane table-responsive active" id="schedule_collection">
+	<div class="tab-pane table-responsive " id="schedule_collection">
 		<div class="box mb-0">
 			<div class="box-body">
 				<div class="form-row">
@@ -16,7 +16,7 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<table class="table-bordered mb-0">
+						<table class="table table-bordered mb-0">
 							<thead class="bg-blue">
 								<th class="text-center">Date</th>
 								<th class="text-center">Followup Note</th>

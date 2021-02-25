@@ -96,7 +96,7 @@ class projectScheduleController extends Controller
             return view("admin.lead_management.schedule_collection.missed_followup");
         }
         if($tab_type == 3){
-            return view("admin.lead_management.schedule_collection.sold_lead");
+            return view("admin.lead_management.schedule_collection.next_followup");
         }
 
     }
@@ -110,7 +110,7 @@ class projectScheduleController extends Controller
             return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal");
         }
         if($tab_type == 3){
-            return view("admin.lead_management.schedule_collection.schedule_followup.compeleted_collection");
+            return view("admin.lead_management.schedule_collection.schedule_followup.completed_collection");
         }
 
     }
@@ -118,6 +118,10 @@ class projectScheduleController extends Controller
 
     public function lead_sold_view(){
         return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal_data");
+    }
+
+    public function collected_collection_view(){
+        return view("admin.lead_management.schedule_collection.collected_collection_view");
     }
 
 

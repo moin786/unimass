@@ -676,7 +676,12 @@ hr {border:0px;border-bottom: 1px solid #e3e3e3;margin:4px;}
 
 
 
-
+.box-header {
+    padding: 7px 10px!important;
+    border-radius: 4px 4px 0px 0px!important;
+    background-color: #2c3191;
+    color: #fff;
+}
 
 
 

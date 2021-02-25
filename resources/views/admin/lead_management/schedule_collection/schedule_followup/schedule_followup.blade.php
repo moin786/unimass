@@ -51,9 +51,6 @@
 								<td class="text-left"></td>
 								<td class="text-left"></td>
 							</tr>
-
-
-
 						</tbody>
 					</table>
 				</div>
