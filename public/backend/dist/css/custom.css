@@ -577,7 +577,7 @@ hr {border:0px;border-bottom: 1px solid #e3e3e3;margin:4px;}
     /*border: 1px solid #222;*/
     /*padding-left: 30px;*/
     /*padding-right: 30px;*/
-    background-color: #3c8dbc;
+    background-color: #0a378a;
     color: #fff;
 
 
@@ -821,4 +821,8 @@ label {
 .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default .select2-search--dropdown .select2-search__field {
     border-color: #f37f2a !important;
+}
+
+.d-flex{
+    display: flex;
 }
