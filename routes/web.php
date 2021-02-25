@@ -203,5 +203,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/thana-update', "DistrictController@updateThana")->name("thana-update");
     Route::post('/district/get-thana-by-district', "DistrictController@getThanaByDistrict")->name("district.getThanaByDistrict");
     Route::get('/thana-delete/{id}', "DistrictController@deleteThana")->name("thana.delete");
+    
 
+
+
+
+    // schedule-controller
+    Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
+
+    Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
+    Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
 });
