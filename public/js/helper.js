@@ -201,6 +201,7 @@ $(document).on("click",".lead-view",function (e) {
 		},
 		success: function (data) {
 			$.unblockUI();
+			
 			$('.common-modal .modal-body').html(data);
 		}
 

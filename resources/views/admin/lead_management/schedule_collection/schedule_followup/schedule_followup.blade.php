@@ -1,4 +1,4 @@
-<div class="tab-pane" id="schedule_followup">
+<div class="tab-pane active" id="schedule_followup">
 	<div class="box mb-0">
 		<div class="box-body">
 			<div class="form-row">

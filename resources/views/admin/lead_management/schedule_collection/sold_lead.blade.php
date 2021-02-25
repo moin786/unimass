@@ -25,7 +25,9 @@
 				<td>1</td>
 				<td>
 					<button class="btn btn-xs bg-aqua"><i class="fa fa-eye"></i></button>
-					<button class="btn btn-xs bg-green" data-toggle="modal" data-target="#followup_modal"><i class="fa fa-check"></i></button>
+					<span class="btn btn-xs bg-green lead-view" data-title="Lead Details" title="Lead Details" data-id="2" data-action="{{ route('lead_sold_view') }}">
+						<i class="fa fa-check"></i>
+					</span>
 					<button class="btn btn-xs bg-blue"><i class="fa fa-bars"></i></button>
 				</td>
 			</tr>
