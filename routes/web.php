@@ -210,6 +210,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     // schedule-controller
     Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
+    Route::get('/lead_sold_view', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
 
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');

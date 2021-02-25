@@ -116,7 +116,9 @@ class projectScheduleController extends Controller
     }
 
 
-
+    public function lead_sold_view(){
+        return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal_data");
+    }
 
 
 }
