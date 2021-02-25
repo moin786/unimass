@@ -5,7 +5,6 @@
 
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('backend/bower_components/select2/dist/css/select2.min.css') }}">
-
 <style>
 	.close {
 		font-size: 27px;
@@ -20,8 +19,8 @@
 	.modal-footer {
 		padding: 7px 15px;
 	}
-
 </style>
+
 @endpush
 
 @section('content')
@@ -55,22 +54,18 @@
 </section>
 
 
+@endsection
 
-	<!-- /.modal -->
+@push('js_lib')
 
+<script src="{{ asset('backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('backend/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+<script>
+	$('.table').DataTable();
+</script>
+@endpush
 
-	@endsection
+@push('js_custom')
 
-	@push('js_lib')
-
-	<script src="{{ asset('backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-	<script src="{{ asset('backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-	<script src="{{ asset('backend/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
-	<script>
-		$('.table').DataTable();
-	</script>
-	@endpush
-
-	@push('js_custom')
-
-	@endpush
+@endpush
