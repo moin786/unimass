@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Session;
-use App\LookupData;
-use App\LeadLifeCycle;
-use App\LeadFollowUp;
-use App\LeadLifeCycleView;
-use App\LeadStageHistory;
-use App\LeadFollowupAttribute;
 use App\FlatSetup;
+use Carbon\Carbon;
+use App\LookupData;
+use App\LeadFollowUp;
+use App\LeadLifeCycle;
+use App\LeadStageHistory;
+use App\LeadLifeCycleView;
 use Illuminate\Http\Request;
+use App\LeadFollowupAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -721,7 +722,26 @@ class LeadFllowupController extends Controller
             'new_stage' => 'required'
         ]);*/
 
+		
+
         $ldata = LeadLifeCycle::findOrFail($request->leadlifecycle_id);
+
+		$i = 0;
+		foreach($request->installment_save as $installment) {
+			DB::table("sold_project_schedlue")->insert([
+				'lead_pk_no' => $ldata->leadlifecycle_pk_no,
+				'lead_id' => $ldata->lead_id,
+				'schedule_date' => date("Y-m-d",strtotime($request->schedule_date_save[$i])),
+				'installment' => $request->installment_save[$i],
+				'amount' => intval($request->amount_save[$i]),
+				'percent_of_total_apt_price' => $request->percent_of_first_installment_save[$i],
+				'created_at' => Carbon::now(),
+				'updated_at' => Carbon::now(),
+			]);
+
+			$i++;
+		}
+
         $ldata->lead_current_stage = 7;
         $ldata->lead_sold_flag = 1;
         $ldata->flatlist_pk_no = $request->flat;
@@ -740,6 +760,8 @@ class LeadFllowupController extends Controller
         	$fdata = FlatSetup::findOrFail($request->flat);
         	$fdata->flat_status = 1;
         	$fdata->save();
+
+			
 
         	return response()->json(['message' => 'Lookup Data updated successfully.', 'title' => 'Success', "positionClass" => "toast-top-right"]);
         } else {

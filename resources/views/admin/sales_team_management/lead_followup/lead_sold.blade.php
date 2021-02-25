@@ -18,6 +18,40 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                     </div>
                 </div>
             </div>
+            <div class="row" style="border-bottom: 1px solid #333; padding-bottom: 5px; padding-top: 10px;">
+               
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Installments</span>
+                        <input type="text" name="installment" id="installment" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Amount</span>
+                        <input type="text" name="amount" id="amount" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <div class="input-group-text text-center">%</div>
+                        <input type="text" name="percent_of_first_installment" id="percent_of_first_installment" class="form-control" placeholder="1st Installment">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <button type="button" class="btn btn-block bg-green schegenerate" style="margin-top:16px;">Generate</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="generated_schedule">
+                    
+                </div>
+
+            </div>
         </div>
         <div class="col-md-4">
             <div class="form-group">
@@ -104,3 +138,10 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
         </div>
     </div>
 </form>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+      
+        $('.datepicker').datepicker();
+    });
+</script>

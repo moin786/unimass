@@ -23,6 +23,9 @@
 <section id="product_category" class="content">
   <div class="row">
     <div class="col-xs-12">
+      @if(Session::has('message'))
+      <div class="alert alert-success">{{Session::get('message')}}</div>
+      @endif
       <div class="box">
         <div class="box-header text-right">
           <span class="btn bg-purple btn-sm pull-right create_modal" data-modal="common-modal-sm" data-action="{{ route('add_district_thana_popup') }}" data-title="Create District And Thana" title="Create District And Thana"><i class="fa fa-plus" style="font-size:12px;"></i> Create New District/Thana</span>

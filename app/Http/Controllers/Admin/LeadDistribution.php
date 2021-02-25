@@ -771,7 +771,7 @@ class LeadDistribution extends Controller
         $userRoleID = Session::get("user.ses_role_lookup_pk_no");
         $is_hod = Session::get("user.is_ses_hod");
         if ($is_super_admin == 1 || $userRoleID == 551 || $is_hod == 1) {
-            $lead_data = DB::table('t_lead2lifecycle_vw')->where("is_note_sheet_approved", "!=", 1)->get();
+            $lead_data = DB::table('t_lead2lifecycle_vw')->where("is_note_sheet_approved", "!=", 1)->where('lead_sold_flag','=',NULL)->get();
         }
         $tab = 1;
         return view("admin.lead_management.note_sheet_approve.note_sheet_list", compact("tab", "lead_data"));
