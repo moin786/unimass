@@ -29,7 +29,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                 <div class="col-md-3">
                     <div class="input-group">
                         <span class="input-group-text">Amount</span>
-                        <input type="text" name="amount" id="amount" class="form-control">
+                        <input type="text" name="amount" id="amount" class="form-control" readonly="readonly">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -55,7 +55,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label for="flat">Apartment :</label>
+                <label for="flat">Apartment <span class="text-danger"> *</span></label>
                 <select class="form-control required" name="flat" style="width: 100%;" aria-hidden="true"
                     required="required">
                     <option selected="selected" value="">Select Apartment</option>
@@ -71,12 +71,12 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Apartment Cost :</label>
+                        <label for="">Apartment Cost <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
                             id="flat_cost" name="flat_cost" value="" title="" placeholder="Apartment Cost" />
                     </div>
                     <div class="col-md-6">
-                        <label for="">Reserve Fund :</label>
+                        <label for="">Reserve Fund <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
                             id="flat_cost" name="reserve_money" value="" title="" placeholder="Reserve Fund" />
                     </div>
@@ -87,13 +87,13 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="">Utility :</label>
+                        <label for="">Utility <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
                             id="utility" name="utility" value="" title="" placeholder="Utility Cost" />
                     </div>
                     <div class="col-md-6">
 
-                        <label for="">Parking :</label>
+                        <label for="">Parking <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only calculate-total-sold text-right"
                             id="parking" name="parking" value="" title="" placeholder="Parking Cost" />
 
@@ -105,7 +105,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-12">
-                        <label for="">Booking Money :</label>
+                        <label for="">Booking Money <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only text-left" id="utility"
                             name="lead_sold_bookingmoney" value="" title="" placeholder="Booking Money" />
                     </div>
@@ -121,7 +121,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
             </div>
 
             <div class="form-group">
-                <label for=""><strong>Date of Sale :</strong></label>
+                <label for=""><strong>Date of Sale <span class="text-danger"> *</span></strong></label>
                 <input type="text" class="form-control required datepicker" id="date_of_sold" name="date_of_sold"
                     value="<?php echo date('d-m-Y'); ?>" readonly="readonly" title=""
                     placeholder="Date of Sold" />

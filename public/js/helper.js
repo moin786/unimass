@@ -113,6 +113,8 @@ $(document).on("click",".btnSaveUpdate",function (e) {
 		},
 		success: function (data) {
 			$.unblockUI();
+			$('.generated_schedule').empty();
+			$('.schegenerate').attr('disabled',false);
 			if(data.type == 'error')
 			{
 				toastr.error(data.message, data.title);
