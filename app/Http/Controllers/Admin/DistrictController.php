@@ -65,6 +65,7 @@ class DistrictController extends Controller
     public function delete($id){
     	DB::table('districts')->where('id',$id)->delete();
     	$redirectURL = 'district_thana_setup';
+        return back()->with('message',"Data Deleted successfully");
     	 return response()->json(['message'=>'Data Deleted successfully.','title'=>'Success',"positionClass" => "toast-top-right","redirectPage"=>$redirectURL]);
     }
 
@@ -123,6 +124,7 @@ class DistrictController extends Controller
      public function deleteThana($id){
         DB::table('upazilas')->where('id',$id)->delete();
         $redirectURL = 'district_thana_setup';
-         return response()->json(['message'=>'Data Deleted successfully.','title'=>'Success',"positionClass" => "toast-top-right","redirectPage"=>$redirectURL]);
+        return back()->with('message',"Data Deleted successfully");
+        return response()->json(['message'=>'Data Deleted successfully.','title'=>'Success',"positionClass" => "toast-top-right","redirectPage"=>$redirectURL]);
     }
 }

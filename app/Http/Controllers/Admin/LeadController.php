@@ -1443,7 +1443,7 @@ class LeadController extends Controller
                     $leadLifeCycleData['lead_closed_by'] = $lead_closed_by;
                 }
 
-                if ($current_stage == "Sold") {
+                if ($current_stage == "Sold/On-board") {
                     $lead_sold_flag = 1;
                     $lead_sold_by = isset($user_data_arr[$agent_name]) ? $user_data_arr[$agent_name] : 0;
 

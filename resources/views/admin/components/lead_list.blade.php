@@ -260,7 +260,15 @@ required="required" aria-hidden="true" {{ $status }}>
     </script>
 
     <script>
+         var delay = (function(){
+            var timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
         $(function() {
+            
             //Flat red color scheme for iCheck
             $('input[type="radio"].flat-red').iCheck({
                 checkboxClass: 'icheckbox_flat-green',
@@ -271,6 +279,9 @@ required="required" aria-hidden="true" {{ $status }}>
                 bSort: false,
                 "pageLength": 30
             });
+            
+            
+
             $(document).on("change", "#teamname", function(e) {
                 blockUI();
                 var team_id = $(this).val();
@@ -447,6 +458,101 @@ required="required" aria-hidden="true" {{ $status }}>
 
                 });
             });
+
+           
+
+            $('body').on('keyup','#percent_of_first_installment', function(){
+                delay(() =>{
+                    let thisval = $(this).val();
+                    let amount = parseFloat($('#grand-total').val())*parseInt($(this).val())/100;
+                    $('#amount').val(amount);
+                    let fitstistallment = 1;
+                    let noofinstallment = parseInt($('#installment').val());
+                    let remainingistallment = (noofinstallment-fitstistallment)
+                    let istallamount = [];
+                    let second_installment = 0;
+                    let other_installment = 0;
+                    var istallment_obj = [];
+                    
+                    let gulo = '';
+
+                    istallment_obj.push({
+                        installment: '1st Istallment',
+                        amount: parseFloat(amount.toFixed(3)),
+                        percent_of_total_apt_price: parseInt($(this).val())
+
+                    })
+
+                    istallamount.push(remainingistallment);
+                    for(i = 1; i<=istallamount; i++) {
+                        if (i == 1) {
+                            continue;
+                        }
+                        if (i == 2) {
+                            second_installment = (100-$(this).val())/(noofinstallment-1);
+                            amount = $('#grand-total').val()*second_installment/100;
+                            istallment_obj.push({
+                                installment: '2nd Istallment',
+                                amount: parseFloat(amount.toFixed(3)),
+                                percent_of_total_apt_price: second_installment.toFixed(3)
+
+                            })
+                        }
+
+                        if (i == 3) {
+                            gulo = 'rd';
+                        } else {
+                            gulo = 'th';
+                        }
+
+                        istallment_obj.push({
+                            installment: i+gulo+ ' installment',
+                            amount: parseFloat(amount.toFixed(3)),
+                            percent_of_total_apt_price: second_installment.toFixed(3)
+
+                        })
+                    }
+
+
+                    $('body').on('click','.schegenerate', function(){
+                        $(this).attr('disabled',true);
+                        istallment_obj.forEach(function(installment) {
+                            let generated_schedule = $('.generated_schedule');
+                            
+                            generated_schedule.append(`
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Date</span>
+                                        <input type="text" name="schedule_date_save[]" class="form-control datepicker">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Installments</span>
+                                        <input type="text" name="installment_save[]" value="${installment.installment}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text">Amount</span>
+                                        <input type="text" name="amount_save[]" value="${installment.amount}" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <div class="input-group-text text-center">%</div>
+                                        <input type="text" name="percent_of_first_installment_save[]" value="${installment.percent_of_total_apt_price}" class="form-control" placeholder="1st Installment">
+                                    </div>
+                                </div>
+                            `);
+
+                            $('.datepicker').datepicker();
+                        });
+                    });
+                },1000);
+            });
+
+            
 
         });
 
