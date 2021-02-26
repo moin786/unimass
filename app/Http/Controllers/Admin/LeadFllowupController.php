@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Session;
+use App\Lead;
 use App\FlatSetup;
 use Carbon\Carbon;
 use App\LookupData;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use App\LeadFollowupAttribute;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\SoldProjectSchedule;
 
 class LeadFllowupController extends Controller
 {
@@ -726,22 +728,37 @@ class LeadFllowupController extends Controller
 
         $ldata = LeadLifeCycle::findOrFail($request->leadlifecycle_id);
 
+		$lead = Lead::findOrFail($ldata->lead_pk_no);
 		$i = 0;
-		foreach($request->installment_save as $installment) {
-			DB::table("sold_project_schedlue")->insert([
-				'lead_pk_no' => $ldata->leadlifecycle_pk_no,
-				'lead_id' => $ldata->lead_id,
-				'schedule_date' => date("Y-m-d",strtotime($request->schedule_date_save[$i])),
-				'installment' => $request->installment_save[$i],
-				'amount' => intval($request->amount_save[$i]),
-				'percent_of_total_apt_price' => $request->percent_of_first_installment_save[$i],
-				'created_at' => Carbon::now(),
-				'updated_at' => Carbon::now(),
-			]);
+		
+		if (isset($request->installment_save)) {
+			foreach($request->installment_save as $installment) {
+				DB::table("sold_project_schedules")->insert([
+					'lead_pk_no' => $ldata->leadlifecycle_pk_no,
+					'lead_id' => $lead->lead_id,
+					'schedule_date' => date("Y-m-d",strtotime($request->schedule_date_save[$i])),
+					'installment' => $request->installment_save[$i],
+					'amount' => intval($request->amount_save[$i]),
+					'percent_of_total_apt_price' => $request->percent_of_first_installment_save[$i],
+					'payment_status' => "In Complete",
+					'created_at' => Carbon::now(),
+					'updated_at' => Carbon::now(),
+				]);
 
-			$i++;
+				$i++;
+			}
 		}
 
+
+		if (!SoldProjectSchedule::where('lead_pk_no', $ldata->lead_pk_no)
+								->where('lead_id',$lead->lead_id)
+								->exists()
+		) {
+
+			return response()->json(['message' => 'Collection Schedule Not Found', 'title' => 'Error', "positionClass" => "toast-top-right"]);
+
+		}
+		
         $ldata->lead_current_stage = 7;
         $ldata->lead_sold_flag = 1;
         $ldata->flatlist_pk_no = $request->flat;
