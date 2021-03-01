@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SoldProjectSchedule extends Model
+class ProjectScheduleCollection extends Model
 {
     //
-	protected $table = 'sold_project_schedules';
+	protected $table = 'project_schedule_collectoins';
 	protected $primaryKey = 'id';
 }

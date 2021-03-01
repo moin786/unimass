@@ -67,66 +67,95 @@
 				<div class="box-body">
 					<div class="form-row">
 						<div class="col-md-8">
-							<table class="">
+							<table class="table">
 								<tbody>
 									<tr>
 										<th>Lead ID:</th>
-										<td>L2021266</td>
+										<td>
+											{{ isset($lead_data) ? $lead_data->lead_id : '' }}
+											<input type="hidden" class="keep_me" name="lead_pk_no"
+											value="{{ isset($lead_data) ? $lead_data->lead_pk_no : '' }}" readonly="readonly" />
+											<input type="hidden" class="keep_me" name="leadlifecycle_id"
+											value="{{ isset($lead_data) ? $lead_data->leadlifecycle_pk_no : '' }}"
+											readonly="readonly" />
+										</td>
 										<th>Lead Date: </th>
-										<td>16/02/2021</td>
+										<td>{{ isset($lead_data) ? date('d/m/Y', strtotime($lead_data->created_at)) : '' }}</td>
 									</tr>
 									<tr>
 										<th>Client 1 :</th>
-										<td>Md. Saiful Islam</td>
+										<td>
+											{{ isset($lead_data) ? $lead_data->customer_firstname . ' ' . $lead_data->customer_lastname : '' }}
+										</td>
 										<th>Client 2 : </th>
-										<td></td>
+										<td>
+											{{ isset($lead_data) ? $lead_data->customer_firstname2 . ' ' . $lead_data->customer_lastname2 : '' }}
+										</td>
 									</tr>
+
+
+
+									@php
+									$masking_number = substr($lead_data->phone1, 0, 7);
+									$masking_number1 = substr($lead_data->phone2, 0, 7);
+									@endphp
+
+
 									<tr>
 										<th>Mobile 1: </th>
-										<td>8801743300335</td>
+										@if ($ses_user_id == $lead_data->created_by || $ses_user_id == $lead_data->lead_sales_agent_pk_no)
+										<td>{{ isset($lead_data) ? $lead_data->phone1_code . '' . $lead_data->phone1 : '' }}</td>
+										@else
+										<td>{{ $masking_number }}****</td>
+										@endif
 										<th>Mobile 2:</th>
-										<td>880</td>
+										@if ($ses_user_id == $lead_data->created_by || $ses_user_id == $lead_data->lead_sales_agent_pk_no)
+										<td>{{ isset($lead_data) ? $lead_data->phone2_code . '' . $lead_data->phone2 : '' }}</td>
+										@else
+										<td>{{ !empty($masking_number1) ? $masking_number1 . '****' : ' ' }}</td>
+										@endif
 									</tr>
 									<tr>
 										<th>Email: </th>
-										<td>ayaanenterprise04@gmail.com</td>
+										<td>{{ isset($lead_data) ? $lead_data->email_id : '' }}</td>
 										<th>Size:</th>
-										<td>1500-2000</td>
+										<td>
+											{{ isset($lead_data) ? $lead_data->project_size : '' }}
+										</td>
+										<input type="hidden" class="keep_me" name="lead_category_id"
+										value="{{ isset($lead_data) ? $lead_data->project_category_pk_no : '' }}" readonly="readonly" />
+										<input type="hidden" class="keep_me" name="lead_project_id"
+										value="{{ isset($lead_data) ? $lead_data->Project_pk_no : '' }}" readonly="readonly" />
+										<input type="hidden" class="keep_me" name="lead_size_id"
+										value="{{ isset($lead_data) ? $lead_data->project_size_pk_no : '' }}" readonly="readonly" />
+
 									</tr>
 									<tr>
 										<th>Project: </th>
-										<td>Dale Adenia</td>
+										<td>{{ isset($lead_data) ? $lead_data->project_name : '' }}</td>
 										<th>Area:</th>
-										<td>Dilu Road</td>
+										<td>{{ isset($lead_data) ? $lead_data->project_area : '' }}</td>
 									</tr>
 									<tr>
 										<th>Sales Agent: </th>
-										<td>Mr. S.M. Jauhan Uddin</td>
+										<td>
+											{{ isset($lead_data) ? $lead_data->lead_sales_agent_name : '' }}
+											<input type="hidden" class="keep_me" name="sales_agent_id"
+											value="{{ isset($lead_data) ? $lead_data->lead_sales_agent_pk_no : '' }}"
+											readonly="readonly" />
+										</td>
 										<th>Created by:</th>
-										<td>Mr. S M Shamim Rahman</td>
+										<td>{{ isset($lead_data) ? $lead_data->user_full_name : '' }}</td>
 									</tr>
 									<tr>
 										<th>Lead Current Stage: </th>
-										<td>Lead</td>
+										<td>Sold
+										</td>
+
+
 									</tr>
 								</tbody>
 							</table>
-
-							<div class="form-row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label>Change Stage :</label>
-										<select class="form-control" id="cmb_change_stage" name="cmb_change_stage">
-											<option selected="selected" value="0">Please Select Stage</option>
-											<option value="1" selected="">Lead</option>
-											<option value="3">Cool</option>
-											<option value="4">Warm</option>
-											<option value="9">Junk</option>
-											<option value="13">Hot</option>
-										</select>
-									</div>
-								</div>
-							</div>
 						</div>
 
 						<div class="col-md-4">
