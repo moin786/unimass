@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class LeadLifeCycleView extends Model
 {
 	protected $table = 't_lead2lifecycle_vw';
+	protected $primaryKey = 'lead_pk_no';
 
 }

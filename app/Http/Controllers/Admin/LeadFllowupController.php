@@ -734,7 +734,7 @@ class LeadFllowupController extends Controller
 		if (isset($request->installment_save)) {
 			foreach($request->installment_save as $installment) {
 				DB::table("sold_project_schedules")->insert([
-					'lead_pk_no' => $ldata->leadlifecycle_pk_no,
+					'lead_pk_no' => $ldata->lead_pk_no,
 					'lead_id' => $lead->lead_id,
 					'schedule_date' => date("Y-m-d",strtotime($request->schedule_date_save[$i])),
 					'installment' => $request->installment_save[$i],
