@@ -215,4 +215,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
+    Route::get('/sales-approval', 'projectScheduleController@salesApproval')->name('sales-approval');
 });
