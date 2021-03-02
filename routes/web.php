@@ -209,10 +209,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
 
     // schedule-controller
-    Route::get('/schedule-collection/{lead_id}/{transfer_type?}/{from_dt?}/{to_dt?}', "projectScheduleController@scheduleController")->name("schedule-collection");
-    Route::get('/lead_sold_view', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
-    Route::get('/collected_collection_view', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
+    Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
+    Route::get('/lead_sold_view/{id}', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
+    Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
+
+    Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
+
+    Route::post('/store_schedule_collection', "projectScheduleController@store")->name("schedule-collection.store");
+
+    Route::post('/store_schedule_followup', "ScheduleFollowupController@store")->name("store_schedule_followup.store");
+
 
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
+    Route::get('/sales-approval', 'projectScheduleController@salesApproval')->name('sales-approval');
 });

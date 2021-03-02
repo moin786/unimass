@@ -5,6 +5,8 @@
 
 <!-- Select2 -->
 <link rel="stylesheet" href="{{ asset('backend/bower_components/select2/dist/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
 <style>
 	.close {
 		font-size: 27px;
@@ -61,6 +63,8 @@
 <script src="{{ asset('backend/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('backend/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+
 <script>
 	$('.table').DataTable();
 </script>
