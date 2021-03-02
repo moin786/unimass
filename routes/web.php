@@ -217,6 +217,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::post('/store_schedule_collection', "projectScheduleController@store")->name("schedule-collection.store");
 
+    Route::post('/store_schedule_followup', "ScheduleFollowupController@store")->name("store_schedule_followup.store");
+
 
 
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');

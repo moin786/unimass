@@ -63,6 +63,7 @@ class projectScheduleController extends Controller
     		$project_schedule->lead_pk_no = $request->lead_pk_no;
     		$project_schedule->lead_id  = $request->lead_id;
     		$project_schedule->collect_by   = Session::get("user.ses_user_id");
+            $project_schedule->remarks   = $request->remarks;
     		$project_schedule->save();
 
     		$sold_project_schedule = SoldProjectSchedule::find($request->s_id);
@@ -97,6 +98,7 @@ class projectScheduleController extends Controller
     					$project_schedule->lead_pk_no = $request->lead_pk_no;
     					$project_schedule->lead_id  = $request->lead_id;
     					$project_schedule->collect_by   = Session::get("user.ses_user_id");
+                        $project_schedule->remarks   = $request->remarks;
     					$project_schedule->save();
 
     					$amountdiff = $amountdiff-$schedule->amount;
@@ -117,6 +119,7 @@ class projectScheduleController extends Controller
     						$project_schedule->lead_pk_no = $request->lead_pk_no;
     						$project_schedule->lead_id  = $request->lead_id;
     						$project_schedule->collect_by   = Session::get("user.ses_user_id");
+                            $project_schedule->remarks   = $request->remarks;
     						$project_schedule->save();
     						$amountrem =1 ;
     					}
@@ -136,6 +139,7 @@ class projectScheduleController extends Controller
     		$project_schedule->lead_pk_no = $request->lead_pk_no;
     		$project_schedule->lead_id  = $request->lead_id;
     		$project_schedule->collect_by   = Session::get("user.ses_user_id");
+            $project_schedule->remarks   = $request->remarks;
     		$project_schedule->save();  
     		if($request->amount == $request->hdn_remaining_amount){
     			$sold_project_schedule = SoldProjectSchedule::find($request->s_id);
@@ -223,16 +227,19 @@ class projectScheduleController extends Controller
 
     public function lead_sold_view($id){
     	$lead_data = LeadLifeCycleView::find($id);
+        $schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
     	$ses_user_id=Session::get("user.ses_user_id");
-    	return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal_data",compact("lead_data","ses_user_id"));
+        $project_collection = DB::select("select * from project_schedule_collectoins where lead_pk_no = '$id'");
+    	return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal_data",compact("lead_data","ses_user_id","schedule_list","project_collection"));
     }
 
     public function collected_collection_view($id){
     	$schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
     	$schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)->where("payment_status","In Complete")->orderBy("id","asc")->first();
 
-    	$project_collection = DB::select("select sum(collected_amount) total from project_schedule_collectoins where lead_pk_no = '$schedule_info->lead_pk_no' group by lead_pk_no");
+    	$project_collection = DB::select("select sum(collected_amount) total from project_schedule_collectoins where lead_pk_no = '$id' and schedule_id='$schedule_info->id' group by lead_pk_no");
     	$col_amount = isset($project_collection[0]->total)? $project_collection[0]->total: 0;
+        
 
 
     	return view("admin.lead_management.schedule_collection.collected_collection_view",compact("schedule_list","schedule_info","col_amount"));
