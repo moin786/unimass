@@ -1306,22 +1306,22 @@ class LeadController extends Controller
         $leadArr = $this->csv_to_array($file);
         //dd($leadArr);
         for ($i = 0; $i < count($leadArr); $i++) {
-            $customer_firstname = (string)trim($leadArr[$i]["Customer_First_Name"]);
-            $customer_lastname = (string)trim($leadArr[$i]["Customer_Last_Name"]);
-            $customer_firstname2 = (string)trim($leadArr[$i]["Customer_First_Name2"]);
-            $customer_lastname2 = (string)trim($leadArr[$i]["Customer_Last_Name2"]);
+            $customer_firstname = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Customer_First_Name"])));
+            $customer_lastname = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Customer_Last_Name"])));
+            $customer_firstname2 = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Customer_First_Name2"])));
+            $customer_lastname2 = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Customer_Last_Name2"])));
             $phone1_code = (string)trim($leadArr[$i]["Country_Code1"]);
-            $phone1 = (string)trim($leadArr[$i]["Phone_Number_1"]);
+            $phone1 = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Phone_Number_1"])));
             $phone2_code = (string)trim($leadArr[$i]["Country_Code2"]);
-            $phone2 = (string)trim($leadArr[$i]["Phone_Number_2"]);
-            $email_id = (string)trim($leadArr[$i]["Email"]);
+            $phone2 = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Phone_Number_2"])));
+            $email_id = (string)addslashes(htmlspecialchars(trim($leadArr[$i]["Email"])));
 
-            $ocupation = trim($leadArr[$i]["Occupation"]);
-            $organization = trim($leadArr[$i]["Organization"]);
-            $designation = trim($leadArr[$i]["Designation"]);
+            $ocupation = addslashes(htmlspecialchars(trim($leadArr[$i]["Occupation"])));
+            $organization = addslashes(htmlspecialchars(trim($leadArr[$i]["Organization"])));
+            $designation = addslashes(htmlspecialchars(trim($leadArr[$i]["Designation"])));
 
-            $pre_house_plot = trim($leadArr[$i]["Pre_House_Plot"]);
-            $pre_road_no = trim($leadArr[$i]["Pre_Road_No"]);
+            $pre_house_plot = addslashes(htmlspecialchars(trim($leadArr[$i]["Pre_House_Plot"])));
+            $pre_road_no = addslashes(htmlspecialchars(trim($leadArr[$i]["Pre_Road_No"])));
             $pre_area_name = trim($leadArr[$i]["Pre_Area_Name"]);
             $pre_district_name = trim($leadArr[$i]["Pre_District_Name"]);
             $pre_thana_name = trim($leadArr[$i]["Pre_Thana_Name"]);

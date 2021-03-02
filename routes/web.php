@@ -209,7 +209,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
 
     // schedule-controller
-    Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
+    Route::get('/schedule-collection/{lead_id}/{transfer_type?}/{from_dt?}/{to_dt?}', "projectScheduleController@scheduleController")->name("schedule-collection");
     Route::get('/lead_sold_view', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
     Route::get('/collected_collection_view', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
 
