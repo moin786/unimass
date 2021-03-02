@@ -45,6 +45,22 @@ class projectScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function salesApproval()
+    {
+        return view("admin.lead_management.sales_approval");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+
+
+
     public function store(Request $request)
     {
         //
