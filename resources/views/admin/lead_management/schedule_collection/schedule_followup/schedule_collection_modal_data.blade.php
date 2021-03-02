@@ -19,6 +19,5 @@
 	</div>
 
 	<div class="modal-footer text-right">
-		<button type="button" class="btn btn-xs bg-red" data-dismiss="modal">Close</button>
-		<button type="button" class="btn btn-xs bg-blue">Save changes</button>
+		
 	</div>

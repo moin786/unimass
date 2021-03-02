@@ -18,7 +18,7 @@
 
 					<div class="form-group">
 						<label  for="installment_amount">Installment Amount</label>
-						<input type="text" class="form-control" id="installment_amount" name="installment_amount" value="{{ $schedule_info->amount }}" placeholder="0.00" disabled>
+						<input type="text" class="form-control" id="installment_amount" name="installment_amount" value="{{ isset($schedule_info->amount)? $schedule_info->amount : " " }}" placeholder="0.00" disabled>
 					</div>
 
 					<div class="form-row">
@@ -28,8 +28,8 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label  for="remaining_amount">Remaining Amount</label>
-							<input type="text" class="form-control" id="remaining_amount" name="remaining_amount" value="{{  $schedule_info->amount- $col_amount  }}" placeholder="0.00" disabled>
-							<input type="hidden" class="form-control" id="hdn_remaining_amount" name="hdn_remaining_amount" value="{{  $schedule_info->amount- $col_amount  }}" placeholder="0.00" >
+							<input type="text" class="form-control" id="remaining_amount" name="remaining_amount" value="{{  isset($schedule_info->amount)? $schedule_info->amount- $col_amount : "0"  }}" placeholder="0.00" disabled>
+							<input type="hidden" class="form-control" id="hdn_remaining_amount" name="hdn_remaining_amount" value="{{  isset($schedule_info->amount)? $schedule_info->amount- $col_amount : "0"  }}" placeholder="0.00" >
 						</div>
 					</div>
 
@@ -40,7 +40,7 @@
 
 					<div class="form-group">
 						<label  for="check_no">Check No</label>
-						<input type="text" class="form-control" id="check_no" name="check_no" value="" placeholder="0.00" >
+						<input type="text" class="form-control" id="check_no" name="check_no" value="" placeholder="Check No" >
 					</div>
 
 					<div class="form-group">
@@ -55,9 +55,13 @@
 						<label  for="mr_no">MR No</label>
 						<input type="text" class="form-control" id="mr_no" name="mr_no" value="" placeholder="MR No" >
 					</div>	
-					<input type="hidden" name="s_id" value="{{ $schedule_info->id }}">			
-					<input type="hidden" name="lead_pk_no" value="{{ $schedule_info->lead_pk_no }}">
-					<input type="hidden" name="lead_id" value="{{ $schedule_info->lead_id }}">			
+					<div class="form-group">
+						<label  for="mr_no">Remarks</label>
+						<textarea name="remarks" id="" class="form-control"></textarea>
+					</div>
+					<input type="hidden" name="s_id" value="{{ isset($schedule_info->id)? $schedule_info->id :"0"}}">			
+					<input type="hidden" name="lead_pk_no" value="{{ isset($schedule_info->lead_pk_no)?$schedule_info->lead_pk_no :"0"  }}">
+					<input type="hidden" name="lead_id" value="{{ isset($schedule_info->lead_id)? $schedule_info->lead_id : "0" }}">			
 
 					<div class="text-right">
 						<button class="btn btn-xs bg-green btnSaveUpdate">Save</button>
@@ -88,8 +92,13 @@
 								<i class="fa fa-ellipsis-v"></i>
 							</span>
 							<span class="text">{{ $row-> installment  }}</span> 
+							@if(isset($schedule_info->installment))
 							@if($row-> installment==$schedule_info->installment)
 							<i class="fa fa-check" aria-hidden="true"></i>
+							@endif
+							@if($row-> installment<$schedule_info->installment)
+							(Complete)
+							@endif
 							@endif
 							{{-- <small class="label label-default pull-right">0</small> --}}
 						</a>
@@ -98,64 +107,6 @@
 					@endif
 
 				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-12">
-		<div class="box box-primary">
-			<div class="box-header">
-				<i class="ion ion-clipboard"></i>
-				<h3 class="box-title">Collected Collection</h3>
-			</div>
-			<div class="box-body">
-				<div class="form-row">
-					<div class="col-md-4 col-md-offset-4">
-						<div class="form-group">
-							<label>Schedule List</label>
-							<select class="form-control" id="cmb_project_name" name="cmb_project_name">
-								<option value="">1st Installment</option>
-								<option value="">2nd Installment</option>
-								<option value="">3rd Installment</option>
-								<option value="">4th Installment</option>
-								<option value="">5th Installment</option>
-								<option value="">6th Installment</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<table class="table table-bordered mb-0">
-							<thead class="bg-blue">
-								<th class="text-left">Installment</th>
-								<th class="text-right">Installment Amount</th>
-								<th class="text-right">Collected Amount</th>
-								<th class="text-right">Due</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-left">1st Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
-								<tr>
-									<td class="text-left">2nd Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
-								<tr>
-									<td class="text-left">3rd Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
-
-
-							</tbody>
-						</table>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
