@@ -43,8 +43,9 @@
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs" id="tab_container">
 					<li class="active"><a href="#sold_lead" data-toggle="tab" data-type="1" data-action="{{ route('load_followup') }}"   aria-expanded="true">Sold Lead</a></li>
-					<li class=""><a href="#missed_followup" data-toggle="tab" data-type="2" data-action="{{ route('load_followup') }}"   aria-expanded="false">Missed Followup</a></li>
-					<li class=""><a href="#next_followup" data-toggle="tab" data-type="3" data-action="{{ route('load_followup') }}" aria-expanded="false">Next Followup</a></li>
+					<li><a href="#today_followup" data-toggle="tab" data-type="2" data-action="{{ route('load_followup') }}"   aria-expanded="true">Today's Followup</a></li>
+					<li class=""><a href="#missed_followup" data-toggle="tab" data-type="3" data-action="{{ route('load_followup') }}"   aria-expanded="false">Missed Followup</a></li>
+					<li class=""><a href="#next_followup" data-toggle="tab" data-type="4" data-action="{{ route('load_followup') }}" aria-expanded="false">Next Followup</a></li>
 				</ul>
 				<div class="tab-content" id="list-body">
 					@include("admin.lead_management.schedule_collection.sold_lead")
@@ -66,7 +67,9 @@
 <script src="{{ asset('backend/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
 
 <script>
-	$('.table').DataTable();
+	$('.table').DataTable(
+		 {"ordering": false}
+		);
 </script>
 @endpush
 

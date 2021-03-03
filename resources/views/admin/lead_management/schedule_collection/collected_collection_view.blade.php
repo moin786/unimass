@@ -76,38 +76,111 @@
 	</div>
 
 	<div class="col-md-6">
-		<div class="box box-primary">
-			<div class="box-header">
-				<i class="ion ion-clipboard"></i>
-				<h3 class="box-title">Schedule List</h3>
-			</div>
-			<div class="box-body">
-				<ul class="todo-list">
-					@if(!empty($schedule_list))
-					@foreach($schedule_list as $row)
-					<li>
-						<a href="#" class="routeSetUp">
-							<span class="handle">
-								<i class="fa fa-ellipsis-v"></i>
-								<i class="fa fa-ellipsis-v"></i>
-							</span>
-							<span class="text">{{ $row->installment  }}</span> 
-							@if(isset($schedule_info->installment))
-							@if($row->installment==$schedule_info->installment)
-							<i class="fa fa-check" aria-hidden="true"></i>
-							@else
-								({{$row->payment_status}})
-							@endif
-							
-							@endif
-							{{-- <small class="label label-default pull-right">0</small> --}}
-						</a>
-					</li>
-					@endforeach
-					@endif
+		<div class="row">
+			<div class="col-md-12">
 
-				</ul>
+				<div class="box box-primary">
+					<div class="box-header">
+						<i class="ion ion-clipboard"></i>
+						<h3 class="box-title">Schedule List</h3>
+					</div>
+					<div class="box-body">
+						<ul class="todo-list">
+							@php
+							$rec =0;
+							@endphp
+							@if(!empty($schedule_list))
+							@foreach($schedule_list as $row)
+							@php
+							$rec = $rec + $row->amount;
+							@endphp
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">{{ $row->installment  }}</span> 
+									@if(isset($schedule_info->installment))
+									@if($row->installment==$schedule_info->installment)
+									<i class="fa fa-check" aria-hidden="true"></i>
+									@else
+									({{$row->payment_status}})
+									@endif
+
+									@endif
+									{{-- <small class="label label-default pull-right">0</small> --}}
+
+								</a>
+							</li>
+							@endforeach
+							@endif
+
+						</ul>
+					</div>
+				</div>
 			</div>
+			<div class="col-md-12">
+
+				<div class="box box-primary">
+					<div class="box-header">
+						<i class="ion ion-clipboard"></i>
+						<h3 class="box-title">Summary</h3>
+					</div>
+					<div class="box-body">
+						<ul class="todo-list">
+							@php
+							$due = 0;
+							$rec = isset($rec)? $rec : 0;
+							$col = isset($schedule_amount[0]->total_amount)? $schedule_amount[0]->total_amount: 0;
+							$due = $rec-$col;
+
+							@endphp
+							
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Receiveable amount</span>
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($rec,2) }}</small> 
+									
+									
+								</a>
+							</li>
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Collection amount</span>
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($col,2) }}</small> 
+									
+									
+								</a>
+							</li>
+
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Due amount</span>
+									<small class="label  pull-right" style="color: red;"> {{  number_format($due,2) }}</small> 
+									
+									
+								</a>
+							</li>
+							
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>
