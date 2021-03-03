@@ -502,6 +502,7 @@ class LeadDistribution extends Controller
 
     public function lead_distribution_cre()
     {
+        ini_set('memory_limit', '2048M');
         $is_hod = $is_hot = $is_tl = 0;
         $ses_user_id = Session::get('user.ses_user_pk_no');
         $is_ses_hod = Session::get('user.is_ses_hod');
@@ -534,7 +535,7 @@ class LeadDistribution extends Controller
             ->where('lead_cluster_head_pk_no', 0)
             ->where('lead_current_stage', 1)
             ->whereRaw("(source_auto_pk_no in(" . $get_all_team_members . "))")
-            ->get();
+            ->paginate(10);
 
         $sales_agent_arr = DB::table("t_teambuild")
             ->join("s_lookdata", "t_teambuild.team_lookup_pk_no", "s_lookdata.lookup_pk_no")

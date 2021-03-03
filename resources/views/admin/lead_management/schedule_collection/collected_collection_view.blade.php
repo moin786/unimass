@@ -91,14 +91,14 @@
 								<i class="fa fa-ellipsis-v"></i>
 								<i class="fa fa-ellipsis-v"></i>
 							</span>
-							<span class="text">{{ $row-> installment  }}</span> 
+							<span class="text">{{ $row->installment  }}</span> 
 							@if(isset($schedule_info->installment))
-							@if($row-> installment==$schedule_info->installment)
+							@if($row->installment==$schedule_info->installment)
 							<i class="fa fa-check" aria-hidden="true"></i>
+							@else
+								({{$row->payment_status}})
 							@endif
-							@if($row-> installment<$schedule_info->installment)
-							(Complete)
-							@endif
+							
 							@endif
 							{{-- <small class="label label-default pull-right">0</small> --}}
 						</a>

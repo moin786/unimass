@@ -117,6 +117,8 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 	</tbody>
 </table>
 
+<div class="pull-right">{{ $lead_data->links() }}</div>
+
 </div>
 </form>
 <script type="text/javascript">

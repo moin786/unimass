@@ -250,10 +250,18 @@ class projectScheduleController extends Controller
     }
 
     public function collected_collection_view($id){
-    	$schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
-    	$schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)->where("payment_status","In Complete")->orderBy("id","asc")->first();
 
-    	$project_collection = DB::select("select sum(collected_amount) total from project_schedule_collectoins where lead_pk_no = '$id' and schedule_id='$schedule_info->id' group by lead_pk_no");
+    	$schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
+
+    	$schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)
+							->where("payment_status","In Complete")
+							->orderBy("id","asc")->first();
+
+    	$project_collection = DB::select("select sum(collected_amount) total 
+											from project_schedule_collectoins 
+											where lead_pk_no = '$id' 
+											and schedule_id='$schedule_info->id' 
+											group by lead_pk_no");
     	$col_amount = isset($project_collection[0]->total)? $project_collection[0]->total: 0;
         
 
