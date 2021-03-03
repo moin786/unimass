@@ -143,6 +143,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     //CRE Lead Distribution
     Route::get('/lead_distribution', 'LeadDistribution@lead_distribution_cre')->name("lead.lead_distribution");
+    Route::get('/lead_distribution_list', 'LeadDistribution@distributeLeadList')->name("lead.lead_distribution_list");
     Route::post('/distribute_lead_to_ch', 'LeadDistribution@distribute_lead_to_ch')->name('distribute_lead_to_ch');
     Route::post('/load_dist_leads_to_ch', 'LeadDistribution@load_dist_leads_to_ch')->name('load_dist_leads_to_ch');
     Route::get('/all_lead/{from_dt?}/{to_dt?}', 'LeadController@all_lead')->name('all_lead');

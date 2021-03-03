@@ -70,6 +70,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 <table id="work_list" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
+			<th class="text-center">SL</th>
 			<th class="text-center">Lead ID</th>
 			<th class="text-center">Create Date</th>
 			<th class="text-center">Customer</th>
@@ -117,7 +118,6 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 	</tbody>
 </table>
 
-<div class="pull-right">{{ $lead_data->links() }}</div>
 
 </div>
 </form>

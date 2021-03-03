@@ -13,10 +13,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
+use App\Traits\DatatablesLoader;
 use Illuminate\Support\Facades\Session as FacadesSession;
 
 class LeadDistribution extends Controller
 {
+    use DatatablesLoader;
 
     public function index($from_dt = "", $to_dt = "")
     {
@@ -511,15 +513,33 @@ class LeadDistribution extends Controller
 
         $get_all_tem_members = "";
         if ($is_ses_hod > 0) {
-            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id ) and agent_type=2")[0]->team_members;
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE (team_lead_user_pk_no=$ses_user_id 
+                                                OR hod_user_pk_no=$ses_user_id 
+                                                OR hot_user_pk_no=$ses_user_id ) 
+                                                and agent_type=2")[0]->team_members;
 
             $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
         } else if ($is_ses_hot > 0) {
-            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE (team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id and hod_flag != 1 and agent_type=1 )")[0]->team_members;
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE (team_lead_user_pk_no=$ses_user_id 
+                                                OR hod_user_pk_no=$ses_user_id 
+                                                OR hot_user_pk_no=$ses_user_id 
+                                                and hod_flag != 1 
+                                                and agent_type=1 )")[0]->team_members;
 
             $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
         } else if ($is_team_leader > 0) {
-            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild WHERE ((team_lead_user_pk_no=$ses_user_id OR hod_user_pk_no=$ses_user_id OR hot_user_pk_no=$ses_user_id) and hod_flag != 1 and hot_flag != 1 and agent_type=1 )")[0]->team_members;
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE ((team_lead_user_pk_no=$ses_user_id 
+                                                        OR hod_user_pk_no=$ses_user_id 
+                                                        OR hot_user_pk_no=$ses_user_id) 
+                                                and hod_flag != 1 
+                                                and hot_flag != 1 
+                                                and agent_type=1 )")[0]->team_members;
 
             $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
 
@@ -566,6 +586,83 @@ class LeadDistribution extends Controller
 
         $tab = 1;
         return view("admin.lead_management.lead_distribution", compact("is_hod", "is_hot", "is_tl", "tab", 'lead_data', 'sales_agent_info', 'digital_mkt', 'team_ch'));
+    }
+
+    public function distributeLeadList(Request $request) {
+        ini_set('memory_limit', '2048M');
+        $is_hod = $is_hot = $is_tl = 0;
+        $ses_user_id = Session::get('user.ses_user_pk_no');
+        $is_ses_hod = Session::get('user.is_ses_hod');
+        $is_ses_hot = Session::get('user.is_ses_hot');
+        $is_team_leader = Session::get('user.is_team_leader');
+
+        $get_all_tem_members = "";
+        if ($is_ses_hod > 0) {
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE (team_lead_user_pk_no=$ses_user_id 
+                                                OR hod_user_pk_no=$ses_user_id 
+                                                OR hot_user_pk_no=$ses_user_id ) 
+                                                and agent_type=2")[0]->team_members;
+
+            $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
+        } else if ($is_ses_hot > 0) {
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE (team_lead_user_pk_no=$ses_user_id 
+                                                OR hod_user_pk_no=$ses_user_id 
+                                                OR hot_user_pk_no=$ses_user_id 
+                                                and hod_flag != 1 
+                                                and agent_type=1 )")[0]->team_members;
+
+            $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
+        } else if ($is_team_leader > 0) {
+            $get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members 
+                                                FROM t_teambuild 
+                                                WHERE ((team_lead_user_pk_no=$ses_user_id 
+                                                        OR hod_user_pk_no=$ses_user_id 
+                                                        OR hot_user_pk_no=$ses_user_id) 
+                                                and hod_flag != 1 
+                                                and hot_flag != 1 
+                                                and agent_type=1 )")[0]->team_members;
+
+            $get_all_tem_members .= $get_all_tem_memberss; // . "," . $ses_user_id;
+
+        } else {
+            $get_all_tem_members .= $ses_user_id;
+        }
+        $get_all_team_members = $get_all_tem_members; //rtrim(($get_all_tem_members), ", ");
+
+
+        $columns = array(
+            'lead_pk_no',
+            'lead_id',
+            'created_at',
+            'customer_firstname',
+            'customer_lastname',
+            'phone1',
+            'project_area',
+            'project_name',
+            'project_size',
+            'source_digital_marketing',
+            'lead_cluster_head_name',
+            'leadlifecycle_pk_no'
+        );
+    
+    
+         $sql = "SELECT lead_pk_no,lead_id,created_at,customer_firstname,customer_lastname,phone1,project_area,project_name,project_size,
+                        source_digital_marketing,lead_cluster_head_name,leadlifecycle_pk_no
+                        FROM t_lead2lifecycle_vw
+                        WHERE lead_cluster_head_pk_no = 0
+                        AND lead_current_stage = 1
+                        AND source_auto_pk_no in($get_all_team_members)
+                ";
+    
+         $order_by_column = "lead_pk_no";
+    
+         $json_data = $this->datatable( $request, $sql, $order_by_column, 'desc', $columns);
+    
+         echo json_encode($json_data);
     }
 
 
