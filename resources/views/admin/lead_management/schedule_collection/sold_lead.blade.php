@@ -2,6 +2,7 @@
 	<table class="table table-bordered table-striped table-hover mb-0">
 		<thead class="bg-blue">
 			@include("admin.components.lead_list_table_header")
+			<th class="text-center">Collection Information</th>
 			
 			<th class="text-center">Action</th>
 		</thead>
@@ -10,6 +11,18 @@
 			@foreach($sold_lead as $row)
 			<tr>
 				@include("admin.components.lead_list_table")
+				<td>
+					<div><strong>Receiveable : </strong> {{ isset($collection_arr[$row->lead_pk_no])? number_format($collection_arr[$row->lead_pk_no],2) : 0 }}</div>
+					<div> <strong>Paid:</strong> {{ isset($schedule_arr[$row->lead_pk_no])? number_format($schedule_arr[$row->lead_pk_no],2) : 0 }}		 </div>
+					@php
+					$due = 0;
+					$rec = isset($collection_arr[$row->lead_pk_no])? $collection_arr[$row->lead_pk_no] : 0;
+					$col = isset($schedule_arr[$row->lead_pk_no])? $schedule_arr[$row->lead_pk_no] : 0;
+					$due = $rec-$col;
+
+					@endphp
+					<div> <strong>Due:</strong> <b> {{ number_format( $due,2)}}	</b>	 </div>
+				</td>	
 				
 				<td>
 					

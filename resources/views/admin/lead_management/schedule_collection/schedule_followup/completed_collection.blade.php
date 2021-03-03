@@ -5,54 +5,30 @@
 				<div class="col-md-4 col-md-offset-4">
 					<div class="form-group">
 						<label>Schedule List<span class="text-danger"></span></label>
-						<select class="form-control" id="cmb_project_name" name="cmb_project_name">
-							<option value="">Schedule List-1</option>
-							<option value="">Schedule List-2</option>
-							<option value="">Schedule List-3</option>
-							<option value="">Schedule List-4</option>
-							<option value="">Schedule List-5</option>
-							<option value="">Schedule List-6</option>
+						<select class="form-control" id="cmb_project_name" name="cmb_project_name" onchange="getCompleteCollection(this.value)">
+							<option value="0">Select One</option>
+							@if(!empty($schedule_complete_list))
+							@foreach($schedule_complete_list as $complete_schedule)
+							<option value="{{ $complete_schedule->id }}" {{ ($complete_schedule->id== $schedule_id)?"selected": " " }}>{{ $complete_schedule->installment }}</option>
+							@endforeach
+							@endif
 						</select>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<table class="table table-bordered mb-0">
 						<thead class="bg-blue">
-							<th class="text-center">Date</th>
-							<th class="text-center">Followup Note</th>
-							<th class="text-center">Next Followup</th>
-							<th class="text-center">Visit/Meeting</th>
-							<th class="text-left">Visit Note</th>
-							<th class="text-left">Followup By</th>
+							<th class="text-center">Collection Date</th>
+							<th class="text-center">Lead Id</th>
+							<th class="text-center">Collected Amount</th>
+							<th class="text-center">Check_no</th>
+							<th class="text-left">Cheque Date</th>
+							<th class="text-left">Received Date</th>
+							<th class="text-left">Mr No</th>
+							<th class="text-left">Remarks</th>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="text-center">25-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td>
-							</tr>
-							<tr>
-								<td class="text-center">25-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td>
-							</tr>
-							<tr>
-								<td class="text-center">25-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td>
-							</tr>
-
-
-
+						<tbody id="complete_collection_table">
+							@include("admin.lead_management.schedule_collection.schedule_followup.completed_collection_table")
 						</tbody>
 					</table>
 				</div>

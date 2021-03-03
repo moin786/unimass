@@ -8,43 +8,35 @@
 							<th class="text-center">SL</th>
 							<th class="text-center">Date</th>
 							<th class="text-center">Followup Note</th>
-							<th class="text-center">Next Followup</th>
-							<th class="text-center">Visit/Meeting</th>
+							<th class="text-center">Next Followup Date</th>
+							<th class="text-center">Meeting Date</th>
 							<th class="text-left">Visit Note</th>
-							<th class="text-left">Followup By</th>
 						</thead>
 						<tbody>
+							@if(!empty($schedule_followup))
+							@foreach($schedule_followup as $followup)
 							<tr>
-								<td class="text-center">24-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td><td class="text-left"></td>
+								<td class="text-center">{{ $loop->iteration }}</td>
+								<td class="text-center">{{ date("d/m/Y",strtotime($followup->created_at))}}</td>
+								<td class="text-center">{{ $followup->followup_note }}</td>
+								<td class="text-center">{{ date("d/m/Y",strtotime($followup->next_followup_date)) }}</td>
+								<td class="text-center">{{ date("d/m/Y",strtotime($followup->visit_date)) }}</td>
+								<td class="text-left">{{ $followup->meeting_note	 }}</td>
 							</tr>
+							@endforeach
+							@else
 							<tr>
-								<td class="text-center">24-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td><td class="text-left"></td>
+								<td colspan="6" class="text-center">No data found</td>
 							</tr>
-							<tr>
-								<td class="text-center">24-02-2021</td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-center"></td>
-								<td class="text-left"></td>
-								<td class="text-left"></td><td class="text-left"></td>
-							</tr>
+							@endif
+							
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<form action="{{ route("store_schedule_followup.store") }}" method="post">
+	<form id="scheduleFollowup" action="{{ route("store_schedule_followup.store") }}" method="post">
 		@csrf
 		<div class="form-row mt-10">
 			<div class="col-md-12">
@@ -61,8 +53,10 @@
 											<th>Lead ID:</th>
 											<td>
 												{{ isset($lead_data) ? $lead_data->lead_id : '' }}
-												<input type="hidden" class="keep_me" name="lead_pk_no"
-												value="{{ isset($lead_data) ? $lead_data->lead_pk_no : '' }}" readonly="readonly" />
+												<input type="hidden" class="keep_me" name="lead_pk_no" id="lead_pk_no"
+												value="{{ isset($lead_data) ? $lead_data->lead_pk_no : '' }}" />
+												<input type="hidden" class="keep_me" name="lead_id"
+												value="{{ isset($lead_data) ? $lead_data->lead_id : '' }}" />
 												<input type="hidden" class="keep_me" name="leadlifecycle_id"
 												value="{{ isset($lead_data) ? $lead_data->leadlifecycle_pk_no : '' }}"
 												readonly="readonly" />
@@ -203,8 +197,11 @@
 									<div id="meeting_visit_done_dt"></div>
 								</div>
 							</div>
-							<button type="button" class="btn btn-xs bg-red " data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-xs bg-blue btnSaveUpdate">Save changes</button>
+
+							<div class="col-md-offset-8 col-md-4 ">	
+								<button type="button" class="btn btn-xs bg-red " data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-xs bg-blue btnSaveUpdate">Save changes</button>
+							</div>
 						</div>
 					</div>
 				</div>

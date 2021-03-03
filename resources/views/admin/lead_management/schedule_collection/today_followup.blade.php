@@ -1,4 +1,4 @@
-<div class="tab-pane" id="missed_followup">
+<div class="tab-pane" id="today_followup">
 	<table class="table table-bordered table-striped table-hover mb-0">
 		<thead class="bg-blue">
 			@include("admin.components.lead_list_table_header")
@@ -23,7 +23,6 @@
 					@endphp
 					<div> <strong>Due:</strong> <b> {{  number_format($due,2) }}	</b>	 </div>
 				</td>	
-				
 				
 				<td>
 					
