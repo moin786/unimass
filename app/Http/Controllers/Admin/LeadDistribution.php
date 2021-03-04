@@ -646,13 +646,12 @@ class LeadDistribution extends Controller
             'project_name',
             'project_size',
             'source_digital_marketing',
-            'lead_cluster_head_name',
             'leadlifecycle_pk_no'
         );
     
     
          $sql = "SELECT lead_pk_no,lead_id,created_at,customer_firstname,customer_lastname,phone1,project_area,project_name,project_size,
-                        source_digital_marketing,lead_cluster_head_name,leadlifecycle_pk_no
+                        source_digital_marketing,leadlifecycle_pk_no
                         FROM t_lead2lifecycle_vw
                         WHERE lead_cluster_head_pk_no = 0
                         AND lead_current_stage = 1

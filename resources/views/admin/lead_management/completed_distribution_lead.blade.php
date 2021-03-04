@@ -80,7 +80,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 			<th class="text-center">Size</th>
 			{{-- <th class="text-center">Source</th> --}}
 			<th class="text-center">Source</th>
-			<th class="text-center">Assign By</th>
+			<th class="text-center">Assigned By</th>
 			@if($tab!=0)
 			<th class="text-center">Distribute to</th>
 			@endif

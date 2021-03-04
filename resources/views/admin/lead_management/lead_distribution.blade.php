@@ -160,26 +160,26 @@
                     }
                 }
             },
+            // {
+            //     "targets": 9,
+            //     "data": "Edit",
+            //     "render": function ( data, type, row, meta ) {
+            //         if (row[10] != null) {
+            //             return `${row[10]}`;
+            //         } else {
+            //             return '';
+            //         }
+            //     }
+            // },
             {
                 "targets": 9,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[10] != null) {
-                        return `${row[10]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 10,
                 "data": "Edit",
                 "render": function ( data, type, row, meta ) {
                     let tab = $('.tab').attr("data-value");
                     console.log(tab)
                     if (tab !=0) {
                         return `
-                        <input type="checkbox" name="distribute_lead_id[]" value="${row[11]}">
+                        <input type="checkbox" name="distribute_lead_id[]" value="${row[10]}">
                         `;
                     } else {
                         return '';
