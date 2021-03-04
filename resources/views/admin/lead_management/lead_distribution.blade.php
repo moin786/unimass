@@ -31,7 +31,7 @@
                             <li class="active"><a href="#manual_lead" data-toggle="tab" data-type="1"
                                     data-action="load_dist_leads_to_ch" aria-expanded="true">Pending</a></li>
                             <li class=""><a href="#pending_lead" data-toggle="tab" data-type="0"
-                                    data-action="load_dist_leads_to_ch" aria-expanded="false">Completed</a></li>
+                                    data-action="load_dist_leads_to_ch_completed" aria-expanded="false">Completed</a></li>
 
                             <!-- <li class=""><a href="#auto_lead" data-toggle="tab" data-type="2" data-action="load_dist_leads" aria-expanded="false">Auto</a></li> -->
                         </ul>

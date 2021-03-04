@@ -68,8 +68,8 @@ return [
 
 	],
 	'agent_type' => [
-		1 => 'Customer Relations & Sales',
-		2 => 'Sales',
+		1 => 'HOD',
+		2 => 'Customer Relations & Sales',
 		3 => 'CSD'
 	],
 	'lead_distribution_type' => [

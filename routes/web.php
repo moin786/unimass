@@ -146,6 +146,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/lead_distribution_list', 'LeadDistribution@distributeLeadList')->name("lead.lead_distribution_list");
     Route::post('/distribute_lead_to_ch', 'LeadDistribution@distribute_lead_to_ch')->name('distribute_lead_to_ch');
     Route::post('/load_dist_leads_to_ch', 'LeadDistribution@load_dist_leads_to_ch')->name('load_dist_leads_to_ch');
+    Route::post('/load_dist_leads_to_ch_completed', 'LeadDistribution@load_dist_leads_to_ch_completed')->name('load_dist_leads_to_ch_completed');
     Route::get('/all_lead/{from_dt?}/{to_dt?}', 'LeadController@all_lead')->name('all_lead');
     Route::get('/todays_visit_lead/{from_dt?}/{to_dt?}', 'LeadController@today_visit')->name('todays_visit_lead');
 
