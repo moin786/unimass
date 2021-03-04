@@ -1147,11 +1147,11 @@ class DashboardController extends Controller
         $role_id = 0;
         $project_name = LookupData::where("lookup_type",6)->get();
         if($userRoleID==551 || $is_super_admin==1){
-        	$cond = "where created_at BETWEEN '$fromdate' AND '$todate' group by project_name";
+        	$cond = "where created_at BETWEEN '$fromdate' AND '$todate' group by Project_pk_no";
 
 
         }else{
-        	$cond= "where (t_lead2lifecycle_vw.lead_sales_agent_pk_no IN($get_all_tem_members) OR t_lead2lifecycle_vw.lead_cluster_head_pk_no IN($get_all_tem_members)) $date_cond group by project_name ";
+        	$cond= "where (t_lead2lifecycle_vw.lead_sales_agent_pk_no IN($get_all_tem_members) OR t_lead2lifecycle_vw.lead_cluster_head_pk_no IN($get_all_tem_members)) $date_cond group by Project_pk_no ";
 
         }
         $lead_data = DB::select("select Project_pk_no,count(project_name) as total_project from t_lead2lifecycle_vw $cond ");
