@@ -211,7 +211,7 @@ $(document).on("click",".lead-view",function (e) {
 });
   
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	//blockUI();
+	blockUI();
 	$.fn.dataTable.ext.errMode = 'none'; 
 	$('.table').DataTable().destroy();
 	var list_type = $(this).attr("data-type");
@@ -222,7 +222,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		url: action,
 		type: "post",
 		beforeSend:function(){
-			//blockUI();
+			blockUI();
 			$(".tab-content").html('');
 			
 		},
@@ -238,7 +238,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		}
 
 	}).done(function() {
-		//$.unblockUI();
+		$.unblockUI();
 	});
 	//$.unblockUI();
 });
