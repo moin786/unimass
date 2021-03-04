@@ -81,7 +81,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 			<th class="text-center">Size</th>
 			{{-- <th class="text-center">Source</th> --}}
 			<th class="text-center">Source</th>
-			<th class="text-center">Sales Agent</th>
+			{{-- <th class="text-center">Sales Agent</th> --}}
 			@if($tab!=0)
 			<th class="text-center">Distribute to</th>
 			@endif
@@ -106,7 +106,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 			<td>{{ $row->project_size }}</td>
 			{{-- <td>{{  isset($source_arr[$row->lead_entry_type]) ? $source_arr[$row->lead_entry_type] : " "   }}</td> --}}
 			<td>{{  isset($digital_mkt[$row->source_digital_marketing]) ? $digital_mkt[$row->source_digital_marketing] : " "   }}</td>
-			<td class="text-center">{{ $row->lead_cluster_head_name }}</td>
+			{{-- <td class="text-center">{{ $row->lead_cluster_head_name }}</td> --}}
 			@if($tab!=0)
 			<td class="text-center">
 				<input type="checkbox" name="distribute_lead_id[]" value="{{ $row->leadlifecycle_pk_no }}">
@@ -202,26 +202,26 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
                     }
                 }
             },
+            // {
+            //     "targets": 9,
+            //     "data": "Edit",
+            //     "render": function ( data, type, row, meta ) {
+            //         if (row[10] != null) {
+            //             return `${row[10]}`;
+            //         } else {
+            //             return '';
+            //         }
+            //     }
+            // },
             {
                 "targets": 9,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[10] != null) {
-                        return `${row[10]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 10,
                 "data": "Edit",
                 "render": function ( data, type, row, meta ) {
                     let tab = $('.tab').attr("data-value");
                     console.log(tab)
                     if (tab !=0) {
                         return `
-                        <input type="checkbox" name="distribute_lead_id[]" value="${row[11]}">
+                        <input type="checkbox" name="distribute_lead_id[]" value="${row[10]}">
                         `;
                     } else {
                         return '';
