@@ -455,7 +455,7 @@ $user_type = Session::get('user.user_type');
 								value="{{ Session::get('user.ses_user_pk_no') }}" readonly="readonly"/>
 							</div>
 						</div>
-						<input type="hidden" name="txt_cluster_head" class="keep_me" value="0">
+						<input type="hidden" name="txt_cluster_head" class="keep_me" value="{{session()->get('user.hod_user')}}">
 						@if($group_id == 73)
 						<div class="col-md-4">
 							<div class="form-group">
