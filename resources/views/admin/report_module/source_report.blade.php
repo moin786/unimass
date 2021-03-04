@@ -60,7 +60,7 @@ $is_super_admin = Session::get('user.is_super_admin');
 								<div class="form-group">
 									<label for="from_date">From </label>
 									<input type="text" class="form-control datepicker" id="from_date"
-									name="from_date" value="" title="" placeholder="dd-mm-yyyy"/>
+									name="from_date" value="" title="" placeholder="dd-mm-yyyy" autocomplete="off" />
 								</div>
 							</div>
 
@@ -68,7 +68,7 @@ $is_super_admin = Session::get('user.is_super_admin');
 								<div class="form-group">
 									<label for="to_date">To </label>
 									<input type="text" class="form-control datepicker" id="to_date" name="to_date"
-									value="" title="" placeholder="dd-mm-yyyy"/>
+									value="" title="" placeholder="dd-mm-yyyy"  autocomplete="off"/>
 								</div>
 							</div>
 
