@@ -10,7 +10,7 @@
 
 		@php
 		$data = explode("_",$val);
-		$prefix = "SA";
+		$prefix = "SP";
 
 		if($data[2] == 1 ){
 			$prefix= "CH";

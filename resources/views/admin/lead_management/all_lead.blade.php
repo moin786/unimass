@@ -17,7 +17,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 				<div class="col-md-3">
 					<div class="form-group">
 						{{-- <label>Distribute To CH/BH/TL<span class="text-danger"> *</span></label> --}}
-						<label>Distribute To TL/SA<span class="text-danger"> *</span></label>
+						<label>Distribute To TL/SP<span class="text-danger"> *</span></label>
 						<select class="form-control required select2" id="cmbTransferTo" name="cmbTransferTo" style="width: 100%;" aria-hidden="true">
 							<option value="">Select</option>
 							@if(!empty($sales_agent_info))
@@ -30,7 +30,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 
 								@php
 								$data = explode("_",$val);
-								$prefix = "SA";
+								$prefix = "SP";
 
 								if($data[2] == 1 ){
 									$prefix= "CH";
