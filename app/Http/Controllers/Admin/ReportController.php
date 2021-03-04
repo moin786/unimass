@@ -1202,6 +1202,7 @@ public function export_daily_report(Request $request)
 
     			$get_all_tem_memberss = DB::select("SELECT GROUP_CONCAT(user_pk_no) team_members FROM t_teambuild 
     				$team_cond")[0]->team_members;
+
     			$get_all_tem_members .= $get_all_tem_memberss;
 
 
@@ -1218,10 +1219,15 @@ public function export_daily_report(Request $request)
     			}
 
     		}
+           
+                
 
     		$lead_data = DB::select("SELECT  t_lead2lifecycle_vw.project_name, t_lead2lifecycle_vw.Project_pk_no , t_lead2lifecycle_vw.lead_cluster_head_pk_no , COUNT(t_lead2lifecycle_vw.lead_pk_no) AS total_lead
     			FROM t_lead2lifecycle_vw JOIN s_lookdata ON t_lead2lifecycle_vw.Project_pk_no = s_lookdata.lookup_pk_no WHERE (lead_cluster_head_pk_no IS NOT NULL OR lead_cluster_head_pk_no !=0)  $date_cond $source_cond  $stage_cond  $project_cond 
     			GROUP BY t_lead2lifecycle_vw.lead_cluster_head_pk_no,t_lead2lifecycle_vw.project_name,s_lookdata.lookup_pk_no");
+            echo "SELECT  t_lead2lifecycle_vw.project_name, t_lead2lifecycle_vw.Project_pk_no , t_lead2lifecycle_vw.lead_cluster_head_pk_no , COUNT(t_lead2lifecycle_vw.lead_pk_no) AS total_lead
+                FROM t_lead2lifecycle_vw JOIN s_lookdata ON t_lead2lifecycle_vw.Project_pk_no = s_lookdata.lookup_pk_no WHERE (lead_cluster_head_pk_no IS NOT NULL OR lead_cluster_head_pk_no !=0)  $date_cond $source_cond  $stage_cond  $project_cond 
+                GROUP BY t_lead2lifecycle_vw.lead_cluster_head_pk_no,t_lead2lifecycle_vw.project_name,s_lookdata.lookup_pk_no";die;
     		if ($request->from_date != '') {
     			$date1 = Carbon::parse($from_date);
     			$date2 = Carbon::parse($to_date);
