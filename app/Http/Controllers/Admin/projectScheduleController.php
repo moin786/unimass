@@ -306,6 +306,8 @@ class projectScheduleController extends Controller
 
     	$schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
 
+		
+
     	$schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)
     	->where("payment_status","In Complete")
     	->orderBy("id","asc")->first();

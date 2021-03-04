@@ -7,7 +7,7 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 <style type="text/css">
 
 </style>
-<div class="tab-pane active table-responsive" id="all_lead">
+<div class="tab-pane active table-responsive" id="all_lead_11">
 	<form id="distribute-form">
 		@if($tab!=0)
 		<div class="head_action"
@@ -67,10 +67,9 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 </div>
 @endif
 
-<table id="work_list" class="table table-bordered table-striped table-hover">
+<table id="work_list11" class="table table-bordered table-striped table-hover">
 	<thead>
 		<tr>
-			<th class="text-center">SL</th>
 			<th class="text-center">Lead ID</th>
 			<th class="text-center">Create Date</th>
 			<th class="text-center">Customer</th>
@@ -123,110 +122,9 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 </form>
 <script type="text/javascript">
     $(".select2").select2();
-	$.fn.dataTable.ext.errMode = 'none';    
-            var datatable = $('#work_list').DataTable({
-				"processing": true,
-				"serverSide": true,
-				"ajax":{
-					"url": "{{ route('lead.lead_distribution_list') }}",
-					"dataType": "json",
-					"type": "get",
-                //"data":{ _token: "{{csrf_token()}}"}
-            },
-            "columnDefs": [{
-                "targets": 1,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
+	$('#work_list11').DataTable({
+                    "ordering": false
+                }
 
-                    return `${row[1]}`;
-                }
-            },
-            {
-                "targets": 3,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-
-                    return `${row[3]} ${row[4]}`;
-                }
-            },
-            {
-                "targets": 4,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-
-                    return `${row[5]}`;
-                }
-            },
-            {
-                "targets": 5,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[6] != null) {
-                        return `${row[6]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 6,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[7] != null) {
-                        return `${row[7]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 7,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[8] != null) {
-                        return `${row[8]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 8,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    let sourcelead = @json($digital_mkt);
-                    if (row[9] != null) {
-                        return sourcelead[row[9]];
-                    } else {
-                        return [];
-                    }
-                }
-            },
-            {
-                "targets": 9,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    if (row[10] != null) {
-                        return `${row[10]}`;
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "targets": 10,
-                "data": "Edit",
-                "render": function ( data, type, row, meta ) {
-                    let tab = $('.tab').attr("data-value");
-                    console.log(tab)
-                    if (tab !=0) {
-                        return `
-                        <input type="checkbox" name="distribute_lead_id[]" value="${row[11]}">
-                        `;
-                    } else {
-                        return '';
-                    }
-                }
-            },]
-        });
+            );
 </script>
