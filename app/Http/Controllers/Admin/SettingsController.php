@@ -87,7 +87,7 @@ class SettingsController extends Controller
         $ldata->lookup_name = $request->txtLookupName;
         $ldata->lookup_type = $request->cmbLookupType;
         $ldata->lookup_row_status = $request->cmbLookupStatus;
-        $redirectURL = '/district_thana_setup';
+        $redirectURL = 'settings';
         if($ldata->save())
         {
           return response()->json(['message'=>'Lookup Data updated successfully.','title'=>'Success',"positionClass" => "toast-top-right","redirectPage"=>$redirectURL]);
