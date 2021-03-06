@@ -77,8 +77,19 @@ class LoginController extends Controller
                                         ->get();
                                 })->get();
 
-                session(['user.hod_user' => $hod_user[0]->hod_user_pk_no]);
+                session(['user.hod_user' => @$hod_user[0]->hod_user_pk_no]);
             }
+        } else {
+            $hod_user = DB::table('t_teambuild')
+                                ->where('user_pk_no', function($query) use($loginuserid){
+                                    return $query->from('s_user')
+                                        ->select('user_pk_no')
+                                        ->where('user_type',1)
+                                        ->where('user_id', $loginuserid)
+                                        ->get();
+                                })->get();
+
+                session(['user.hod_user' => @$hod_user[0]->hod_user_pk_no]);
         }
 
         $is_hod = DB::select("SELECT COUNT(1) hod FROM t_teambuild WHERE hod_user_pk_no in(".$user_id.") and row_status=1")[0]->hod;

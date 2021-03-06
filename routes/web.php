@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('load_users', 'UserController@load_users')->name('load_users');
     Route::resource('user', 'UserController');
 
+
     Route::post('lookup_list', 'SettingsController@load_list')->name('lookup_list');
     Route::get('project_wise_flat', 'SettingsController@project_wise_flat')->name('project_wise_flat');
     Route::get('create_project_wise_flat', 'SettingsController@create_project_wise_flat')->name('create_project_wise_flat');

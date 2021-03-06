@@ -444,7 +444,6 @@ $user_type = Session::get('user.user_type');
 								value="{{ Session::get('user.ses_role_lookup_pk_no') }}" readonly="readonly"/>
 							</div>
 						</div>
-
 						<div class="col-md-4">
 							<div class="form-group">
 								<label for="txt_source_name">Creator Name</label>

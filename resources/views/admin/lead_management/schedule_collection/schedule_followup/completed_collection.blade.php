@@ -21,6 +21,7 @@
 							<th class="text-center">Collection Date</th>
 							<th class="text-center">Lead Id</th>
 							<th class="text-center">Collected Amount</th>
+							<th class="text-center">Bank</th>
 							<th class="text-center">Check_no</th>
 							<th class="text-left">Cheque Date</th>
 							<th class="text-left">Received Date</th>

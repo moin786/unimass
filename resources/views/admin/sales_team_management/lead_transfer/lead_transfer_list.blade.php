@@ -36,8 +36,8 @@
 			style="width: 100%;" aria-hidden="true">
 			<option selected="selected" value="">Select Project Name</option>
 		</select>
+		</div>
 	</div>
-</div>
 
 <div class="col-md-2">
 	<div class="form-group">

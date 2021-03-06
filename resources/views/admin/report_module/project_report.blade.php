@@ -42,8 +42,9 @@
     @php
     $is_hod = Session::get('user.is_ses_hod');
     $is_super_admin = Session::get('user.is_super_admin');
+    $role_id = Session::get('user.ses_role_lookup_pk_no');
     @endphp
-    @if($is_hod == 1 || $is_super_admin==1)
+    @if($is_hod == 1 || $is_super_admin==1 ||$role_id == 551)
     <section id="search_details" class="content_text" style="padding-bottom: 0px; ">
         <div class="row">
             <div class="col-xs-12">

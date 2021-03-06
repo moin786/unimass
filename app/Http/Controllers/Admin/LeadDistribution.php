@@ -552,10 +552,11 @@ class LeadDistribution extends Controller
 
 
         $lead_data = DB::table('t_lead2lifecycle_vw')
-            ->where('lead_cluster_head_pk_no', 0)
+            ->where('lead_cluster_head_pk_no', 305)
             ->where('lead_current_stage', 1)
+            ->where('lead_sales_agent_pk_no', 0)
             ->whereRaw("(source_auto_pk_no in(" . $get_all_team_members . "))")
-            ->paginate(10);
+            ->get();
 
         $sales_agent_arr = DB::table("t_teambuild")
             ->join("s_lookdata", "t_teambuild.team_lookup_pk_no", "s_lookdata.lookup_pk_no")
@@ -653,7 +654,8 @@ class LeadDistribution extends Controller
          $sql = "SELECT lead_pk_no,lead_id,created_at,customer_firstname,customer_lastname,phone1,project_area,project_name,project_size,
                         source_digital_marketing,leadlifecycle_pk_no
                         FROM t_lead2lifecycle_vw
-                        WHERE lead_cluster_head_pk_no = 0
+                        WHERE lead_cluster_head_pk_no = 305
+                        and lead_sales_agent_pk_no = 0
                         AND lead_current_stage = 1
                         AND source_auto_pk_no in($get_all_team_members)
                 ";
