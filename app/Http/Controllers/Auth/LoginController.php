@@ -62,6 +62,36 @@ class LoginController extends Controller
             session()->save();
         $user_id = $user_info->teamUser['user_pk_no']*1;
 
+        $loginuserid = $user_info->id;
+
+        $s_user_info = DB::table('s_user')->where('user_id', $user_info->id)->where('user_type',1)->get();
+        
+        if ($s_user_info->isEmpty()) {
+            if ($user_info->id != 24) {
+                $hod_user = DB::table('t_teambuild')
+                                ->where('user_pk_no', function($query) use($loginuserid){
+                                    return $query->from('s_user')
+                                        ->select('user_pk_no')
+                                        ->where('user_type',2)
+                                        ->where('user_id', $loginuserid)
+                                        ->get();
+                                })->get();
+
+                session(['user.hod_user' => @$hod_user[0]->hod_user_pk_no]);
+            }
+        } else {
+            $hod_user = DB::table('t_teambuild')
+                                ->where('user_pk_no', function($query) use($loginuserid){
+                                    return $query->from('s_user')
+                                        ->select('user_pk_no')
+                                        ->where('user_type',1)
+                                        ->where('user_id', $loginuserid)
+                                        ->get();
+                                })->get();
+
+                session(['user.hod_user' => @$hod_user[0]->hod_user_pk_no]);
+        }
+
         $is_hod = DB::select("SELECT COUNT(1) hod FROM t_teambuild WHERE hod_user_pk_no in(".$user_id.") and row_status=1")[0]->hod;
         $is_hot = DB::select("SELECT COUNT(1) hot FROM t_teambuild WHERE hot_user_pk_no in(".$user_id.") and row_status=1")[0]->hot;
         $is_team_leader = DB::select("SELECT COUNT(1) team_leader FROM t_teambuild WHERE team_lead_user_pk_no in(".$user_id.") and row_status=1")[0]->team_leader;       

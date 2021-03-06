@@ -209,9 +209,10 @@ $(document).on("click",".lead-view",function (e) {
 
 	});
 });
-
+  
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	blockUI();
+	$.fn.dataTable.ext.errMode = 'none'; 
 	$('.table').DataTable().destroy();
 	var list_type = $(this).attr("data-type");
 	var action = $(this).attr("data-action");

@@ -96,7 +96,7 @@ $is_super_admin = Session::get('user.is_super_admin');
                     <td  class="text-center"> {{  $loop->iteration }} </td>
                     <td  class="text-left"> {{ $cluster->user_fullname  }} </td>
                     @foreach($look_data as $project)
-                    <td  class="text-right">{{ isset($project_report_com[$cluster->user_pk_no][$project->lookup_pk_no])?$project_report_comproject_report_com[$cluster->user_pk_no][$project->lookup_pk_no]:0  }}</td>
+                    <td  class="text-right">{{ isset($project_report_com[$cluster->user_pk_no][$project->lookup_pk_no])?$project_report_com [$cluster->user_pk_no][$project->lookup_pk_no]:0  }}</td>
                     @php
                     $store  = isset($project_report_com[$cluster->user_pk_no][$project->lookup_pk_no])?$project_report_com[$cluster->user_pk_no][$project->lookup_pk_no]:0 ;
                     $sum += $store ;

@@ -41,6 +41,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('load_users', 'UserController@load_users')->name('load_users');
     Route::resource('user', 'UserController');
 
+
     Route::post('lookup_list', 'SettingsController@load_list')->name('lookup_list');
     Route::get('project_wise_flat', 'SettingsController@project_wise_flat')->name('project_wise_flat');
     Route::get('create_project_wise_flat', 'SettingsController@create_project_wise_flat')->name('create_project_wise_flat');
@@ -143,8 +144,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     //CRE Lead Distribution
     Route::get('/lead_distribution', 'LeadDistribution@lead_distribution_cre')->name("lead.lead_distribution");
+    Route::get('/lead_distribution_list', 'LeadDistribution@distributeLeadList')->name("lead.lead_distribution_list");
     Route::post('/distribute_lead_to_ch', 'LeadDistribution@distribute_lead_to_ch')->name('distribute_lead_to_ch');
     Route::post('/load_dist_leads_to_ch', 'LeadDistribution@load_dist_leads_to_ch')->name('load_dist_leads_to_ch');
+    Route::post('/load_dist_leads_to_ch_completed', 'LeadDistribution@load_dist_leads_to_ch_completed')->name('load_dist_leads_to_ch_completed');
     Route::get('/all_lead/{from_dt?}/{to_dt?}', 'LeadController@all_lead')->name('all_lead');
     Route::get('/todays_visit_lead/{from_dt?}/{to_dt?}', 'LeadController@today_visit')->name('todays_visit_lead');
 
@@ -212,10 +215,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
     Route::get('/lead_sold_view/{id}', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
     Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
+    Route::get('/getCompleteCollection', "projectScheduleController@getCompleteCollection")->name("getCompleteCollection");
+
 
     Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
 
     Route::post('/store_schedule_collection', "projectScheduleController@store")->name("schedule-collection.store");
+
+    Route::post('/store_schedule_followup', "ScheduleFollowupController@store")->name("store_schedule_followup.store");
+
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
     

@@ -18,7 +18,7 @@
 
 					<div class="form-group">
 						<label  for="installment_amount">Installment Amount</label>
-						<input type="text" class="form-control" id="installment_amount" name="installment_amount" value="{{ $schedule_info->amount }}" placeholder="0.00" disabled>
+						<input type="text" class="form-control" id="installment_amount" name="installment_amount" value="{{ isset($schedule_info->amount)? $schedule_info->amount : " " }}" placeholder="0.00" disabled>
 					</div>
 
 					<div class="form-row">
@@ -28,9 +28,21 @@
 						</div>
 						<div class="form-group col-md-6">
 							<label  for="remaining_amount">Remaining Amount</label>
-							<input type="text" class="form-control" id="remaining_amount" name="remaining_amount" value="{{  $schedule_info->amount- $col_amount  }}" placeholder="0.00" disabled>
-							<input type="hidden" class="form-control" id="hdn_remaining_amount" name="hdn_remaining_amount" value="{{  $schedule_info->amount- $col_amount  }}" placeholder="0.00" >
+							<input type="text" class="form-control" id="remaining_amount" name="remaining_amount" value="{{  isset($schedule_info->amount)? $schedule_info->amount- $col_amount : "0"  }}" placeholder="0.00" disabled>
+							<input type="hidden" class="form-control" id="hdn_remaining_amount" name="hdn_remaining_amount" value="{{  isset($schedule_info->amount)? $schedule_info->amount- $col_amount : "0"  }}" placeholder="0.00" >
 						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Bank</label>
+						<select class="form-control" id="cmb_bank_id" name="cmb_bank_id">
+							<option value="">Select Bank</option>
+							@isset($banks)
+							@foreach($banks as $key => $bank)
+							<option value="{{$key}}">{{ $bank }}</option>
+							@endforeach
+							@endif
+						</select>
 					</div>
 
 					<div class="form-group">
@@ -40,7 +52,7 @@
 
 					<div class="form-group">
 						<label  for="check_no">Check No</label>
-						<input type="text" class="form-control" id="check_no" name="check_no" value="" placeholder="0.00" >
+						<input type="text" class="form-control" id="check_no" name="check_no" value="" placeholder="Check No" >
 					</div>
 
 					<div class="form-group">
@@ -55,9 +67,13 @@
 						<label  for="mr_no">MR No</label>
 						<input type="text" class="form-control" id="mr_no" name="mr_no" value="" placeholder="MR No" >
 					</div>	
-					<input type="hidden" name="s_id" value="{{ $schedule_info->id }}">			
-					<input type="hidden" name="lead_pk_no" value="{{ $schedule_info->lead_pk_no }}">
-					<input type="hidden" name="lead_id" value="{{ $schedule_info->lead_id }}">			
+					<div class="form-group">
+						<label  for="mr_no">Remarks</label>
+						<textarea name="remarks" id="" class="form-control"></textarea>
+					</div>
+					<input type="hidden" name="s_id" value="{{ isset($schedule_info->id)? $schedule_info->id :"0"}}">			
+					<input type="hidden" name="lead_pk_no" value="{{ isset($schedule_info->lead_pk_no)?$schedule_info->lead_pk_no :"0"  }}">
+					<input type="hidden" name="lead_id" value="{{ isset($schedule_info->lead_id)? $schedule_info->lead_id : "0" }}">			
 
 					<div class="text-right">
 						<button class="btn btn-xs bg-green btnSaveUpdate">Save</button>
@@ -72,91 +88,111 @@
 	</div>
 
 	<div class="col-md-6">
-		<div class="box box-primary">
-			<div class="box-header">
-				<i class="ion ion-clipboard"></i>
-				<h3 class="box-title">Schedule List</h3>
-			</div>
-			<div class="box-body">
-				<ul class="todo-list">
-					@if(!empty($schedule_list))
-					@foreach($schedule_list as $row)
-					<li>
-						<a href="#" class="routeSetUp">
-							<span class="handle">
-								<i class="fa fa-ellipsis-v"></i>
-								<i class="fa fa-ellipsis-v"></i>
-							</span>
-							<span class="text">{{ $row-> installment  }}</span> 
-							@if($row-> installment==$schedule_info->installment)
-							<i class="fa fa-check" aria-hidden="true"></i>
-							@endif
-							{{-- <small class="label label-default pull-right">0</small> --}}
-						</a>
-					</li>
-					@endforeach
-					@endif
+		<div class="row">
+			<div class="col-md-12">
 
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="col-md-12">
-		<div class="box box-primary">
-			<div class="box-header">
-				<i class="ion ion-clipboard"></i>
-				<h3 class="box-title">Collected Collection</h3>
-			</div>
-			<div class="box-body">
-				<div class="form-row">
-					<div class="col-md-4 col-md-offset-4">
-						<div class="form-group">
-							<label>Schedule List</label>
-							<select class="form-control" id="cmb_project_name" name="cmb_project_name">
-								<option value="">1st Installment</option>
-								<option value="">2nd Installment</option>
-								<option value="">3rd Installment</option>
-								<option value="">4th Installment</option>
-								<option value="">5th Installment</option>
-								<option value="">6th Installment</option>
-							</select>
-						</div>
+				<div class="box box-primary">
+					<div class="box-header">
+						<i class="ion ion-clipboard"></i>
+						<h3 class="box-title">Schedule List</h3>
 					</div>
-					<div class="col-md-12">
-						<table class="table table-bordered mb-0">
-							<thead class="bg-blue">
-								<th class="text-left">Installment</th>
-								<th class="text-right">Installment Amount</th>
-								<th class="text-right">Collected Amount</th>
-								<th class="text-right">Due</th>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-left">1st Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
-								<tr>
-									<td class="text-left">2nd Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
-								<tr>
-									<td class="text-left">3rd Installment</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-									<td class="text-right">0.00</td>
-								</tr>
+					<div class="box-body">
+						<ul class="todo-list">
+							@php
+							$rec =0;
+							@endphp
+							@if(!empty($schedule_list))
+							@foreach($schedule_list as $row)
+							@php
+							$rec = $rec + $row->amount;
+							@endphp
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">{{ $row->installment  }}</span> 
+									@if(isset($schedule_info->installment))
+									@if($row->installment==$schedule_info->installment)
+									<i class="fa fa-check" aria-hidden="true"></i>
+									@else
+									({{$row->payment_status}})
+									@endif
 
+									@endif
+									{{-- <small class="label label-default pull-right">0</small> --}}
 
-							</tbody>
-						</table>
+								</a>
+							</li>
+							@endforeach
+							@endif
+
+						</ul>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-12">
+
+				<div class="box box-primary">
+					<div class="box-header">
+						<i class="ion ion-clipboard"></i>
+						<h3 class="box-title">Summary</h3>
+					</div>
+					<div class="box-body">
+						<ul class="todo-list">
+							@php
+							$due = 0;
+							$rec = isset($rec)? $rec : 0;
+							$col = isset($schedule_amount[0]->total_amount)? $schedule_amount[0]->total_amount: 0;
+							$due = $rec-$col;
+
+							@endphp
+							
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Receiveable amount</span>
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($rec,2) }}</small> 
+									
+									
+								</a>
+							</li>
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Collection amount</span>
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($col,2) }}</small> 
+									
+									
+								</a>
+							</li>
+
+							<li>
+								<a href="#" class="routeSetUp">
+									<span class="handle">
+										<i class="fa fa-ellipsis-v"></i>
+										<i class="fa fa-ellipsis-v"></i>
+									</span>
+									<span class="text">Due amount</span>
+									<small class="label  pull-right" style="color: red;"> {{  number_format($due,2) }}</small> 
+									
+									
+								</a>
+							</li>
+							
+
+						</ul>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </div>

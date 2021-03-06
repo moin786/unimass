@@ -2,8 +2,8 @@
         <div class="col-md-2">
             <div class="form-group">
                 <label for="from_date">From </label>
-                <input type="text" class="form-control datepicker" id="from_date"
-                       name="from_date" value="" title="" placeholder="dd-mm-yyyy"/>
+                <input type="text" class="form-control datepicker" id="from_date" 
+                       name="from_date" value="" title="" placeholder="dd-mm-yyyy" autocomplete="off"/>
             </div>
         </div>
 
@@ -11,13 +11,13 @@
             <div class="form-group">
                 <label for="to_date">To </label>
                 <input type="text" class="form-control datepicker" id="to_date" name="to_date"
-                       value="" title="" placeholder="dd-mm-yyyy"/>
+                       value="" title="" placeholder="dd-mm-yyyy" autocomplete="off"/>
             </div>
         </div>
 
         <div class="col-md-2">
             <div class="form-group">
-                <label for="cluster_head">CRS </label>
+                <label for="cluster_head">HOD </label>
                 <select class="form-control select2" style="width: 100%;" aria-hidden="true"
                         id="cluster_head" name="cluster_head">
                     <option value="">Select</option>

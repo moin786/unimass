@@ -39,6 +39,12 @@
     </section>
 
     <!-- Main content -->
+    @php
+    $is_hod = Session::get('user.is_ses_hod');
+    $is_super_admin = Session::get('user.is_super_admin');
+    $role_id = Session::get('user.ses_role_lookup_pk_no');
+    @endphp
+    @if($is_hod == 1 || $is_super_admin==1 ||$role_id == 551)
     <section id="search_details" class="content_text" style="padding-bottom: 0px; ">
         <div class="row">
             <div class="col-xs-12">
@@ -67,6 +73,13 @@
             </div>
         </div>
     </section>
+    @else
+    <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h4 class="pull-left" style="margin-right: 20px;"><i class="icon fa fa-ban"></i> Forbidden!</h4>
+        You are not Authorized to view this page
+    </div>
+    @endif
     <!-- /.content -->
 
 @endsection

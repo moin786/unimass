@@ -770,7 +770,7 @@ class LeadFllowupController extends Controller
         $ldata->lead_sold_team_lead_pk_no = 1;
         $ldata->lead_sold_team_manager_pk_no = 1;
         $ldata->lead_sold_agreement_status = $request->lead_sold_agreement_status;
-        $ldata->lead_sold_bookingmoney = $request->lead_sold_bookingmoney;
+        //$ldata->lead_sold_bookingmoney = $request->lead_sold_bookingmoney;
         $ldata->lead_reserve_money = $request->reserve_money;
 
         if ($ldata->save()) {

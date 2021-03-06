@@ -20,7 +20,7 @@
 			<td class="text-center">
 				<span class="btn bg-{{ ($row->lookup_row_status==1)?'success':'danger' }} btn-xs" data-id="{{ $row->lookup_pk_no }}">{{ ($row->lookup_row_status==1)?'Active':'Inactive' }}</span>
 				<span class="btn bg-info btn-xs update_modal" data-action="{{ route('settings.edit',$row->lookup_pk_no) }}" data-id="{{ $row->lookup_pk_no }}"><i class="fa fa-pencil"></i></span>
-				<span class="btn bg-danger btn-xs" data-id="{{ $row->lookup_pk_no }}"><i class="fa fa-close"></i></span>
+				{{-- <span class="btn bg-danger btn-xs" data-id="{{ $row->lookup_pk_no }}"><i class="fa fa-close"></i></span> --}}
 			</td>
 		</tr>
 		@endforeach

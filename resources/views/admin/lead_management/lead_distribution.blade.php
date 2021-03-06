@@ -31,11 +31,11 @@
                             <li class="active"><a href="#manual_lead" data-toggle="tab" data-type="1"
                                     data-action="load_dist_leads_to_ch" aria-expanded="true">Pending</a></li>
                             <li class=""><a href="#pending_lead" data-toggle="tab" data-type="0"
-                                    data-action="load_dist_leads_to_ch" aria-expanded="false">Completed</a></li>
+                                    data-action="load_dist_leads_to_ch_completed" aria-expanded="false">Completed</a></li>
 
                             <!-- <li class=""><a href="#auto_lead" data-toggle="tab" data-type="2" data-action="load_dist_leads" aria-expanded="false">Auto</a></li> -->
                         </ul>
-
+                        <span class="tab" data-value="{{$tab}}"></span>
                         <div class="tab-content">
                             @include('admin.lead_management.all_lead')
                         </div>
@@ -76,11 +76,117 @@
                 todayHighlight: true
             });
 
-            $('#work_list').DataTable({
-                    "ordering": false
-                }
+            // $('#work_list').DataTable({
+            //         "ordering": false
+            //     }
 
-            );
+            // );
+            $.fn.dataTable.ext.errMode = 'none';    
+            var datatable = $('#work_list').DataTable({
+				"processing": true,
+				"serverSide": true,
+				"ajax":{
+					"url": "{{ route('lead.lead_distribution_list') }}",
+					"dataType": "json",
+					"type": "get",
+                //"data":{ _token: "{{csrf_token()}}"}
+            },
+            "columnDefs": [{
+                "targets": 1,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+
+                    return `${row[1]}`;
+                }
+            },
+            {
+                "targets": 3,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+
+                    return `${row[3]} ${row[4]}`;
+                }
+            },
+            {
+                "targets": 4,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+
+                    return `${row[5]}`;
+                }
+            },
+            {
+                "targets": 5,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+                    if (row[6] != null) {
+                        return `${row[6]}`;
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            {
+                "targets": 6,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+                    if (row[7] != null) {
+                        return `${row[7]}`;
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            {
+                "targets": 7,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+                    if (row[8] != null) {
+                        return `${row[8]}`;
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            {
+                "targets": 8,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+                    let sourcelead = @json($digital_mkt);
+                    if (row[9] != null) {
+                        return sourcelead[row[9]];
+                    } else {
+                        return [];
+                    }
+                }
+            },
+            // {
+            //     "targets": 9,
+            //     "data": "Edit",
+            //     "render": function ( data, type, row, meta ) {
+            //         if (row[10] != null) {
+            //             return `${row[10]}`;
+            //         } else {
+            //             return '';
+            //         }
+            //     }
+            // },
+            {
+                "targets": 9,
+                "data": "Edit",
+                "render": function ( data, type, row, meta ) {
+                    let tab = $('.tab').attr("data-value");
+                    console.log(tab)
+                    if (tab !=0) {
+                        return `
+                        <input type="checkbox" name="distribute_lead_id[]" value="${row[10]}">
+                        `;
+                    } else {
+                        return '';
+                    }
+                }
+            },]
+        });
 
             $(document).on("click", ".distribute-lead", function(e) {
                 if (confirm("Are You Sure?")) {

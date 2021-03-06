@@ -94,7 +94,7 @@ method="{{ !isset($team_users)?'post' : 'patch' }}">
                     <thead id="thead_id">
                         <tr id="team_user">
                             <th>Team User</th>
-                            <th class="text-center" title="Cluster Head">CRS</th>
+                            <th class="text-center" title="Cluster Head">HOD</th>
                             {{-- <th class="text-center" title="Branch Head">BH</th> --}}
                             <th class="text-center" title="Team Leader">TL</th>
                             <th class="text-center" title="Team Leader">Seq.</th>

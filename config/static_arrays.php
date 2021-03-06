@@ -21,6 +21,7 @@ return [
 		27 => 'SMS GateWay Username',
 		28 => 'SMS GateWay Password',
 		29 => 'Lead Source',
+		30 => 'Bank'
 
 		/*
 		19 => 'District',
@@ -67,8 +68,8 @@ return [
 
 	],
 	'agent_type' => [
-		1 => 'Customer Relations & Sales',
-		2 => 'Sales',
+		1 => 'HOD',
+		2 => 'Customer Relations & Sales',
 		3 => 'CSD'
 	],
 	'lead_distribution_type' => [

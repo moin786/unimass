@@ -19,6 +19,24 @@
 	</div>
 
 	<div class="modal-footer text-right">
-		<button type="button" class="btn btn-xs bg-red" data-dismiss="modal">Close</button>
-		<button type="button" class="btn btn-xs bg-blue">Save changes</button>
+		
 	</div>
+
+	<script>
+		function getCompleteCollection(value){
+			var lead_pk_no = $("#lead_pk_no").val();
+			$.ajax({
+				url: "{{ route("getCompleteCollection") }}",
+				type: "get",
+				data: { schedule_id : value,lead_pk_no:lead_pk_no },
+				beforeSend:function(){
+					blockUI();
+				},
+				success: function (data) {
+					$.unblockUI();
+					$("#complete_collection_table").html(data);
+				}
+
+			});
+		}
+	</script>

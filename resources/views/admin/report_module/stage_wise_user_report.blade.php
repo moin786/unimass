@@ -17,9 +17,9 @@
 		padding-left: 15px;
 		padding-right: 15px;
 	}
-    .heading{
-        text-align: center;
-    }
+	.heading{
+		text-align: center;
+	}
 </style>
 @endpush
 
@@ -34,7 +34,12 @@
 		<li class="active">Stage Wise Report</li>
 	</ol>
 </section>
-
+@php
+$is_hod = Session::get('user.is_ses_hod');
+$is_super_admin = Session::get('user.is_super_admin');
+$role_id = Session::get('user.ses_role_lookup_pk_no');
+@endphp
+@if($is_hod == 1|| $is_super_admin==1 || $role_id == 551)
 <!-- Main content -->
 <section id="search_details" class="content_text" style="padding-bottom: 0px;">
 	<div class="row">
@@ -64,7 +69,7 @@
 								</div>
 							</div> --}}
 
-                            @include("admin.report_module.search_panel")
+							@include("admin.report_module.search_panel")
 
 
 						</div>
@@ -81,6 +86,16 @@
 		</div>
 	</div>
 </section>
+@else
+<div class="alert alert-danger alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<h4 class="pull-left" style="margin-right: 20px;"><i class="icon fa fa-ban"></i> Forbidden!</h4>
+	You are not Authorized to view this page
+</div>
+@endif
+
+
+
 <!-- /.content -->
 
 @endsection
@@ -113,31 +128,31 @@
 			//if(report_type== ""){
 			//	alert("You did not select any Report Type");
 			//}else{
-			$.ajax({
-				data: $('#frmSearch').serialize(),
-				url: 'stage_wise_user_report_result',
-				type: 'post',
-				beforeSend:function(){
-					$.blockUI({
-						message: '<i class="icon-spinner4 spinner"></i>',
-						overlayCSS: {
-							backgroundColor: '#1b2024',
-							opacity: 0.8,
-							zIndex: 999999,
-							cursor: 'wait'
-						},
-						css: {
-							border: 0,
-							color: '#fff',
-							padding: 0,
-							zIndex: 9999999,
-							backgroundColor: 'transparent'
-						}
-					});
-				},
-				success: function (data) {
-					$.unblockUI();
-					$("#search_result_con").html(data);
+				$.ajax({
+					data: $('#frmSearch').serialize(),
+					url: 'stage_wise_user_report_result',
+					type: 'post',
+					beforeSend:function(){
+						$.blockUI({
+							message: '<i class="icon-spinner4 spinner"></i>',
+							overlayCSS: {
+								backgroundColor: '#1b2024',
+								opacity: 0.8,
+								zIndex: 999999,
+								cursor: 'wait'
+							},
+							css: {
+								border: 0,
+								color: '#fff',
+								padding: 0,
+								zIndex: 9999999,
+								backgroundColor: 'transparent'
+							}
+						});
+					},
+					success: function (data) {
+						$.unblockUI();
+						$("#search_result_con").html(data);
 					/*$('#tbl_search_result').DataTable({
 						"order": false,
 						bSort: false,
@@ -154,7 +169,7 @@
 				}
 			});
 		//}
-		});
+	});
 
 		$(document).on("click", "#btnExportLeads", function(e){
 			$('#frmSearch').submit()

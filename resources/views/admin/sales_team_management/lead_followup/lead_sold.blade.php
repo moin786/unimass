@@ -29,7 +29,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                 <div class="col-md-3">
                     <div class="input-group">
                         <span class="input-group-text">Amount</span>
-                        <input type="text" name="amount" id="amount" class="form-control" readonly="readonly">
+                        <input type="text" name="amount" id="amount" class="form-control">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -104,11 +104,11 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-12">
+                    {{-- <div class="col-md-12">
                         <label for="">Booking Money <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only text-left" id="utility"
                             name="lead_sold_bookingmoney" value="" title="" placeholder="Booking Money" />
-                    </div>
+                    </div> --}}
                     <div class="col-md-12">
                         <label for="">Agreement Status :</label>
                         <select class="form-control" name="lead_sold_agreement_status">
