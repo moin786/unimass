@@ -59,6 +59,56 @@ class projectScheduleController extends Controller
      */
 
 
+    public function monthWiseReceivable()
+    {
+        return view("admin.lead_management.month_wise_receivable");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function balanceOfMonthWiseReceivable()
+    {
+        return view("admin.lead_management.balance_of_month_wise_receivable");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function summaryOfReceivables()
+    {
+        return view("admin.lead_management.summary_of_receivables");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+
+    public function customerAccount()
+    {
+        return view("admin.lead_management.customer_account");
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+
 
 
     public function store(Request $request)

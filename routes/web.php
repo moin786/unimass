@@ -216,10 +216,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
 
     Route::post('/store_schedule_collection', "projectScheduleController@store")->name("schedule-collection.store");
-
-
-
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
+    
     Route::get('/sales-approval', 'projectScheduleController@salesApproval')->name('sales-approval');
+    Route::get('/month-wise-receivable', 'projectScheduleController@MonthWiseReceivable')->name('month-wise-receivable');
+    Route::get('/balance-of-month-wise-receivable', 'projectScheduleController@balanceOfMonthWiseReceivable')->name('balance-of-month-wise-receivable');
+    Route::get('/summary-of-receivables', 'projectScheduleController@summaryOfReceivables')->name('summary-of-receivables');
+    Route::get('/customer-account', 'projectScheduleController@customerAccount')->name('customer-account');
 });
