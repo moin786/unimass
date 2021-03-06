@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
+
 	public function index($other_user_id = null)
 	{
 		ini_set('memory_limit', '2048M');

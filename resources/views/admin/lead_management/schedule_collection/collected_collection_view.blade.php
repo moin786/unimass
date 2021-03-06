@@ -34,6 +34,18 @@
 					</div>
 
 					<div class="form-group">
+						<label>Bank</label>
+						<select class="form-control" id="cmb_bank_id" name="cmb_bank_id">
+							<option value="">Select Bank</option>
+							@isset($banks)
+							@foreach($banks as $key => $bank)
+							<option value="{{$key}}">{{ $bank }}</option>
+							@endforeach
+							@endif
+						</select>
+					</div>
+
+					<div class="form-group">
 						<label  for="amount">Amount</label>
 						<input type="text" class="form-control" id="amount" name="amount" value="" placeholder="0.00" >
 					</div>

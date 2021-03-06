@@ -90,31 +90,24 @@ $ses_user_pk = Session::get('user.ses_user_pk_no');
 	</thead>
 
 	<tbody>
-		@php
-		$source_arr = [1=>"MQL", 2=>"Walk In", 3=>"SGL"];
-		@endphp
-		@if(!empty($lead_data))
-		@foreach($lead_data as $row)
+	
 		<tr>
-			<td>{{ $row->lead_id }}</td>
-			<td>{{ date("d/m/Y H:i:s",strtotime($row->created_at)) }}</td>
-			<td>{{ $row->customer_firstname . " " . $row->customer_lastname }}</td>
-			<td>{{ $row->phone1 }}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 			{{-- <td>{{ $row->project_category_name }}</td> --}}
-			<td>{{ $row->project_area }}</td>
-			<td>{{ $row->project_name }}</td>
-			<td>{{ $row->project_size }}</td>
+			<td></td>
+			<td></td>
+			<td></td>
 			{{-- <td>{{  isset($source_arr[$row->lead_entry_type]) ? $source_arr[$row->lead_entry_type] : " "   }}</td> --}}
-			<td>{{  isset($digital_mkt[$row->source_digital_marketing]) ? $digital_mkt[$row->source_digital_marketing] : " "   }}</td>
+			<td></td>
 			{{-- <td class="text-center">{{ $row->lead_cluster_head_name }}</td> --}}
-			@if($tab!=0)
+			
 			<td class="text-center">
-				<input type="checkbox" name="distribute_lead_id[]" value="{{ $row->leadlifecycle_pk_no }}">
+				<input type="checkbox" name="distribute_lead_id[]" value="">
 			</td>
-			@endif
 		</tr>
-		@endforeach
-		@endif
 	</tbody>
 </table>
 

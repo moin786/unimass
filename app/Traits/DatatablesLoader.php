@@ -110,13 +110,16 @@ trait DatatablesLoader
 
         $limit = '';
         if ( isset($request['start']) && $request['length'] != -1 ) {
-            $range = $request['start']+$request['length'];
+            //$range = $request['start']+$request['length'];
+            $range = $request['length'];
+           
             $limit = " limit ".intval($request['start']).",$range";
         }
 
         $order_by_cond  = ($order_by_column!="")?" order by IFNULL(b.created_at,now()) $sorting_order":"";
         //$order_by_cond  = "";
         //echo "select b.* from ($sql $where) b where $limit $order_by_cond";die;
+        //return "select b.* from ($sql $where) b $order_by_cond $limit ";
         $data = DB::select("select b.* from ($sql $where) b $order_by_cond $limit ");
         $resfilterlength = count(DB::select($sql));
         $restotallength  = count($data);

@@ -4,6 +4,7 @@
 	<td class="text-center">{{ date("d/m/Y",strtotime($row->created_at)) }}</td>
 	<td class="text-center">{{ $row->lead_id }}</td>
 	<td class="text-center">{{ $row->collected_amount }}</td>
+	<td class="text-center">{{ $row->lookup_name }}</td>
 	<td class="text-center">{{ $row->check_no }}</td>
 	<td class="text-left">{{ date("d/m/Y",strtotime($row->cheque_date)) }}</td>
 	<td class="text-left">{{ date("d/m/Y",strtotime($row->received_date)) }}</td>
