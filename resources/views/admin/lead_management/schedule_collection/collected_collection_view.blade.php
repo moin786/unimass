@@ -114,7 +114,7 @@
 									</span>
 									<span class="text">{{ $row->installment  }}</span> 
 									@if(isset($schedule_info->installment))
-									@if($row->installment==$schedule_info->installment)
+									@if($row->installment==$schedule_info->installment && $row->id == $schedule_info->id)
 									<i class="fa fa-check" aria-hidden="true"></i>
 									@else
 									({{$row->payment_status}})

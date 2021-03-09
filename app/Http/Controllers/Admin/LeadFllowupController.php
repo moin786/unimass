@@ -725,21 +725,20 @@ class LeadFllowupController extends Controller
         ]);*/
 
 		
-
         $ldata = LeadLifeCycle::findOrFail($request->leadlifecycle_id);
 
 		$lead = Lead::findOrFail($ldata->lead_pk_no);
 		$i = 0;
 		
-		if (isset($request->installment_save)) {
-			foreach($request->installment_save as $installment) {
+		if (isset($request->book_schedule_date_save)) {
+			foreach($request->book_schedule_date_save as $installment) {
 				DB::table("sold_project_schedules")->insert([
 					'lead_pk_no' => $ldata->lead_pk_no,
 					'lead_id' => $lead->lead_id,
-					'schedule_date' => date("Y-m-d",strtotime($request->schedule_date_save[$i])),
-					'installment' => $request->installment_save[$i],
-					'amount' => intval($request->amount_save[$i]),
-					'percent_of_total_apt_price' => $request->percent_of_first_installment_save[$i],
+					'schedule_date' => date("Y-m-d",strtotime($request->book_schedule_date_save[$i])),
+					'installment' => $request->booking_installment[$i],
+					'amount' => intval($request->booking_amount[$i]),
+					'percent_of_total_apt_price' => $request->booking_percent_of_first_installment[$i],
 					'payment_status' => "In Complete",
 					'created_at' => Carbon::now(),
 					'updated_at' => Carbon::now(),

@@ -207,6 +207,7 @@ class projectScheduleController extends Controller
     						$project_schedule->remarks   = $request->remarks;
     						$project_schedule->save();
     						$amountrem =1 ;
+							$amountdiff = $amountdiff-$schedule->amount;
     					}
     				}
     			}
