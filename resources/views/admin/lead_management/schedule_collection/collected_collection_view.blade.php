@@ -58,7 +58,7 @@
 					<div class="form-group">
 						<label  for="collected_amount">Cheque Date</label>
 						<input type="text" class="form-control datepicker" id="collected_amount" name="cheque_date" value="" placeholder="" >
-					</div>				
+					</div>
 					<div class="form-group">
 						<label  for="received_date">Received Date</label>
 						<input type="text" class="form-control datepicker" id="received_date" name="received_date" value="" placeholder="" >
@@ -66,14 +66,14 @@
 					<div class="form-group">
 						<label  for="mr_no">MR No</label>
 						<input type="text" class="form-control" id="mr_no" name="mr_no" value="" placeholder="MR No" >
-					</div>	
+					</div>
 					<div class="form-group">
 						<label  for="mr_no">Remarks</label>
 						<textarea name="remarks" id="" class="form-control"></textarea>
 					</div>
-					<input type="hidden" name="s_id" value="{{ isset($schedule_info->id)? $schedule_info->id :"0"}}">			
+					<input type="hidden" name="s_id" value="{{ isset($schedule_info->id)? $schedule_info->id :"0"}}">
 					<input type="hidden" name="lead_pk_no" value="{{ isset($schedule_info->lead_pk_no)?$schedule_info->lead_pk_no :"0"  }}">
-					<input type="hidden" name="lead_id" value="{{ isset($schedule_info->lead_id)? $schedule_info->lead_id : "0" }}">			
+					<input type="hidden" name="lead_id" value="{{ isset($schedule_info->lead_id)? $schedule_info->lead_id : "0" }}">
 
 					<div class="text-right">
 						<button class="btn btn-xs bg-green btnSaveUpdate">Save</button>
@@ -112,7 +112,7 @@
 										<i class="fa fa-ellipsis-v"></i>
 										<i class="fa fa-ellipsis-v"></i>
 									</span>
-									<span class="text">{{ $row->installment  }}</span> 
+									<span class="text">{{ $row->installment  }}</span>
 									@if(isset($schedule_info->installment))
 									@if($row->installment==$schedule_info->installment && $row->id == $schedule_info->id)
 									<i class="fa fa-check" aria-hidden="true"></i>
@@ -148,7 +148,7 @@
 							$due = $rec-$col;
 
 							@endphp
-							
+
 							<li>
 								<a href="#" class="routeSetUp">
 									<span class="handle">
@@ -156,9 +156,9 @@
 										<i class="fa fa-ellipsis-v"></i>
 									</span>
 									<span class="text">Receiveable amount</span>
-									<small class="label  pull-right" style="color: #000;"> {{ number_format($rec,2) }}</small> 
-									
-									
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($rec,2) }}</small>
+
+
 								</a>
 							</li>
 							<li>
@@ -168,9 +168,9 @@
 										<i class="fa fa-ellipsis-v"></i>
 									</span>
 									<span class="text">Collection amount</span>
-									<small class="label  pull-right" style="color: #000;"> {{ number_format($col,2) }}</small> 
-									
-									
+									<small class="label  pull-right" style="color: #000;"> {{ number_format($col,2) }}</small>
+
+
 								</a>
 							</li>
 
@@ -181,12 +181,12 @@
 										<i class="fa fa-ellipsis-v"></i>
 									</span>
 									<span class="text">Due amount</span>
-									<small class="label  pull-right" style="color: red;"> {{  number_format($due,2) }}</small> 
-									
-									
+									<small class="label  pull-right" style="color: red;"> {{  number_format($due,2) }}</small>
+
+
 								</a>
 							</li>
-							
+
 
 						</ul>
 					</div>
