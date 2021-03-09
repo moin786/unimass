@@ -468,7 +468,161 @@ required="required" aria-hidden="true" {{ $status }}>
                 });
             });
 
+           let bk = 1;
+           $('body').on('click','.booking_schegenerate', function(){
+                    
+                    $('.generate_booking').append(`
+                        <div class="booking_root" data-rootid="${bk}">
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Date</span>
+                                    <input type="text" name="book_schedule_date_save[]" class="form-control datepicker required" required placeholder="Date">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group">
+                                    <span class="input-group-text">Description</span>
+                                    <input type="text" name="booking_installment[]" id="booking_installment${bk}" class="form-control booking_installment required" placeholder="Description">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <span class="input-group-text">Amount</span>
+                                    <input type="text" name="booking_amount[]" id="booking_amount${bk}" class="form-control booking_amount required" placeholder="Amount">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <div class="input-group-text text-center istallment_percent">%</div>
+                                    <input type="text" name="booking_percent_of_first_installment[]" id="booking_percent_of_first_installment${bk}" class="form-control booking_percent_of_first_installment required" placeholder="%">
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-2">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-block bg-green amount_caculate" id="amount_calculate${bk}" data-rootid="${bk}" style="margin-top:16px;">Calculate</button>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="input-group">
+                                    
+                                    <button type="button" class="btn btn-block bg-green booking_cancel" data-rootid="${bk}" style="margin-top:16px;">x</button>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                
+
+                
+                bk++;
+                $('.datepicker').datepicker();
+        });
+
            
+           
+           
+           $('body').on('click','.booking_cancel', function(){
+               let rootid = $(this).data('rootid');
+               let rootdiv = $(this).parent().parent().parent();
+               let divid = $(this).parent().parent().parent().data('rootid');
+               console.log(divid);
+               //alert(`${rootid} ${divid}`)
+               if(rootid == divid) {
+                rootdiv.remove();
+                
+                bk = bk-1;
+               }
+
+               delay(() =>{
+                    let totalamount = 0;
+                    let totalpercent = 0;
+                    $('input[name="booking_amount[]"]').each(function(){
+                        totalamount += parseFloat($(this).val());
+                            $('#total_amount').val(totalamount);
+                    });
+
+                    
+                    $('input[name="booking_percent_of_first_installment[]"]').each(function(){
+                        totalpercent += parseFloat($(this).val());
+                            $('#total_percent').val(totalpercent);
+                    });
+                }, 1000);
+           });
+
+           let totalamount = 0;
+           let totalpercent = 0;
+           let bookingamount  = 0;
+           let totalbookingpercent = 0;
+           $('body').on('click','.amount_caculate', function(){
+                let rootid = $(this).data('rootid');
+                
+                let checkleadamount = 0;
+                let leadamount = parseFloat($('#grand-total').val());
+                let inputtotalamount = parseFloat($('#total_amount').val());
+
+                
+
+                if ($('#booking_percent_of_first_installment'+rootid).val() != '') {
+                    let amount = parseFloat($('#grand-total').val())*parseInt($('#booking_percent_of_first_installment'+rootid).val())/100;
+                    
+                    $('#booking_amount'+rootid).val(amount);
+
+                    totalamount += amount;
+
+                    $('#total_amount').val(totalamount);
+
+                    totalbookingpercent += parseFloat($('#booking_percent_of_first_installment'+rootid).val());
+                    $('#total_percent').val(totalbookingpercent);
+
+                    leadamount = parseFloat($('#grand-total').val());
+                    inputtotalamount = parseFloat($('#total_amount').val());
+
+                    if (inputtotalamount > leadamount) {
+                        alert("Schedule amount can not grater than grand Total");
+                        totalamount -= amount;
+                        totalbookingpercent -= parseFloat($('#booking_percent_of_first_installment'+rootid).val());
+                        $('#total_amount').val(totalamount-amount);
+                        $('#total_percent').val(totalbookingpercent-parseFloat($('#booking_percent_of_first_installment'+rootid).val()));
+                        $('#booking_amount'+rootid).val('');
+                        $('#booking_percent_of_first_installment'+rootid).val('');
+                        return false;
+                    }
+                }
+
+                if($('#booking_amount'+rootid).val() != '') {
+                    let thisval = $(this).val();
+                    let instpercent = parseInt($('#booking_amount'+rootid).val())*100/parseFloat($('#grand-total').val());
+                    $('#booking_percent_of_first_installment'+rootid).val(instpercent);
+
+                    totalpercent += instpercent;
+
+                    $('#total_percent').val(totalpercent);
+
+                    
+
+                    bookingamount += parseFloat($('#booking_amount'+rootid).val());
+                    $('#total_amount').val(bookingamount);
+
+                    leadamount = parseFloat($('#grand-total').val());
+                    inputtotalamount = parseFloat($('#total_amount').val());
+
+                    if (inputtotalamount > leadamount) {
+                        alert("Schedule amount can not grater than grand Total");
+                        totalpercent -= instpercent;
+                        bookingamount -= parseFloat($('#booking_amount'+rootid).val());
+                        $('#total_amount').val(bookingamount-parseFloat($('#booking_amount'+rootid).val()));
+                        $('#total_percent').val(totalpercent-instpercent);
+                        $('#booking_amount'+rootid).val('');
+                        $('#booking_percent_of_first_installment'+rootid).val('');
+                        return false;
+                    }
+                }
+                
+            });
+
+           
+
 
             $('body').on('focusout','#percent_of_first_installment', function(){
                 $('#amount').attr('disabled',true);

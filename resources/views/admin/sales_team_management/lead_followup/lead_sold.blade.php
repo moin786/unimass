@@ -18,7 +18,8 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                     </div>
                 </div>
             </div>
-            <div class="row" style="border-bottom: 1px solid #333; padding-bottom: 5px; padding-top: 10px;">
+            
+            {{-- <div class="row" style="border-bottom: 1px solid #333; padding-bottom: 5px; padding-top: 10px;">
                
                 <div class="col-md-3">
                     <div class="input-group">
@@ -44,7 +45,7 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                     </div>
                 </div>
 
-            </div>
+            </div> --}}
 
             <div class="row">
                 <div class="generated_schedule">
@@ -104,11 +105,11 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
 
             <div class="form-group">
                 <div class="row">
-                    {{-- <div class="col-md-12">
+                    <div class="col-md-12">
                         <label for="">Booking Money <span class="text-danger"> *</span></label>
                         <input type="text" class="form-control required number-only text-left" id="utility"
                             name="lead_sold_bookingmoney" value="" title="" placeholder="Booking Money" />
-                    </div> --}}
+                    </div>
                     <div class="col-md-12">
                         <label for="">Agreement Status :</label>
                         <select class="form-control" name="lead_sold_agreement_status">
@@ -131,11 +132,30 @@ $flatlist_pk = $data ? $data->flatlist_pk_no : '';
                 <input type="text" class="form-control text-right" id="grand-total" name="grand-total" value=""
                     readonly="readonly" title="" placeholder="Grand Total" />
             </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-block bg-green btnSaveUpdate"
-                    data-response-action="{{ route('load_followup_leads') }}">Update Lead</button>
-            </div>
+            
         </div>
+    </div>
+    <div class="row" style="border-bottom: 1px solid #333; padding-bottom: 5px; padding-top: 10px;">
+                
+        <div class="col-md-12" style="padding: 10px;border-bottom: 1px solid #666;margin-left: 15px;margin-bottom: 10px;">
+            <div>Generate Part Of Book Money & Schedule</div>
+        </div>
+        <div class="generate_booking col-md-12">
+            
+            
+        </div>
+        <input type="hidden" name="total_percent" id="total_percent"/>
+        <input type="hidden" name="total_amount" id="total_amount"/>
+        <div class="col-md-12">
+                <button type="button" class="btn btn-block bg-green booking_schegenerate" style="width:100%; margin-top:16px;">+</button>
+           
+        </div>
+
+        <div class="col-md-12" style="margin-top: 10px;">
+            <button type="button" class="btn btn-block bg-green btnSaveUpdate"
+                data-response-action="{{ route('load_followup_leads') }}">Update Lead</button>
+        </div>
+
     </div>
 </form>
 
