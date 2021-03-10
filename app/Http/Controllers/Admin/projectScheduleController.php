@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use DB;
 use Session;
 use App\LookupData;
+use Carbon\Carbon;
 use App\LeadLifeCycleView;
 use App\schedule_followup;
 use App\SoldProjectSchedule;
@@ -36,23 +37,23 @@ class projectScheduleController extends Controller
 
     public function scheduleController()
     {
-        $sold_lead = LeadLifeCycleView::where("lead_current_stage", 7)->get();
-        $collection_amount = DB::select("select lead_pk_no, sum(amount) as total_amount from sold_project_schedules group by lead_pk_no");
-        $schedule_amount = DB::select("select lead_pk_no, sum(collected_amount) as total_amount from project_schedule_collectoins group by lead_pk_no");
-        $collection_arr = [];
-        $schedule_arr = [];
-        if (!empty($collection_amount)) {
-            foreach ($collection_amount as $value) {
-                $collection_arr[$value->lead_pk_no] = $value->total_amount;
-            }
-        }
-        if (!empty($schedule_amount)) {
-            foreach ($schedule_amount as $value) {
-                $schedule_arr[$value->lead_pk_no] = $value->total_amount;
-            }
-        }
+    	$sold_lead = LeadLifeCycleView::where("lead_current_stage",7)->get();
+    	$collection_amount = DB::select("select lead_pk_no, sum(amount) as total_amount from sold_project_schedules group by lead_pk_no");
+    	$schedule_amount  = DB::select("select lead_pk_no, sum(collected_amount) as total_amount from project_schedule_collectoins where is_schedule_penalty = false group by lead_pk_no");
+    	$collection_arr =[];
+    	$schedule_arr =[];
+    	if(!empty($collection_amount)){
+    		foreach ($collection_amount as  $value) {
+    			$collection_arr[$value->lead_pk_no] = $value->total_amount;
+    		}
+    	}
+    	if(!empty($schedule_amount)){
+    		foreach ($schedule_amount as  $value) {
+    			$schedule_arr[$value->lead_pk_no] = $value->total_amount;
+    		}
+    	}
 
-        return view("admin.lead_management.schedule_collection.schedule_collection", compact("sold_lead", "collection_arr", "schedule_arr"));
+    	return view("admin.lead_management.schedule_collection.schedule_collection",compact("sold_lead","collection_arr","schedule_arr"));
     }
 
     /**
@@ -128,111 +129,232 @@ class projectScheduleController extends Controller
     public function store(Request $request)
     {
         //
+		$lookup_arr = [31];
+        $lookup_data = LookupData::whereIn('lookup_type', $lookup_arr)->where("lookup_row_status", 1)->get();
+		$penalty = 0;
+		foreach ($lookup_data as $value) {
+			if ($value->lookup_type == 31) {
+                $penalty = $value->lookup_name;
+			}
+		}
 
-        if ($request->amount > $request->hdn_remaining_amount) {
-            // dd(($request->amount - $request->hdn_remaining_amount));
-            $amountdiff = ($request->amount - $request->hdn_remaining_amount);
+    	if($request->amount > $request->hdn_remaining_amount){
+    		// dd(($request->amount - $request->hdn_remaining_amount));
+    		$amountdiff = ($request->amount-$request->hdn_remaining_amount);
 
-            $project_schedule = new ProjectScheduleCollection();
-            $project_schedule->schedule_id = $request->s_id;
-            $project_schedule->collected_amount = $request->hdn_remaining_amount;
-            $project_schedule->bank_lookup_id = $request->cmb_bank_id;
-            $project_schedule->check_no = $request->check_no;
-            $project_schedule->cheque_date = date("Y-m-d", strtotime($request->cheque_date));
-            $project_schedule->mr_no = $request->mr_no;
-            $project_schedule->received_date = date("Y-m-d", strtotime($request->received_date));
-            $project_schedule->lead_pk_no = $request->lead_pk_no;
-            $project_schedule->lead_id = $request->lead_id;
-            $project_schedule->collect_by = Session::get("user.ses_user_id");
-            $project_schedule->remarks = $request->remarks;
-            $project_schedule->save();
+    		$project_schedule = new ProjectScheduleCollection();
+    		$project_schedule->schedule_id = $request->s_id;
+    		$project_schedule->collected_amount  = $request->hdn_remaining_amount;
+    		$project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+    		$project_schedule->check_no = $request->check_no ;
+    		$project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+    		$project_schedule->mr_no  = $request->mr_no ;
+    		$project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+    		$project_schedule->lead_pk_no = $request->lead_pk_no;
+    		$project_schedule->lead_id  = $request->lead_id;
+    		$project_schedule->collect_by   = Session::get("user.ses_user_id");
+    		$project_schedule->remarks   = $request->remarks;
+    		$project_schedule->is_schedule_penalty   = false;
+    		$project_schedule->save();
 
-            $sold_project_schedule = SoldProjectSchedule::find($request->s_id);
-            $sold_project_schedule->payment_status = "Complete";
-            $sold_project_schedule->save();
+    		$sold_project_schedule = SoldProjectSchedule::find($request->s_id);
+    		$sold_project_schedule->payment_status="Completed";
+    		$sold_project_schedule->save();
 
-            // $schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)->where("payment_status","In Complete")->orderBy("id","asc")->first();
+			if (!empty($request->total_schedule_penalty) && $request->total_schedule_penalty > 0) {
 
-            $incomplete_schedule = DB::table('sold_project_schedules')
-                ->where('payment_status', 'In Complete')
-                ->where('lead_pk_no', $request->lead_pk_no)
-                ->whereNotIn('id', function ($query) {
-                    return $query->select('schedule_id')
-                        ->from('project_schedule_collectoins')
-                        ->get();
-                })
-                ->get();
+				$date = Carbon::parse(date("Y-m-d",strtotime($request->hdn_schedule_date )));
+				$now = Carbon::now();
 
-            $amountrem = 0;
+				$diff = $date->diffInDays($now);
 
-            if (!$incomplete_schedule->isEmpty()) {
-                foreach ($incomplete_schedule as $schedule) {
-                    if ($amountdiff > $schedule->amount) {
+				$total_penalty = $request->hdn_installment_amount*$penalty/100;
+				$year_interest = $total_penalty/360;
+				$total_penalty_value = round($year_interest*$diff,2);
 
-                        $project_schedule = new ProjectScheduleCollection();
-                        $project_schedule->schedule_id = $schedule->id;
-                        $project_schedule->collected_amount = $schedule->amount;
-                        $project_schedule->bank_lookup_id = $request->cmb_bank_id;
-                        $project_schedule->check_no = $request->check_no;
-                        $project_schedule->cheque_date = date("Y-m-d", strtotime($request->cheque_date));
-                        $project_schedule->mr_no = $request->mr_no;
-                        $project_schedule->received_date = date("Y-m-d", strtotime($request->received_date));
-                        $project_schedule->lead_pk_no = $request->lead_pk_no;
-                        $project_schedule->lead_id = $request->lead_id;
-                        $project_schedule->collect_by = Session::get("user.ses_user_id");
-                        $project_schedule->remarks = $request->remarks;
-                        $project_schedule->save();
+				$p_project_schedule = new ProjectScheduleCollection();
+				$p_project_schedule->schedule_id = $project_schedule->schedule_id;
+				$p_project_schedule->collected_amount  = $total_penalty_value;
+				$p_project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+				$p_project_schedule->check_no = $request->check_no ;
+				$p_project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+				$p_project_schedule->mr_no  = $request->mr_no ;
+				$p_project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+				$p_project_schedule->lead_pk_no = $request->lead_pk_no;
+				$p_project_schedule->lead_id  = $request->lead_id;
+				$p_project_schedule->collect_by   = Session::get("user.ses_user_id");
+				$p_project_schedule->remarks   = 'On due penalty';
+				$p_project_schedule->is_schedule_penalty   = true;
+				$p_project_schedule->save();
+			}
 
-                        $amountdiff = $amountdiff - $schedule->amount;
+    		// $schedule_info =  SoldProjectSchedule::where("lead_pk_no",$id)->where("payment_status","In Complete")->orderBy("id","asc")->first();
 
-                        $sold_project_schedule = SoldProjectSchedule::find($schedule->id);
-                        $sold_project_schedule->payment_status = "Complete";
-                        $sold_project_schedule->save();
-                    } else {
-                        if ($amountrem == 0) {
-                            $project_schedule = new ProjectScheduleCollection();
-                            $project_schedule->schedule_id = $schedule->id;
-                            $project_schedule->collected_amount = $amountdiff;
-                            $project_schedule->bank_lookup_id = $request->cmb_bank_id;
-                            $project_schedule->check_no = $request->check_no;
-                            $project_schedule->cheque_date = date("Y-m-d", strtotime($request->cheque_date));
-                            $project_schedule->mr_no = $request->mr_no;
-                            $project_schedule->received_date = date("Y-m-d", strtotime($request->received_date));
-                            $project_schedule->lead_pk_no = $request->lead_pk_no;
-                            $project_schedule->lead_id = $request->lead_id;
-                            $project_schedule->collect_by = Session::get("user.ses_user_id");
-                            $project_schedule->remarks = $request->remarks;
-                            $project_schedule->save();
-                            $amountrem = 1;
-                            $amountdiff = $amountdiff - $schedule->amount;
-                        }
-                    }
-                }
-            }
+    		$incomplete_schedule = DB::table('sold_project_schedules')
+    		->where('payment_status','In Complete')
+    		->where('lead_pk_no', $request->lead_pk_no)
+    		->whereNotIn('id', function($query) {
+    			return $query->select('schedule_id')
+    			->from('project_schedule_collectoins')
+    			->get();
+    		})
+    		->get();
 
+    		$amountrem = 0;
 
-        } else {
-            $project_schedule = new ProjectScheduleCollection();
-            $project_schedule->schedule_id = $request->s_id;
-            $project_schedule->collected_amount = $request->amount;
-            $project_schedule->bank_lookup_id = $request->cmb_bank_id;
-            $project_schedule->check_no = $request->check_no;
-            $project_schedule->cheque_date = date("Y-m-d", strtotime($request->cheque_date));
-            $project_schedule->mr_no = $request->mr_no;
-            $project_schedule->received_date = date("Y-m-d", strtotime($request->received_date));
-            $project_schedule->lead_pk_no = $request->lead_pk_no;
-            $project_schedule->lead_id = $request->lead_id;
-            $project_schedule->collect_by = Session::get("user.ses_user_id");
-            $project_schedule->remarks = $request->remarks;
-            $project_schedule->save();
-            if ($request->amount == $request->hdn_remaining_amount) {
-                $sold_project_schedule = SoldProjectSchedule::find($request->s_id);
-                $sold_project_schedule->payment_status = "Complete";
-                $sold_project_schedule->save();
-            }
-        }
+    		if (!$incomplete_schedule->isEmpty()) {
+    			foreach($incomplete_schedule as $schedule) {
+    				if ($amountdiff > $schedule->amount) {
+    					
+    					$project_schedule = new ProjectScheduleCollection();
+    					$project_schedule->schedule_id = $schedule->id;
+    					$project_schedule->collected_amount  = $schedule->amount;
+						$project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+    					$project_schedule->check_no = $request->check_no ;
+    					$project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+    					$project_schedule->mr_no  = $request->mr_no ;
+    					$project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+    					$project_schedule->lead_pk_no = $request->lead_pk_no;
+    					$project_schedule->lead_id  = $request->lead_id;
+    					$project_schedule->collect_by   = Session::get("user.ses_user_id");
+    					$project_schedule->remarks   = $request->remarks;
+						$project_schedule->is_schedule_penalty   = false;
+    					$project_schedule->save();
 
-        return response()->json(['message' => 'Lead Followup created successfully.', 'title' => 'Success', "positionClass" => "toast-top-right"]);
+    					$amountdiff = $amountdiff-$schedule->amount;
+
+    					$sold_project_schedule = SoldProjectSchedule::find($schedule->id);
+    					$sold_project_schedule->payment_status="Completed";
+    					$sold_project_schedule->save();
+
+						if (!empty($request->total_schedule_penalty) && $request->total_schedule_penalty > 0) {
+
+							$date = Carbon::parse(date("Y-m-d",strtotime($request->hdn_schedule_date )));
+							$now = Carbon::now();
+			
+							$diff = $date->diffInDays($now);
+			
+							$total_penalty = $schedule->amount*$penalty/100;
+							$year_interest = $total_penalty/360;
+							$total_penalty_value = round($year_interest*$diff,2);
+			
+							$p_project_schedule = new ProjectScheduleCollection();
+							$p_project_schedule->schedule_id = $project_schedule->schedule_id;
+							$p_project_schedule->collected_amount  = $total_penalty_value;
+							$p_project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+							$p_project_schedule->check_no = $request->check_no ;
+							$p_project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+							$p_project_schedule->mr_no  = $request->mr_no ;
+							$p_project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+							$p_project_schedule->lead_pk_no = $request->lead_pk_no;
+							$p_project_schedule->lead_id  = $request->lead_id;
+							$p_project_schedule->collect_by   = Session::get("user.ses_user_id");
+							$p_project_schedule->remarks   = 'On due penalty';
+							$p_project_schedule->is_schedule_penalty   = true;
+							$p_project_schedule->save();
+						}
+    				} 
+    				else {
+    					if ($amountrem ==0){
+    						$project_schedule = new ProjectScheduleCollection();
+    						$project_schedule->schedule_id = $schedule->id;
+    						$project_schedule->collected_amount  = $amountdiff;
+							$project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+    						$project_schedule->check_no = $request->check_no ;
+    						$project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+    						$project_schedule->mr_no  = $request->mr_no ;
+    						$project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+    						$project_schedule->lead_pk_no = $request->lead_pk_no;
+    						$project_schedule->lead_id  = $request->lead_id;
+    						$project_schedule->collect_by   = Session::get("user.ses_user_id");
+    						$project_schedule->remarks   = $request->remarks;
+							$project_schedule->is_schedule_penalty   = false;
+    						$project_schedule->save();
+    						$amountrem =1 ;
+							$amountdiff = $amountdiff-$schedule->amount;
+
+							if (!empty($request->total_schedule_penalty) && $request->total_schedule_penalty > 0) {
+
+								$date = Carbon::parse(date("Y-m-d",strtotime($request->hdn_schedule_date )));
+								$now = Carbon::now();
+				
+								$diff = $date->diffInDays($now);
+				
+								$total_penalty = $schedule->amount*$penalty/100;
+								$year_interest = $total_penalty/360;
+								$total_penalty_value = round($year_interest*$diff,2);
+				
+								$p_project_schedule = new ProjectScheduleCollection();
+								$p_project_schedule->schedule_id = $project_schedule->schedule_id;
+								$p_project_schedule->collected_amount  = $total_penalty_value;
+								$p_project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+								$p_project_schedule->check_no = $request->check_no ;
+								$p_project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+								$p_project_schedule->mr_no  = $request->mr_no ;
+								$p_project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+								$p_project_schedule->lead_pk_no = $request->lead_pk_no;
+								$p_project_schedule->lead_id  = $request->lead_id;
+								$p_project_schedule->collect_by   = Session::get("user.ses_user_id");
+								$p_project_schedule->remarks   = 'On due penalty';
+								$p_project_schedule->is_schedule_penalty   = true;
+								$p_project_schedule->save();
+							}
+    					}
+    				}
+    			}
+    		}	
+
+    		
+    	}else{
+    		$project_schedule = new ProjectScheduleCollection();
+    		$project_schedule->schedule_id = $request->s_id;
+    		$project_schedule->collected_amount = $request->amount;
+			$project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+    		$project_schedule->check_no = $request->check_no;
+    		$project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+    		$project_schedule->mr_no  = $request->mr_no;
+    		$project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+    		$project_schedule->lead_pk_no = $request->lead_pk_no;
+    		$project_schedule->lead_id  = $request->lead_id;
+    		$project_schedule->collect_by   = Session::get("user.ses_user_id");
+    		$project_schedule->remarks   = $request->remarks;
+			$project_schedule->is_schedule_penalty   = false;
+    		$project_schedule->save();  
+    		if($request->amount == $request->hdn_remaining_amount){
+    			$sold_project_schedule = SoldProjectSchedule::find($request->s_id);
+    			$sold_project_schedule->payment_status="Completed";
+    			$sold_project_schedule->save();
+    		} 
+			
+			if (!empty($request->total_schedule_penalty) && $request->total_schedule_penalty > 0) {
+
+				$date = Carbon::parse(date("Y-m-d",strtotime($request->hdn_schedule_date )));
+				$now = Carbon::now();
+
+				$diff = $date->diffInDays($now);
+
+				$total_penalty = $request->hdn_installment_amount*$penalty/100;
+				$year_interest = $total_penalty/360;
+				$total_penalty_value = round($year_interest*$diff,2);
+
+				$p_project_schedule = new ProjectScheduleCollection();
+				$p_project_schedule->schedule_id = $project_schedule->schedule_id;
+				$p_project_schedule->collected_amount  = $total_penalty_value;
+				$p_project_schedule->bank_lookup_id  = $request->cmb_bank_id;
+				$p_project_schedule->check_no = $request->check_no ;
+				$p_project_schedule->cheque_date  = date("Y-m-d",strtotime($request->cheque_date ));
+				$p_project_schedule->mr_no  = $request->mr_no ;
+				$p_project_schedule->received_date = date("Y-m-d",strtotime($request->received_date)) ;
+				$p_project_schedule->lead_pk_no = $request->lead_pk_no;
+				$p_project_schedule->lead_id  = $request->lead_id;
+				$p_project_schedule->collect_by   = Session::get("user.ses_user_id");
+				$p_project_schedule->remarks   = 'On due penalty';
+				$p_project_schedule->is_schedule_penalty   = true;
+				$p_project_schedule->save();
+			}
+    	}
+
+    	return response()->json(['message' => 'Lead Followup created successfully.', 'title' => 'Success', "positionClass" => "toast-top-right"]);
 
     }
 
@@ -371,19 +493,27 @@ class projectScheduleController extends Controller
         return view("admin.lead_management.schedule_collection.schedule_followup.schedule_collection_modal_data", compact("lead_data", "ses_user_id", "schedule_list", "project_collection", "schedule_followup", "schedule_complete_list", "completed_collection", "schedule_id"));
     }
 
-    public function collected_collection_view($id)
-    {
+    public function collected_collection_view($id){
+		$banks = [];
+		$penalty = 0;
+		$lookup_arr = [30,31];
 
-        $lookup_arr = [30];
+
         $lookup_data = LookupData::whereIn('lookup_type', $lookup_arr)->where("lookup_row_status", 1)->get();
 
         foreach ($lookup_data as $value) {
             $key = $value->lookup_pk_no;
-            if ($value->lookup_type == 30)
+            if ($value->lookup_type == 30) {
                 $banks[$key] = $value->lookup_name;
-        }
+			}
 
-        $schedule_list = SoldProjectSchedule::where("lead_pk_no", $id)->get();
+			if ($value->lookup_type == 31) {
+                $penalty = $value->lookup_name;
+			}
+		}
+
+    	$total_schedule_amount = SoldProjectSchedule::where("lead_pk_no",$id)->sum('amount');
+    	$schedule_list = SoldProjectSchedule::where("lead_pk_no",$id)->get();
 
         $schedule_info = SoldProjectSchedule::where("lead_pk_no", $id)
             ->where("payment_status", "In Complete")
@@ -400,7 +530,9 @@ class projectScheduleController extends Controller
         $schedule_amount = DB::select("select lead_pk_no, sum(collected_amount) as total_amount from project_schedule_collectoins where lead_pk_no ='$id' group by lead_pk_no");
 
 
-        return view("admin.lead_management.schedule_collection.collected_collection_view", compact("banks", "schedule_list", "schedule_info", "col_amount", "schedule_amount"));
+
+    	return view("admin.lead_management.schedule_collection.collected_collection_view",compact("total_schedule_amount","penalty","banks","schedule_list","schedule_info","col_amount","schedule_amount"));
+
     }
 
 

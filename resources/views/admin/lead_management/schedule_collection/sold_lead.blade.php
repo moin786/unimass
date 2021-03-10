@@ -28,7 +28,7 @@
 					
 					<span class="btn btn-xs bg-green lead-view" data-title="Followup" title="Followup" data-id="2" data-action="{{ route('lead_sold_view',$row->lead_pk_no) }}"> <i class="fa fa-check"></i>
 					</span>
-					<span class="btn btn-xs bg-blue lead-view" data-title="Collected Collection" title="Followup" data-id="3" data-action="{{ route('collected_collection_view',$row->lead_pk_no) }}"><i class="fa fa-bars"></i></span>
+					<span class="btn btn-xs bg-blue lead-view" data-title="Schedule Collection" title="Followup" data-id="3" data-action="{{ route('collected_collection_view',$row->lead_pk_no) }}"><i class="fa fa-bars"></i></span>
 				</td>
 			</tr>
 			@endforeach
