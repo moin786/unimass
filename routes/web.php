@@ -67,7 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('check_if_phone_no_exist', 'LeadController@check_if_phone_no_exist')->name('check_if_phone_no_exist');
     Route::resource('lead', 'LeadController');
 
-    Route::get('district-thana','DistrictThanaController@districtThana')->name('district-thana');
+    Route::get('district-thana', 'DistrictThanaController@districtThana')->name('district-thana');
 
     Route::get('stage_update/{lead_id}', 'LeadFllowupController@stage_update')->name('stage_update');
     Route::post('store_stage_update', 'LeadFllowupController@store_stage_update')->name('store_stage_update');
@@ -184,16 +184,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
 
     Route::get("/remove_double_number", "LeadController@remove_double_number")->name("remove_double_number");
 
-    Route::get("/search_lead_data/{from_dt}/{to_dt}","LeadController@search_lead_data")->name("search_lead_data");
-    Route::get("/ch_missing_lead","LeadController@ch_missing_lead")->name("ch_missing_lead");
-    Route::get("/team_wise_lead_list","TeamController@leadList")->name("team_wise_lead_list");
+    Route::get("/search_lead_data/{from_dt}/{to_dt}", "LeadController@search_lead_data")->name("search_lead_data");
+    Route::get("/ch_missing_lead", "LeadController@ch_missing_lead")->name("ch_missing_lead");
+    Route::get("/team_wise_lead_list", "TeamController@leadList")->name("team_wise_lead_list");
 
     Route::get('/note_sheet_list', "LeadDistribution@note_sheet_list")->name("note_sheet_list");
     Route::post('/note_sheet_approve', "LeadDistribution@note_sheet_approve")->name("note_sheet_approve");
     Route::post('/load_note_sheet_list', "LeadDistribution@load_note_sheet_list")->name("load_note_sheet_list");
 
 
-    Route::get('/district_thana_setup', "DistrictController@district_thana_setup")->name("district_thana_setup");  
+    Route::get('/district_thana_setup', "DistrictController@district_thana_setup")->name("district_thana_setup");
     Route::get('/add_district_thana_popup', "DistrictController@add_district_thana_popup")->name("add_district_thana_popup");
     Route::post('/district-save', "DistrictController@storeDistrict")->name("district-save");
     Route::get('edit-district/{id}', 'DistrictController@edit_district')->name('district.edit');
@@ -206,26 +206,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
     Route::post('/thana-update', "DistrictController@updateThana")->name("thana-update");
     Route::post('/district/get-thana-by-district', "DistrictController@getThanaByDistrict")->name("district.getThanaByDistrict");
     Route::get('/thana-delete/{id}', "DistrictController@deleteThana")->name("thana.delete");
-    
-
-
 
 
     // schedule-controller
     Route::get('/schedule-collection', "projectScheduleController@scheduleController")->name("schedule-collection");
+    Route::get('/pending-collection', "projectScheduleController@pendingCollection")->name("pending-collection");
+    Route::post('/load_lead_pending', "projectScheduleController@load_lead_pending")->name("load_lead_pending");
+
     Route::get('/lead_sold_view/{id}', "projectScheduleController@lead_sold_view")->name("lead_sold_view");
     Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
     Route::get('/getCompleteCollection', "projectScheduleController@getCompleteCollection")->name("getCompleteCollection");
 
 
-    Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");
+    /*Route::get('/collected_collection_view/{id}', "projectScheduleController@collected_collection_view")->name("collected_collection_view");*/
 
     Route::post('/store_schedule_collection', "projectScheduleController@store")->name("schedule-collection.store");
 
     Route::post('/store_schedule_followup', "ScheduleFollowupController@store")->name("store_schedule_followup.store");
 
-
     Route::post('/load_followup', 'projectScheduleController@load_schedule_collection')->name('load_followup');
     Route::post('/load_followup_modal', 'projectScheduleController@load_schedule_followup_modal')->name('load_followup_modal');
+
     Route::get('/sales-approval', 'projectScheduleController@salesApproval')->name('sales-approval');
+    Route::get('/month-wise-receivable', 'projectScheduleController@MonthWiseReceivable')->name('month-wise-receivable');
+    Route::get('/balance-of-month-wise-receivable', 'projectScheduleController@balanceOfMonthWiseReceivable')->name('balance-of-month-wise-receivable');
+    Route::get('/summary-of-receivables', 'projectScheduleController@summaryOfReceivables')->name('summary-of-receivables');
+    Route::get('/customer-account', 'projectScheduleController@customerAccount')->name('customer-account');
 });
