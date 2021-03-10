@@ -21,7 +21,8 @@ return [
 		27 => 'SMS GateWay Username',
 		28 => 'SMS GateWay Password',
 		29 => 'Lead Source',
-		30 => 'Bank'
+		30 => 'Bank',
+		31 => 'Schedule Penalty'
 
 		/*
 		19 => 'District',

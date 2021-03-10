@@ -1,3 +1,4 @@
+<?php use Carbon\Carbon; ?>
 <div class="form-row">
 	<div class="col-md-6">
 		<div class="box">
@@ -5,6 +6,20 @@
 				<i class="ion ion-clipboard"></i>
 				<h3 class="box-title">Schedule Collection</h3>
 			</div>
+			<?php 
+				$date = Carbon::parse($schedule_info->schedule_date);
+				$now = Carbon::now();
+				if ($date < $now) {
+					$diff = $date->diffInDays($now);
+
+					$total_penalty = $schedule_info->amount*$penalty/100;
+					$year_interest = $total_penalty/360;
+					$total_penalty_value = round($year_interest*$diff,2);
+				} else {
+					$total_penalty_value = 0;
+					$diff = 0;
+				}
+			?>
 			<form id="frmLeadFollowup" action="{{ route('schedule-collection.store') }}" method="post"> @csrf
 				<div class="box-body">
 					<div class="form-group">
@@ -19,6 +34,7 @@
 					<div class="form-group">
 						<label  for="installment_amount">Installment Amount</label>
 						<input type="text" class="form-control" id="installment_amount" name="installment_amount" value="{{ isset($schedule_info->amount)? $schedule_info->amount : " " }}" placeholder="0.00" disabled>
+						<input type="hidden" class="form-control" id="hdn_installment_amount" name="hdn_installment_amount" value="{{ isset($schedule_info->amount)? $schedule_info->amount : " " }}" placeholder="0.00">
 					</div>
 
 					<div class="form-row">
@@ -71,6 +87,15 @@
 						<label  for="mr_no">Remarks</label>
 						<textarea name="remarks" id="" class="form-control"></textarea>
 					</div>
+					@if($diff > 0)
+					<div class="form-group">
+						<label class="checkbox-inline">
+							<input type="checkbox" value="" name="is_schedule_penalty" id="is_schedule_penalty"> Schedule Penalty
+							<input type="hidden" name="total_schedule_penalty" id="total_schedule_penalty"/>
+							<input type="hidden" name="hdn_schedule_date" id="hdn_schedule_date" value="{{$schedule_info->schedule_date}}"/>
+						</label>
+					</div>
+					@endif
 					<input type="hidden" name="s_id" value="{{ isset($schedule_info->id)? $schedule_info->id :"0"}}">			
 					<input type="hidden" name="lead_pk_no" value="{{ isset($schedule_info->lead_pk_no)?$schedule_info->lead_pk_no :"0"  }}">
 					<input type="hidden" name="lead_id" value="{{ isset($schedule_info->lead_id)? $schedule_info->lead_id : "0" }}">			
@@ -86,11 +111,9 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="col-md-6">
 		<div class="row">
 			<div class="col-md-12">
-
 				<div class="box box-primary">
 					<div class="box-header">
 						<i class="ion ion-clipboard"></i>
@@ -100,11 +123,13 @@
 						<ul class="todo-list">
 							@php
 							$rec =0;
+							$total_schedule_amount = 0;
 							@endphp
 							@if(!empty($schedule_list))
 							@foreach($schedule_list as $row)
 							@php
 							$rec = $rec + $row->amount;
+							
 							@endphp
 							<li>
 								<a href="#" class="routeSetUp">
@@ -115,9 +140,9 @@
 									<span class="text">{{ $row->installment  }}</span> 
 									@if(isset($schedule_info->installment))
 									@if($row->installment==$schedule_info->installment && $row->id == $schedule_info->id)
-									<i class="fa fa-check" aria-hidden="true"></i>
+									Schedule Date: ({{$row->schedule_date}}) <i class="fa fa-check" aria-hidden="true"></i>
 									@else
-									({{$row->payment_status}})
+									({{$row->payment_status}}) Schedule Date: ({{$row->schedule_date}})
 									@endif
 
 									@endif
@@ -205,4 +230,32 @@
 	};
 
 	$('.datepicker').datepicker(datepickerOptions);
+
+	$('body').on('click','#is_schedule_penalty', function(){
+		if ($('#is_schedule_penalty').is(':checked')) {
+			$('.todo-list').append(`
+						<li>
+							<a href="#" class="routeSetUp">
+								<span class="handle">
+									<i class="fa fa-ellipsis-v"></i>
+									<i class="fa fa-ellipsis-v"></i>
+								</span>
+								<span class="text">On due penalty</span>
+								<small class="label  pull-right"  style="color: red;"> {{number_format($total_penalty_value,2)}}</small> 
+								
+								
+							</a>
+						</li>
+			`)
+			$('#total_schedule_penalty').val({{$total_penalty_value}})
+		} else {
+			$('.todo-list li:last-child').remove();
+			$('#total_schedule_penalty').val('');
+		}
+	});
+
+	// $('.modal').on('hide.bs.modal', function () 
+	// {   
+	// 	location.reload();
+	// });
 </script>

@@ -111,6 +111,41 @@ href="{{ asset('backend/bower_components/bootstrap-datepicker/dist/css/bootstrap
 				</div>
 			</div>
 		</div>
+
+		
+	</div>
+</form>
+<br/>
+<form id="frmUser5" action="{{ !isset($schedule_penalty)?route('settings.store') : route('settings.update',$schedule_penalty->lookup_pk_no) }}" method="{{ !isset($schedule_penalty)?'post' : 'patch' }}">
+	@csrf
+	<div class="box box-success" style="margin-bottom:0px">
+		<input type="hidden" name="cmbLookupType" id="cmbLookupType" value="31">
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="form-row">
+				<div class="col-md-12">
+					<label for="txt_lead_id">Maximum percent of late schedule payment</label>
+					<div style="font-weight: normal;"><small>This is applicable for CSD panel.</small></div>
+					<hr />
+				</div>
+				<span style="float:left; margin-left: 15px;">%</span>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input type="Number" class="form-control" id="txtLookupName" name="txtLookupName" placeholder="e.g. 10%" value="{{ (!empty($schedule_penalty->lookup_pk_no))?  $schedule_penalty->lookup_name :'' }}" required/>
+					</div>
+				</div>
+				<input type="hidden" name="cmbLookupStatus" id="cmbLookupStatus" value="1">
+				<div class="col-md-3">
+					<div class="form-group">
+						<div class="row">
+							<button type="button" class="btn btn-xs btn-success btnSaveUpdate"> Save </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
 	</div>
 </form>
 

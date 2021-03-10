@@ -44,6 +44,7 @@ class SettingsController extends Controller
         $order_execute = DB::statement(
             DB::raw("CALL proc_lookdata_ins ( $request->cmbLookupType,1,'$request->txtLookupName',$request->cmbLookupStatus,1,1,'$create_date' )")
         );
+
         $redirectURL = 'settings';
         return response()->json(['message'=>'Lookup Data created successfully.','title'=>'Success',"positionClass" => "toast-top-right","redirectPage" => $redirectURL]);
     }
@@ -303,14 +304,15 @@ class SettingsController extends Controller
     }
 
     public function validation_setup(){
-        $no_action = LookupData::where("lookup_type",23)->first();
-        $max_number = LookupData::where("lookup_type",24)->first();
-        $max_number = LookupData::where("lookup_type",24)->first();
-        $username = LookupData::where("lookup_type",27)->first();
-        $password = LookupData::where("lookup_type",28)->first();
+        $no_action = LookupData::where("lookup_type",23)->where('lookup_row_status',1)->first();
+        $max_number = LookupData::where("lookup_type",24)->where('lookup_row_status',1)->first();
+        $max_number = LookupData::where("lookup_type",24)->where('lookup_row_status',1)->first();
+        $username = LookupData::where("lookup_type",27)->where('lookup_row_status',1)->first();
+        $password = LookupData::where("lookup_type",28)->where('lookup_row_status',1)->first();
+        $schedule_penalty = LookupData::where("lookup_type",31)->where('lookup_row_status',1)->first();
 
         $return_to_call_center = LookupData::where("lookup_type",25)->first();
-        return view("admin.settings.validation_setup",compact("no_action","max_number","return_to_call_center","password","username"));
+        return view("admin.settings.validation_setup",compact("no_action","max_number","return_to_call_center","password","username","schedule_penalty"));
     }
     public function validation_setup_store(Request $request){
         $create_date = date('Y-m-d');
