@@ -42,9 +42,9 @@
             <div class="col-md-12">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs" id="tab_container">
-                        <li class="active"><a href="#sold_lead" data-toggle="tab" data-type="1" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">Pending</a></li>
-                        <li><a href="#monthly_lead" data-toggle="tab" data-type="2" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">Monthly Collection</a></li>
-                        <li><a href="#monthly_lead" data-toggle="tab" data-type="3" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">Complete Collection</a></li>
+                        <li class="active"><a href="#sold_lead" data-toggle="tab" data-type="1" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">All Pending</a></li>
+                        <li><a href="#monthly_lead" data-toggle="tab" data-type="2" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">Current Month Collection</a></li>
+                        <li><a href="#monthly_lead" data-toggle="tab" data-type="3" data-action="{{ route('load_lead_pending') }}"   aria-expanded="true">Completed Collection</a></li>
                     </ul>
                     <div class="tab-content" id="list-body">
                         @include("admin.lead_management.schedule_collection.pending_collection.pending_lead_list")

@@ -78,7 +78,25 @@ class projectScheduleController extends Controller
 
     public function monthWiseReceivable()
     {
-        return view("admin.lead_management.month_wise_receivable");
+        // header('Content-type: application/ms-excel');
+        // header("Content-Disposition: attachment; filename=file.csv");
+        // header("Pragma: no-cache");
+        // header("Expires: 0");
+
+        
+
+        $collection_months = DB::select("select DISTINCT MONTHNAME(created_at) month_header,concat(MONTHNAME(created_at),'-',YEAR(created_at)) month
+        from project_schedule_collectoins group by created_at");
+
+        $schedules = DB::select("select IFNULL(ps.id,0) schid,tl.lead_id,tl.project_name,concat(tl.customer_firstname,tl.customer_lastname) customer_name, 
+                                        pi.flat_name,ps.schedule_date,ps.installment, ps.amount receivable 
+                                        from t_lead2lifecycle_vw tl 
+                                        left join sold_project_schedules ps 
+                                        on tl.lead_pk_no = ps.lead_pk_no 
+                                        left join s_projectwiseflatlist pi 
+                                        on tl.Project_pk_no = pi.project_lookup_pk_no 
+                                        and tl.flatlist_pk_no = pi.flatlist_pk_no");
+        return view("admin.lead_management.month_wise_receivable",compact('schedules','collection_months'));
     }
 
     /**
