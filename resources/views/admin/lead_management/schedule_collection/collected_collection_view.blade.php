@@ -166,7 +166,7 @@
 						<h3 class="box-title">Summary</h3>
 					</div>
 					<div class="box-body">
-						<ul class="todo-list">
+						<ul class="todo-list" id="todo-list-summery">
 							@php
 							$due = 0;
 							$rec = isset($rec)? $rec : 0;
@@ -234,7 +234,7 @@
 
 	$('body').on('click','#is_schedule_penalty', function(){
 		if ($('#is_schedule_penalty').is(':checked')) {
-			$('.todo-list').append(`
+			$('#todo-list-summery').append(`
 						<li>
 							<a href="#" class="routeSetUp">
 								<span class="handle">
@@ -250,7 +250,7 @@
 			`)
 			$('#total_schedule_penalty').val({{$total_penalty_value}})
 		} else {
-			$('.todo-list li:last-child').remove();
+			$('#todo-list-summery li:last-child').remove();
 			$('#total_schedule_penalty').val('');
 		}
 	});

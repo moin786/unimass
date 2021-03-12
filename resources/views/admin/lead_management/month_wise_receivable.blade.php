@@ -249,167 +249,59 @@
 						<th class="text-center">Due Date</th>
 						<th class="text-center">Description of Payment</th>
 						<th class="text-right">Total Receivable</th>
-						<th class="text-right">Total Receivable</th>
-						<th class="text-center">Jan-21</th>
-						<th class="text-center">Feb-21</th>
-						<th class="text-center">Mar-21</th>
-						<th class="text-center">Apr-21</th>
-						<th class="text-center">May-21</th>
-						<th class="text-center">Jun-21</th>
-						<th class="text-center">Jul-21</th>
-						<th class="text-center">Aug-21</th>
-						<th class="text-center">Sep-21</th>
-						<th class="text-center">Oct-21</th>
-						<th class="text-center">Nov-21</th>
-						<th class="text-center">Dec-21</th>
+						<?php $monthname = []; $c = 0; foreach($collection_months as $month) { $monthname[] = $month->month_header; 
+						?>
+							<th class="text-center">{{$month->month}}</th>
+						<?php } ?>
 					</tr>
 				</thead>
 				<tbody>
+					<?php $scid = [];
+						foreach($schedules as $schedule) { 
+							$scid[] =  $schedule->schid;
+						}
+						$sch = implode(",", array_reverse($scid));
+						foreach($schedules as $schedule) { 
+
+							$monthly_collections = DB::select("select schedule_id,MONTHNAME(created_at) month_header,sum(collected_amount) collected_amount,concat(MONTHNAME(created_at),'-',YEAR(created_at)) month 
+                                            from project_schedule_collectoins
+											where schedule_id in($sch) 
+											and is_schedule_penalty = false
+											group by schedule_id,MONTHNAME(created_at),concat(MONTHNAME(created_at),'-',YEAR(created_at))  order by id asc");
+							
+					?>
 					<tr>
 						<td class="font-weight-normal text-center">01</td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-left"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
+						<td class="font-weight-normal text-left">{{$schedule->project_name}}</td>
+						<td class="font-weight-normal text-left">{{$schedule->customer_name}}</td>
+						<td class="font-weight-normal text-center">{{$schedule->flat_name}}</td>
+						<td class="font-weight-normal text-center">{{$schedule->schedule_date}}</td>
+						<td class="font-weight-normal text-left">{{$schedule->installment}}</td>
+						<td class="font-weight-normal text-right">{{$schedule->receivable}}</td>
+						<?php $s = 0; $total = 0; foreach($monthly_collections as $collection) { 
+							 
+						?>
+								<?php if ($collection->month_header == @$monthname[$c]) { ?>
+									<td class="font-weight-normal text-center">{{$collection->collected_amount}}</td>
+								<?php }else{ ?>
+									<td class="font-weight-normal text-center">{{$collection->collected_amount}}</td>
+								<?php } ?>
+						<?php $c++;} ?>
+						
 					</tr>
-					<tr>
-						<td class="font-weight-normal text-center">02</td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-left"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-					</tr>
-					<tr>
-						<td class="font-weight-normal text-center">03</td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-left"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-					</tr>
-					<tr>
-						<td class="font-weight-normal text-center">04</td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-left"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-					</tr>
-					<tr>
-						<td class="font-weight-normal text-center">05</td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-left"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-center"></td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-right">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-						<td class="font-weight-normal text-center">0.00</td>
-					</tr>
+					<?php } ?>
+					
 				</tbody>
 				<tfoot class="bg-light-theme">
 					<tr>
 						<th colspan="6"></th>
 						<th class="text-right">0.00</th>
 						<th class="text-right">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
 					</tr>
 					<tr>
 						<th colspan="6"></th>
 						<th class="text-right">0.00</th>
 						<th class="text-right">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
-						<th class="text-center">0.00</th>
 					</tr>
 
 
