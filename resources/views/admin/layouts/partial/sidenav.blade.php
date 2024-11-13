@@ -11,7 +11,8 @@
 		$role_permission_sql = DB::table('s_rbac')
 		->join('s_pages', 's_rbac.page_pk_no', '=', 's_pages.page_pk_no')
 		->select('s_rbac.*', 's_pages.page_name', 's_pages.page_route','s_pages.module_lookup_pk_no')
-		->where(["s_rbac.role_lookup_pk_no" => $role_id, "s_rbac.row_status" => 1])
+		//->where(["s_rbac.role_lookup_pk_no" => $role_id, "s_rbac.row_status" => 1])
+		->where(["s_rbac.row_status" => 1])
 		->get();
 
 		$role_permission = [];

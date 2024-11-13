@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 use Auth;
 use Session;
-use Illuminate\Support\Facades\DB;
+use App\User;
 use App\TeamUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -44,7 +45,8 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $user_info = Auth::user();
-
+        $user_info = User::where('email', $request->email)->with('teamUser')->first();
+        //dd($user_info);
         // ASSIGN SESSION VALUE OF AUTHENTICATED USER
         session(['user.is_super_admin' => $user_info->is_super_admin]);
         session(['user.ses_user_id' => $user_info->id]);
